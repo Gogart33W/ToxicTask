@@ -108,9 +108,9 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
                 val deadline = LocalTime.parse(urgentTask.deadlineTime)
                 val diffMins = java.time.Duration.between(currentTime, deadline).toMinutes()
                 val type = if (diffMins in 0..20) "LAST_CHANCE" else "URGENT"
-                val strs = ToxicStrings.getNotificationStrings(lang, type, urgentTask.title)
+                val strs = ToxicStrings.getNotificationStrings(lang, type, urgentTask.title, timeLeft = diffMins)
                 title = strs.first
-                message = if (type == "URGENT") strs.second + " Залишилось всього $diffMins хв." else strs.second
+                message = strs.second
             }
             isEndOfDayPressure && uncompletedTasks.isNotEmpty() && !shouldStopNagging -> {
                 val strs = ToxicStrings.getNotificationStrings(lang, "END_OF_DAY")
@@ -118,7 +118,8 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
                 message = strs.second
             }
             else -> {
-                title = if (lang == LanguageCode.UK) "ЕЙ, ТИ!" else if (lang == LanguageCode.DE) "HEY DU!" else "HEY YOU!"
+                val strs = ToxicStrings.getNotificationStrings(lang, "DEFAULT")
+                title = strs.first
                 val status = when {
                     tasks.size < 3 -> "LOX"
                     progress < 0.35f -> "LOX"
