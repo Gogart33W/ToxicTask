@@ -56,6 +56,7 @@ import com.gogart.toxictask.ui.theme.ThemeMode
 import com.gogart.toxictask.ui.theme.ToxicTaskTheme
 import com.gogart.toxictask.viewmodel.PlayerRole
 import com.gogart.toxictask.viewmodel.TaskViewModel
+import com.gogart.toxictask.BuildConfig
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.YearMonth
