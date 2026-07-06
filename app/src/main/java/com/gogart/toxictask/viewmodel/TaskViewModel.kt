@@ -11,8 +11,10 @@ import com.gogart.toxictask.data.TaskEntity
 import com.gogart.toxictask.data.TaskType
 import com.gogart.toxictask.settings.LanguageCode
 import com.gogart.toxictask.settings.NotificationSettings
+import com.gogart.toxictask.data.backup.BackupManager
 import com.gogart.toxictask.settings.SettingsManager
 import com.gogart.toxictask.ui.theme.ThemeMode
+import com.gogart.toxictask.utils.TaskUtils
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -30,6 +32,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val db = AppDatabase.getDatabase(application)
     private val dao = db.taskDao()
     private val settingsManager = SettingsManager(application)
+    private val backupManager = BackupManager(application)
 
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
@@ -110,59 +113,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         val completed = allTasks.count { it.isCompleted }
         val total = allTasks.size
         val gigachadDays = allTasks.groupBy { it.scheduledDate }.count { (_, tasks) ->
-            val weight = tasks.sumOf { it.priority.weight }
-            val done = tasks.filter { it.isCompleted }.sumOf { it.priority.weight }
-            tasks.size >= 3 && (if (weight == 0) 0f else done.toFloat() / weight) >= 0.75f
+            TaskUtils.isGigaDay(tasks)
         }
         Triple(completed, total, gigachadDays)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Triple(0, 0, 0))
 
     val currentStreak = dao.getAllTasks().map { allTasks ->
-        val days = allTasks.groupBy { it.scheduledDate }.toSortedMap(reverseOrder())
-        var streak = 0
-        var checkDate = LocalDate.now()
-        
-        fun isGiga(date: LocalDate): Boolean {
-            val dayTasks = days[date.toString()] ?: return false
-            val weight = dayTasks.sumOf { it.priority.weight }
-            val done = dayTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
-            return dayTasks.size >= 3 && (if (weight == 0) 0f else done.toFloat() / weight) >= 0.75f
-        }
-
-        // Якщо сьогодні ще не Гігачад - починаємо перевірку зі вчорашнього дня
-        if (!isGiga(checkDate)) {
-            checkDate = checkDate.minusDays(1)
-        }
-
-        while (true) {
-            val dateStr = checkDate.toString()
-            if (days.containsKey(dateStr)) {
-                if (isGiga(checkDate)) {
-                    streak++
-                    checkDate = checkDate.minusDays(1)
-                } else {
-                    // День був, але не Гігачад - вогонь гасне
-                    break
-                }
-            } else {
-                // День порожній (можливо був перенос)
-                var hasAnythingBefore = false
-                var lookBack = checkDate.minusDays(1)
-                for (i in 1..7) { // Шукаємо активність на тиждень назад
-                    if (days.containsKey(lookBack.toString())) {
-                        hasAnythingBefore = true
-                        break
-                    }
-                    lookBack = lookBack.minusDays(1)
-                }
-                
-                if (hasAnythingBefore) {
-                    checkDate = checkDate.minusDays(1)
-                    continue // Пропускаємо порожній день без обнулення
-                } else break
-            }
-        }
-        streak
+        TaskUtils.calculateStreak(allTasks)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     init {
@@ -312,6 +269,18 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
                     repeatDays = newTask.repeatDays
                 ))
             }
+        }
+    }
+
+    fun exportTasks(uri: android.net.Uri) {
+        viewModelScope.launch {
+            backupManager.exportData(uri)
+        }
+    }
+
+    fun importTasks(uri: android.net.Uri) {
+        viewModelScope.launch {
+            backupManager.importData(uri)
         }
     }
 

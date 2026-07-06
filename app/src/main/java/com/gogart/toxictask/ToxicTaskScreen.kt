@@ -7,6 +7,8 @@ import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.LocaleList
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -175,7 +177,7 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                                     indication = null
                                 ) {
                                     devTapCount++
-                                    if (devTapCount >= 7) {
+                                    if (devTapCount >= 7 && BuildConfig.DEBUG) {
                                         showDevPanel = true
                                         devTapCount = 0
                                     }
@@ -278,7 +280,9 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                             onDismiss = { showSettings = false },
                             onThemeChange = { viewModel.setThemeMode(it) },
                             onLangChange = { viewModel.setLanguage(it) },
-                            onNotifySettingsChange = { viewModel.setNotificationSettings(it) }
+                            onNotifySettingsChange = { viewModel.setNotificationSettings(it) },
+                            onExport = { viewModel.exportTasks(it) },
+                            onImport = { viewModel.importTasks(it) }
                         )
                     }
                 }
@@ -860,11 +864,18 @@ fun StatItem(label: String, value: String) {
 }
 
 @Composable
-fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySettings: NotificationSettings, isDark: Boolean, onDismiss: () -> Unit, onThemeChange: (ThemeMode) -> Unit, onLangChange: (LanguageCode) -> Unit, onNotifySettingsChange: (NotificationSettings) -> Unit) {
+fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySettings: NotificationSettings, isDark: Boolean, onDismiss: () -> Unit, onThemeChange: (ThemeMode) -> Unit, onLangChange: (LanguageCode) -> Unit, onNotifySettingsChange: (NotificationSettings) -> Unit, onExport: (android.net.Uri) -> Unit, onImport: (android.net.Uri) -> Unit) {
     var showDisclaimer by remember { mutableStateOf(false) }
     var timeErrorTitle by remember { mutableStateOf<String?>(null) }
     var timeErrorMessage by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
+
+    val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+        uri?.let { onExport(it) }
+    }
+    val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let { onImport(it) }
+    }
 
     if (timeErrorMessage != null) {
         AlertDialog(
@@ -1030,6 +1041,29 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                                     OutlinedTextField(value = intervalText, onValueChange = { intervalText = it; it.toIntOrNull()?.let { m -> onNotifySettingsChange(notifySettings.copy(intervalMinutes = m.coerceAtLeast(15))) } },
                                         label = { Text(stringResource(R.string.interval)) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), shape = RoundedCornerShape(12.dp))
                                 }
+                            }
+                        }
+                    }
+                }
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(stringResource(R.string.data_management), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Button(
+                                onClick = { exportLauncher.launch("toxictask_backup.json") },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                            ) {
+                                Text(stringResource(R.string.export_data), fontSize = 10.sp, textAlign = TextAlign.Center)
+                            }
+                            Button(
+                                onClick = { importLauncher.launch("application/json") },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                            ) {
+                                Text(stringResource(R.string.import_data), fontSize = 10.sp, textAlign = TextAlign.Center)
                             }
                         }
                     }

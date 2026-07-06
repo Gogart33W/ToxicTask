@@ -41,6 +41,9 @@
     <string name="stat_completed">Виконано</string>
     <string name="stat_total">Всього</string>
     <string name="stat_giga_days">GIGA-Дні</string>
+    <string name="export_data">Експорт місій (JSON)</string>
+    <string name="import_data">Імпорт місій (JSON)</string>
+    <string name="data_management">Керування даними</string>
     <string name="role_gigachad">ГІГАЧАД</string>
     <string name="role_wannabe">ПРАГНУЧИЙ</string>
     <string name="role_slacker">ЛЕДАР</string>

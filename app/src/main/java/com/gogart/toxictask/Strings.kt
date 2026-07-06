@@ -260,4 +260,33 @@ object ToxicStrings {
             else -> "Streak: $days ${if (days == 1) "day" else "days"}"
         }
     }
+
+    fun getNotificationStrings(lang: LanguageCode, type: String, taskTitle: String = "", deadline: String = ""): Pair<String, String> {
+        return when (lang) {
+            LanguageCode.UK -> when (type) {
+                "INACTIVE" -> "ТИТУЛ ЛОХА ПІДТВЕРДЖЕНО!" to "Ти вже 3 дні нічого не робиш! Твій список тасків такий же порожній, як і твоє майбутнє!"
+                "EXPIRED" -> "ДЕДЛАЙН МИНУВ!" to "Місія '$taskTitle' провалена! Дедлайн був о $deadline."
+                "LAST_CHANCE" -> "ОСТАННІЙ ШАНС!" to "Останній шанс виконати '$taskTitle'!"
+                "URGENT" -> "ЧАС ПІДЖИМАЄ!" to "Ти ще не виконав '$taskTitle'!"
+                "END_OF_DAY" -> "ДЕНЬ ЗАКІНЧУЄТЬСЯ!" to "День закінчується, а ти ще не добив план! Живо за роботу!"
+                else -> "ЕЙ, ТИ!" to "Вставай і працюй!"
+            }
+            LanguageCode.DE -> when (type) {
+                "INACTIVE" -> "VERSAGER-TITEL BESTÄTIGT!" to "Du hast seit 3 Tagen nichts getan! Deine Aufgabenliste ist so leer wie deine Zukunft!"
+                "EXPIRED" -> "DEADLINE ABGELAUFEN!" to "Mission '$taskTitle' fehlgeschlagen! Deadline war um $deadline."
+                "LAST_CHANCE" -> "LETZTE CHANCE!" to "Letzte Chance, '$taskTitle' zu erledigen!"
+                "URGENT" -> "DIE ZEIT LÄUFT AB!" to "Du hast '$taskTitle' noch nicht erledigt!"
+                "END_OF_DAY" -> "TAG ENDET!" to "Der Tag endet und du hast den Plan nicht erfüllt! Los geht's!"
+                else -> "HEY DU!" to "Steh auf und arbeite!"
+            }
+            else -> when (type) {
+                "INACTIVE" -> "LOSER TITLE CONFIRMED!" to "You haven't done anything for 3 days! Your task list is as empty as your future!"
+                "EXPIRED" -> "DEADLINE EXPIRED!" to "Mission '$taskTitle' failed! Deadline was at $deadline."
+                "LAST_CHANCE" -> "LAST CHANCE!" to "Last chance to complete '$taskTitle'!"
+                "URGENT" -> "TIME IS RUNNING OUT!" to "You haven't finished '$taskTitle'!"
+                "END_OF_DAY" -> "DAY IS ENDING!" to "The day is ending and you haven't finished the plan! Move it!"
+                else -> "HEY YOU!" to "Get up and work!"
+            }
+        }
+    }
 }

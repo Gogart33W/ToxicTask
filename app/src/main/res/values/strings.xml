@@ -41,6 +41,9 @@
     <string name="stat_completed">Completed</string>
     <string name="stat_total">Total</string>
     <string name="stat_giga_days">GIGA-Days</string>
+    <string name="export_data">Export Missions (JSON)</string>
+    <string name="import_data">Import Missions (JSON)</string>
+    <string name="data_management">Data Management</string>
     <string name="role_gigachad">GIGACHAD</string>
     <string name="role_wannabe">WANNABE</string>
     <string name="role_slacker">SLACKER</string>

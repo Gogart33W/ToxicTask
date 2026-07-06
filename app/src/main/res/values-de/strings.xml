@@ -50,6 +50,9 @@
     <string name="stat_completed">Erledigt</string>
     <string name="stat_total">Gesamt</string>
     <string name="stat_giga_days">Giga-Tage</string>
+    <string name="export_data">Missionen exportieren (JSON)</string>
+    <string name="import_data">Missionen importieren (JSON)</string>
+    <string name="data_management">Datenmanagement</string>
     <string name="disclaimer_title">Haftungsausschluss</string>
     <string name="disclaimer_text">Diese App nutzt Humor und Beleidigungen zur Motivation. Wenn Sie sensibel sind, nutzen Sie die Stufe „Mild“ oder löschen Sie die App. Wir übernehmen keine Haftung für verletzte Gefühle.</string>
     <string name="delete_confirm_title">Mission löschen?</string>

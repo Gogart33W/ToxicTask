@@ -95,90 +95,30 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
 
         when {
             inactiveForThreeDays -> {
-                title = when (lang) {
-                    LanguageCode.UK -> "ТИТУЛ ЛОХА ПІДТВЕРДЖЕНО!"
-                    LanguageCode.DE -> "VERSAGER-TITEL BESTÄTIGT!"
-                    else -> "LOSER TITLE CONFIRMED!"
-                }
-                message = when (lang) {
-                    LanguageCode.UK -> "Ти вже 3 дні нічого не робиш! Твій список тасків такий же порожній, як і твоє майбутнє!"
-                    LanguageCode.DE -> "Du hast seit 3 Tagen nichts getan! Deine Aufgabenliste ist so leer wie deine Zukunft!"
-                    else -> "You haven't done anything for 3 days! Your task list is as empty as your future!"
-                }
+                val strs = ToxicStrings.getNotificationStrings(lang, "INACTIVE")
+                title = strs.first
+                message = strs.second
             }
             expiredTask != null -> {
-                title = when (lang) {
-                    LanguageCode.UK -> "ДЕДЛАЙН МИНУВ!"
-                    LanguageCode.DE -> "DEADLINE ABGELAUFEN!"
-                    else -> "DEADLINE EXPIRED!"
-                }
-                message = when (lang) {
-                    LanguageCode.UK -> "Місія '${expiredTask.title}' провалена! Дедлайн був о ${expiredTask.deadlineTime}."
-                    LanguageCode.DE -> "Mission '${expiredTask.title}' fehlgeschlagen! Deadline war um ${expiredTask.deadlineTime}."
-                    else -> "Mission '${expiredTask.title}' failed! Deadline was at ${expiredTask.deadlineTime}."
-                }
+                val strs = ToxicStrings.getNotificationStrings(lang, "EXPIRED", expiredTask.title, expiredTask.deadlineTime ?: "")
+                title = strs.first
+                message = strs.second
             }
             urgentTask != null -> {
                 val deadline = LocalTime.parse(urgentTask.deadlineTime)
                 val diffMins = java.time.Duration.between(currentTime, deadline).toMinutes()
-                
-                title = when (lang) {
-                    LanguageCode.UK -> if (diffMins in 0..20) "ОСТАННІЙ ШАНС!" else "ЧАС ПІДЖИМАЄ!"
-                    LanguageCode.DE -> if (diffMins in 0..20) "LETZTE CHANCE!" else "DIE ZEIT LÄUFT AB!"
-                    else -> if (diffMins in 0..20) "LAST CHANCE!" else "TIME IS RUNNING OUT!"
-                }
-                
-                message = when (lang) {
-                    LanguageCode.UK -> {
-                        if (diffMins in 0..20) "Останній шанс виконати '${urgentTask.title}'!"
-                        else "Ти ще не виконав '${urgentTask.title}'! Залишилось всього $diffMins хв."
-                    }
-                    LanguageCode.DE -> {
-                        if (diffMins in 0..20) "Letzte Chance, '${urgentTask.title}' zu erledigen!"
-                        else "Du hast '${urgentTask.title}' noch nicht erledigt! Nur noch $diffMins Min. übrig."
-                    }
-                    else -> {
-                        if (diffMins in 0..20) "Last chance to complete '${urgentTask.title}'!"
-                        else "You haven't finished '${urgentTask.title}'! Only $diffMins mins left."
-                    }
-                }
+                val type = if (diffMins in 0..20) "LAST_CHANCE" else "URGENT"
+                val strs = ToxicStrings.getNotificationStrings(lang, type, urgentTask.title)
+                title = strs.first
+                message = if (type == "URGENT") strs.second + " Залишилось всього $diffMins хв." else strs.second
             }
             isEndOfDayPressure && uncompletedTasks.isNotEmpty() && !shouldStopNagging -> {
-                title = when (lang) {
-                    LanguageCode.UK -> "ДЕНЬ ЗАКІНЧУЄТЬСЯ!"
-                    LanguageCode.DE -> "TAG ENDET!"
-                    else -> "DAY IS ENDING!"
-                }
-                
-                message = if (settings.nagUntilFinish) {
-                    when (lang) {
-                        LanguageCode.UK -> "День закінчується, а ти ще не добив план! Живо за роботу!"
-                        LanguageCode.DE -> "Der Tag endet und du hast den Plan nicht erfüllt! Los geht's!"
-                        else -> "The day is ending and you haven't finished the plan! Move it!"
-                    }
-                } else {
-                    val slacker = when (lang) {
-                        LanguageCode.UK -> when (toxicity) {
-                            com.gogart.toxictask.settings.ToxicityLevel.LOW -> "ледарем"
-                            com.gogart.toxictask.settings.ToxicityLevel.NORMAL -> "лохом"
-                            com.gogart.toxictask.settings.ToxicityLevel.EXTREME -> "конченим"
-                        }
-                        LanguageCode.DE -> when (toxicity) {
-                            com.gogart.toxictask.settings.ToxicityLevel.LOW -> "Faulpelz"
-                            com.gogart.toxictask.settings.ToxicityLevel.NORMAL -> "Versager"
-                            com.gogart.toxictask.settings.ToxicityLevel.EXTREME -> "Abfall"
-                        }
-                        else -> if (toxicity == com.gogart.toxictask.settings.ToxicityLevel.LOW) "a slacker" else "a loser"
-                    }
-                    when (lang) {
-                        LanguageCode.UK -> "День закінчується, а ти ще не досягнув статусу ГІГАЧАД! Не будь $slacker!"
-                        LanguageCode.DE -> "Der Tag endet und du hast den GIGACHAD-Status nicht erreicht! Sei kein $slacker!"
-                        else -> "The day is ending and you haven't reached GIGACHAD status! Don't be $slacker!"
-                    }
-                }
+                val strs = ToxicStrings.getNotificationStrings(lang, "END_OF_DAY")
+                title = strs.first
+                message = strs.second
             }
             else -> {
-                title = if (lang == LanguageCode.UK) "ЕЙ, ТИ!" else "HEY YOU!"
+                title = if (lang == LanguageCode.UK) "ЕЙ, ТИ!" else if (lang == LanguageCode.DE) "HEY DU!" else "HEY YOU!"
                 val status = when {
                     tasks.size < 3 -> "LOX"
                     progress < 0.35f -> "LOX"
@@ -216,7 +156,7 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .build()
 
-        notificationManager.notify(System.currentTimeMillis().toInt(), notification)
+        notificationManager.notify(42, notification)
     }
 
     companion object {
@@ -225,11 +165,12 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
             val intent = Intent(context, ToxicAlarmReceiver::class.java)
             val pendingIntent = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-            val triggerAt = System.currentTimeMillis() + 60000 
+            // Перевірка кожні 15 хвилин для економії батареї
+            val interval = 15 * 60 * 1000L
+            val triggerAt = System.currentTimeMillis() + interval 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val info = AlarmManager.AlarmClockInfo(triggerAt, pendingIntent)
-                alarmManager.setAlarmClock(info, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
             } else {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
             }
