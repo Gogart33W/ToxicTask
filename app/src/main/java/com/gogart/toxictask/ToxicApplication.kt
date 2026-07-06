@@ -1,4 +1,4 @@
-package com.example.toxictask
+package com.gogart.toxictask
 
 import android.app.Application
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +10,6 @@ class ToxicApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         // We only use AlarmManager now for "clock-like" precision
-        com.example.toxictask.worker.ToxicAlarmReceiver.scheduleNextAlarm(this)
+        com.gogart.toxictask.worker.ToxicAlarmReceiver.scheduleNextAlarm(this)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.toxictask
+package com.gogart.toxictask
 
 import org.junit.Test
 

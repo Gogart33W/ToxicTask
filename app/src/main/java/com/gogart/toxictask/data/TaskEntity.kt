@@ -1,8 +1,8 @@
-package com.example.toxictask.data
+package com.gogart.toxictask.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.toxictask.Priority
+import com.gogart.toxictask.Priority
 import java.time.LocalDate
 
 enum class TaskType {

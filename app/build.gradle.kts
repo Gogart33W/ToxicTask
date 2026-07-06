@@ -9,7 +9,7 @@ plugins {
 
 
 android {
-    namespace = "com.example.toxictask"
+    namespace = "com.gogart.toxictask"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -17,13 +17,19 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.toxictask"
+        applicationId = "com.gogart.toxictask"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.3"
+        versionCode = 6
+        versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
     buildTypes {

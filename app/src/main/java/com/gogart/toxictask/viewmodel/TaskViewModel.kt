@@ -1,18 +1,18 @@
-package com.example.toxictask.viewmodel
+package com.gogart.toxictask.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.toxictask.Priority
-import com.example.toxictask.R
-import com.example.toxictask.ToxicStrings
-import com.example.toxictask.data.AppDatabase
-import com.example.toxictask.data.TaskEntity
-import com.example.toxictask.data.TaskType
-import com.example.toxictask.settings.LanguageCode
-import com.example.toxictask.settings.NotificationSettings
-import com.example.toxictask.settings.SettingsManager
-import com.example.toxictask.ui.theme.ThemeMode
+import com.gogart.toxictask.Priority
+import com.gogart.toxictask.R
+import com.gogart.toxictask.ToxicStrings
+import com.gogart.toxictask.data.AppDatabase
+import com.gogart.toxictask.data.TaskEntity
+import com.gogart.toxictask.data.TaskType
+import com.gogart.toxictask.settings.LanguageCode
+import com.gogart.toxictask.settings.NotificationSettings
+import com.gogart.toxictask.settings.SettingsManager
+import com.gogart.toxictask.ui.theme.ThemeMode
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -34,9 +34,20 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
+    private val _ignoredRollover = MutableStateFlow(false)
+    val pendingRolloverTasks: StateFlow<List<TaskEntity>> = dao.observeUncompletedTasksBefore(LocalDate.now().toString())
+        .combine(_ignoredRollover) { tasks, ignored ->
+            if (ignored) emptyList() else tasks
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    val recurringTemplates: Flow<List<TaskEntity>> = dao.getAllTasks().map { all ->
+        all.filter { it.taskType == TaskType.WEEKLY }.distinctBy { it.title }
+    }
+
     val tasks: StateFlow<List<TaskEntity>?> = _selectedDate.flatMapLatest { date ->
         dao.getTasksByDate(date.toString()).map { list ->
-            list?.sortedWith(compareBy<TaskEntity> { it.isCompleted }.thenByDescending { it.priority.weight })
+            list.sortedWith(compareBy<TaskEntity> { it.isCompleted }.thenByDescending { it.priority.weight })
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -47,7 +58,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LanguageCode.EN)
 
     val notificationSettings: StateFlow<NotificationSettings> = settingsManager.notificationSettings
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NotificationSettings(true, 60, 9, 0, 21, 0, true, com.example.toxictask.settings.ToxicityLevel.LOW))
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NotificationSettings(true, 60, 9, 0, 21, 0, true, com.gogart.toxictask.settings.ToxicityLevel.LOW))
 
     val playerStatus = tasks.map { list ->
         if (list == null) return@map PlayerRole.SLACKER
@@ -111,26 +122,43 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         var streak = 0
         var checkDate = LocalDate.now()
         
+        fun isGiga(date: LocalDate): Boolean {
+            val dayTasks = days[date.toString()] ?: return false
+            val weight = dayTasks.sumOf { it.priority.weight }
+            val done = dayTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
+            return dayTasks.size >= 3 && (if (weight == 0) 0f else done.toFloat() / weight) >= 0.75f
+        }
+
+        // Якщо сьогодні ще не Гігачад - починаємо перевірку зі вчорашнього дня
+        if (!isGiga(checkDate)) {
+            checkDate = checkDate.minusDays(1)
+        }
+
         while (true) {
-            val dayTasks = days[checkDate.toString()]
-            if (dayTasks == null) {
-                if (checkDate == LocalDate.now()) {
+            val dateStr = checkDate.toString()
+            if (days.containsKey(dateStr)) {
+                if (isGiga(checkDate)) {
+                    streak++
                     checkDate = checkDate.minusDays(1)
-                    continue
-                } else break
-            }
-            
-            val totalWeight = dayTasks.sumOf { it.priority.weight }
-            val completedWeight = dayTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
-            val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
-            
-            if (dayTasks.size >= 3 && progress >= 0.75f) {
-                streak++
-                checkDate = checkDate.minusDays(1)
+                } else {
+                    // День був, але не Гігачад - вогонь гасне
+                    break
+                }
             } else {
-                if (checkDate == LocalDate.now()) {
-                   checkDate = checkDate.minusDays(1)
-                   continue
+                // День порожній (можливо був перенос)
+                var hasAnythingBefore = false
+                var lookBack = checkDate.minusDays(1)
+                for (i in 1..7) { // Шукаємо активність на тиждень назад
+                    if (days.containsKey(lookBack.toString())) {
+                        hasAnythingBefore = true
+                        break
+                    }
+                    lookBack = lookBack.minusDays(1)
+                }
+                
+                if (hasAnythingBefore) {
+                    checkDate = checkDate.minusDays(1)
+                    continue // Пропускаємо порожній день без обнулення
                 } else break
             }
         }
@@ -141,6 +169,19 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             checkAndAddRepeatingTasks()
         }
+    }
+
+    fun rolloverTasks(tasks: List<TaskEntity>) {
+        viewModelScope.launch {
+            val today = LocalDate.now().toString()
+            tasks.forEach { task ->
+                dao.updateTask(task.copy(scheduledDate = today))
+            }
+        }
+    }
+
+    fun clearRollover() {
+        _ignoredRollover.value = true
     }
 
     private suspend fun checkAndAddRepeatingTasks() {
@@ -162,7 +203,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
                     priority = template.priority,
                     scheduledDate = todayStr,
                     deadlineTime = template.deadlineTime,
-                    notes = template.notes,
+                    notes = "",
                     taskType = template.taskType,
                     repeatDays = template.repeatDays
                 ))
@@ -196,6 +237,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addTask(title: String, priority: Priority, deadline: String? = null, notes: String = "", type: TaskType = TaskType.ONE_TIME, repeatDays: String = "") {
         viewModelScope.launch {
+            settingsManager.setLastTaskAddedTime(System.currentTimeMillis())
             val date = _selectedDate.value
             val scheduledDate = when (type) {
                 TaskType.GOAL_WEEK -> date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toString()
@@ -246,6 +288,91 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteTask(task: TaskEntity) {
         viewModelScope.launch {
             dao.deleteTask(task)
+        }
+    }
+
+    fun deleteRecurringTemplate(title: String) {
+        viewModelScope.launch {
+            val all = dao.getAllTasks().first()
+            all.filter { it.title == title && it.taskType == TaskType.WEEKLY }.forEach {
+                dao.deleteTask(it)
+            }
+        }
+    }
+
+    fun updateRecurringTemplate(oldTitle: String, newTask: TaskEntity) {
+        viewModelScope.launch {
+            val all = dao.getAllTasks().first()
+            all.filter { it.title == oldTitle && it.taskType == TaskType.WEEKLY }.forEach {
+                dao.updateTask(it.copy(
+                    title = newTask.title,
+                    priority = newTask.priority,
+                    deadlineTime = newTask.deadlineTime,
+                    notes = newTask.notes,
+                    repeatDays = newTask.repeatDays
+                ))
+            }
+        }
+    }
+
+    // --- DEBUG METHODS ---
+    fun debugResetLastTaskTime() {
+        viewModelScope.launch {
+            val fourDaysAgo = System.currentTimeMillis() - (4 * 24 * 60 * 60 * 1000L)
+            settingsManager.setLastTaskAddedTime(fourDaysAgo)
+        }
+    }
+
+    fun debugAddPastUncompletedTask() {
+        viewModelScope.launch {
+            _ignoredRollover.value = false
+            val yesterday = LocalDate.now().minusDays(1).toString()
+            dao.insertTask(TaskEntity(
+                title = "DEBUG: Past Ghost Task",
+                priority = Priority.HARD,
+                scheduledDate = yesterday,
+                isCompleted = false
+            ))
+        }
+    }
+
+    fun debugClearAllTasks() {
+        viewModelScope.launch {
+            dao.deleteAll()
+        }
+    }
+
+    fun debugForceGigachad() {
+        viewModelScope.launch {
+            val today = LocalDate.now().toString()
+            repeat(3) { i ->
+                dao.insertTask(TaskEntity(
+                    title = "DEBUG: Giga Task $i",
+                    priority = Priority.HARD,
+                    scheduledDate = today,
+                    isCompleted = true
+                ))
+            }
+        }
+    }
+
+    fun debugSetDeadlineSoon() {
+        viewModelScope.launch {
+            val today = LocalDate.now().toString()
+            val soon = java.time.LocalTime.now().plusMinutes(5).format(java.time.format.DateTimeFormatter.ofPattern("HH:mm"))
+            dao.insertTask(TaskEntity(
+                title = "DEBUG: Deadline Soon",
+                priority = Priority.HARD,
+                scheduledDate = today,
+                deadlineTime = soon,
+                isCompleted = false
+            ))
+        }
+    }
+
+    fun debugResetNotifyTime() {
+        viewModelScope.launch {
+            settingsManager.setLastNotifyTime(0)
         }
     }
 }

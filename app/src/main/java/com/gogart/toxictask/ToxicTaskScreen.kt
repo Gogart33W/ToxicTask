@@ -1,4 +1,4 @@
-package com.example.toxictask
+package com.gogart.toxictask
 
 import android.app.Activity
 import android.app.TimePickerDialog
@@ -6,10 +6,14 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.LocaleList
+import android.widget.Toast
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -41,15 +45,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.toxictask.data.TaskEntity
-import com.example.toxictask.data.TaskType
-import com.example.toxictask.settings.LanguageCode
-import com.example.toxictask.settings.NotificationSettings
-import com.example.toxictask.settings.ToxicityLevel
-import com.example.toxictask.ui.theme.ThemeMode
-import com.example.toxictask.ui.theme.ToxicTaskTheme
-import com.example.toxictask.viewmodel.PlayerRole
-import com.example.toxictask.viewmodel.TaskViewModel
+import com.gogart.toxictask.data.TaskEntity
+import com.gogart.toxictask.data.TaskType
+import com.gogart.toxictask.settings.LanguageCode
+import com.gogart.toxictask.settings.NotificationSettings
+import com.gogart.toxictask.settings.ToxicityLevel
+import com.gogart.toxictask.ui.theme.ThemeMode
+import com.gogart.toxictask.ui.theme.ToxicTaskTheme
+import com.gogart.toxictask.viewmodel.PlayerRole
+import com.gogart.toxictask.viewmodel.TaskViewModel
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.YearMonth
@@ -114,8 +118,11 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
     val selectedDate by viewModel.selectedDate.collectAsState()
     val historyData by viewModel.historyData.collectAsState()
     val streak by viewModel.currentStreak.collectAsState()
+    val pendingRollover by viewModel.pendingRolloverTasks.collectAsState()
+    val recurringTemplates by viewModel.recurringTemplates.collectAsState(emptyList())
     
     var currentTab by remember { mutableIntStateOf(0) }
+    val context = LocalContext.current
 
     val isDark = when(themeMode) {
         ThemeMode.LIGHT -> false
@@ -126,12 +133,20 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
     var showTaskSheet by remember { mutableStateOf<TaskEntity?>(null) }
     var isEditing by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
+    var taskToDelete by remember { mutableStateOf<TaskEntity?>(null) }
+    var showRecurringPanel by remember { mutableStateOf(false) }
     
+    var isEditingTemplate by remember { mutableStateOf<String?>(null) }
+    
+    var devTapCount by remember { mutableIntStateOf(0) }
+    var showDevPanel by remember { mutableStateOf(false) }
+
     val totalWeight = tasksNonNull.sumOf { it.priority.weight }
     val completedWeight = tasksNonNull.filter { it.isCompleted }.sumOf { it.priority.weight }
     val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
 
     Scaffold(
+                modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing),
                 floatingActionButton = {
                     if (currentTab == 0) {
                         FloatingActionButton(
@@ -150,7 +165,23 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                 },
                 topBar = {
                     TopAppBar(
-                        title = { Text("TOXIC TASK", fontWeight = FontWeight.Black, letterSpacing = 2.sp) },
+                        title = { 
+                            Text(
+                                "TOXIC TASK", 
+                                fontWeight = FontWeight.Black, 
+                                letterSpacing = 2.sp,
+                                modifier = Modifier.clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null
+                                ) {
+                                    devTapCount++
+                                    if (devTapCount >= 7) {
+                                        showDevPanel = true
+                                        devTapCount = 0
+                                    }
+                                }
+                            ) 
+                        },
                         actions = {
                             IconButton(onClick = { showSettings = true }) {
                                 Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings))
@@ -189,13 +220,23 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                         Column {
                             DateSelector(selectedDate, onDateSelected = { viewModel.setDate(it) })
                             StatusDashboard(playerRole, currentLang, progress, insult, streak, isDark, notifySettings.toxicityLevel)
-                            Text(
-                                stringResource(R.string.current_objectives),
-                                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = Color.Gray,
-                                fontWeight = FontWeight.Bold
-                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    stringResource(R.string.current_objectives),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = Color.Gray,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                TextButton(onClick = { showRecurringPanel = true }) {
+                                    Icon(Icons.Rounded.Repeat, null, modifier = Modifier.size(16.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.recurring_missions), style = MaterialTheme.typography.labelMedium)
+                                }
+                            }
                             if (tasksNonNull.isEmpty()) {
                                 EmptyState()
                             } else {
@@ -209,7 +250,7 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                                             task = task,
                                             isDark = isDark,
                                             onCheckedChange = { _ -> viewModel.toggleTask(task) },
-                                            onDelete = { viewModel.deleteTask(task) },
+                                            onDelete = { taskToDelete = task },
                                             onEdit = {
                                                 isEditing = true
                                                 showTaskSheet = task
@@ -228,16 +269,18 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                 }
 
                 if (showSettings) {
-                    SettingsDialog(
-                        currentTheme = themeMode,
-                        currentLang = currentLang,
-                        notifySettings = notifySettings,
-                        isDark = isDark,
-                        onDismiss = { showSettings = false },
-                        onThemeChange = { viewModel.setThemeMode(it) },
-                        onLangChange = { viewModel.setLanguage(it) },
-                        onNotifySettingsChange = { viewModel.setNotificationSettings(it) }
-                    )
+                    key(currentLang) {
+                        SettingsDialog(
+                            currentTheme = themeMode,
+                            currentLang = currentLang,
+                            notifySettings = notifySettings,
+                            isDark = isDark,
+                            onDismiss = { showSettings = false },
+                            onThemeChange = { viewModel.setThemeMode(it) },
+                            onLangChange = { viewModel.setLanguage(it) },
+                            onNotifySettingsChange = { viewModel.setNotificationSettings(it) }
+                        )
+                    }
                 }
 
                 showTaskSheet?.let { task ->
@@ -245,25 +288,253 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                         task = task,
                         isEditing = isEditing,
                         isDark = isDark,
-                        onDismiss = { showTaskSheet = null },
+                        onDismiss = { 
+                            showTaskSheet = null 
+                            isEditingTemplate = null
+                        },
                         onTaskAction = { name, priority, deadline, notes, type, days ->
-                            if (isEditing) {
+                            val templateTitle = isEditingTemplate
+                            if (templateTitle != null) {
+                                viewModel.updateRecurringTemplate(templateTitle, task.copy(title = name, priority = priority, deadlineTime = deadline, notes = notes, taskType = type, repeatDays = days))
+                            } else if (isEditing) {
                                 viewModel.updateTask(task.copy(title = name, priority = priority, deadlineTime = deadline, notes = notes, taskType = type, repeatDays = days))
                             } else {
                                 viewModel.addTask(name, priority, deadline, notes, type, days)
                             }
                             showTaskSheet = null
+                            isEditingTemplate = null
                         }
                     )
                 }
+
+                taskToDelete?.let { task ->
+                    AlertDialog(
+                        onDismissRequest = { taskToDelete = null },
+                        title = { Text(stringResource(R.string.delete_confirm_title), fontWeight = FontWeight.Bold) },
+                        text = { Text(stringResource(R.string.delete_confirm_text)) },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                viewModel.deleteTask(task)
+                                taskToDelete = null
+                            }) {
+                                Text(stringResource(R.string.delete_confirm_yes), color = Color.Red)
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { taskToDelete = null }) {
+                                Text(stringResource(R.string.delete_confirm_no))
+                            }
+                        }
+                    )
+                }
+
+                if (pendingRollover.isNotEmpty()) {
+                    AlertDialog(
+                        onDismissRequest = { viewModel.clearRollover() },
+                        title = { Text(stringResource(R.string.rollover_title), fontWeight = FontWeight.Bold) },
+                        text = { Text(stringResource(R.string.rollover_text, pendingRollover.size)) },
+                        confirmButton = {
+                            Button(onClick = { viewModel.rolloverTasks(pendingRollover) }) {
+                                Text(stringResource(R.string.rollover_move))
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { viewModel.clearRollover() }) {
+                                Text(stringResource(R.string.rollover_ignore))
+                            }
+                        }
+                    )
+                }
+
+                if (showRecurringPanel) {
+                    val deployedMsg = stringResource(R.string.mission_deployed)
+                    RecurringPanel(
+                        templates = recurringTemplates,
+                        isDark = isDark,
+                        onDismiss = { showRecurringPanel = false },
+                        onDelete = { viewModel.deleteRecurringTemplate(it.title) },
+                        onEdit = { template ->
+                            isEditingTemplate = template.title
+                            isEditing = true
+                            showTaskSheet = template
+                            showRecurringPanel = false
+                        },
+                        onPlanNow = { template ->
+                            viewModel.addTask(
+                                template.title,
+                                template.priority,
+                                template.deadlineTime,
+                                "",
+                                TaskType.ONE_TIME,
+                                ""
+                            )
+                            Toast.makeText(context, deployedMsg, Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
+
+                if (showDevPanel) {
+                    DevPanel(
+                        onDismiss = { showDevPanel = false },
+                        onResetNag = { viewModel.debugResetLastTaskTime() },
+                        onAddPast = { viewModel.debugAddPastUncompletedTask() },
+                        onForceGiga = { viewModel.debugForceGigachad() },
+                        onDeadlineSoon = { viewModel.debugSetDeadlineSoon() },
+                        onResetNotify = { viewModel.debugResetNotifyTime() },
+                        onClear = { viewModel.debugClearAllTasks() }
+                    )
+                }
             }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DevPanel(
+    onDismiss: () -> Unit,
+    onResetNag: () -> Unit,
+    onAddPast: () -> Unit,
+    onForceGiga: () -> Unit,
+    onDeadlineSoon: () -> Unit,
+    onResetNotify: () -> Unit,
+    onClear: () -> Unit
+) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(modifier = Modifier.padding(24.dp).fillMaxWidth().verticalScroll(rememberScrollState())) {
+            Text("DEV DEBUG PANEL", fontWeight = FontWeight.Black, style = MaterialTheme.typography.headlineSmall, color = Color.Red)
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            DebugButton("Simulate 3 Days Inactivity", onResetNag)
+            DebugButton("Add Past Uncompleted Task (Rollover)", onAddPast)
+            DebugButton("Instant GIGACHAD (3 Hard Tasks)", onForceGiga)
+            DebugButton("Simulate Deadline in 5 mins", onDeadlineSoon)
+            DebugButton("Reset Notification Timer", onResetNotify)
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Button(
+                onClick = onClear,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+            ) {
+                Text("NUKE ALL DATA (Clear DB)")
+            }
+            
+            Spacer(modifier = Modifier.height(32.dp))
+            Text("Tip: To test notifications, press 'Reset Notification Timer' then wait 1 min.", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+        }
+    }
+}
+
+@Composable
+fun DebugButton(text: String, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+    ) {
+        Text(text)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RecurringPanel(
+    templates: List<TaskEntity>,
+    isDark: Boolean,
+    onDismiss: () -> Unit,
+    onDelete: (TaskEntity) -> Unit,
+    onEdit: (TaskEntity) -> Unit,
+    onPlanNow: (TaskEntity) -> Unit
+) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState
+    ) {
+        Column(modifier = Modifier.padding(16.dp).fillMaxWidth().fillMaxHeight(0.8f)) {
+            Text(stringResource(R.string.recurring_missions), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Black)
+            Spacer(modifier = Modifier.height(16.dp))
+            if (templates.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(stringResource(R.string.no_missions), color = Color.Gray)
+                }
+            } else {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    items(templates) { template ->
+                        val priorityColor = if (template.priority == Priority.MEDIUM && !isDark) Color(0xFFC0A000) else template.priority.color
+                        Card(
+                            modifier = Modifier.fillMaxWidth().clickable { onEdit(template) },
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        ) {
+                            Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(template.title, fontWeight = FontWeight.Black, style = MaterialTheme.typography.titleMedium)
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(template.priority.icon, null, tint = priorityColor, modifier = Modifier.size(14.dp))
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        val labelRes = when(template.priority) {
+                                            Priority.LOW -> R.string.priority_low
+                                            Priority.MEDIUM -> R.string.priority_mid
+                                            Priority.HARD -> R.string.priority_hardcore
+                                        }
+                                        Text(stringResource(labelRes), color = priorityColor, style = MaterialTheme.typography.labelSmall)
+                                        if (template.deadlineTime != null) {
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            Icon(Icons.Default.Timer, null, tint = Color.Gray, modifier = Modifier.size(12.dp))
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Text(template.deadlineTime, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                                        }
+                                    }
+                                    val days = template.repeatDays.split(",").filter { it.isNotEmpty() }.map { it.toInt() }
+                                    val dayLabels = if (Locale.getDefault().language == "uk") listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд")
+                                                   else listOf("M", "T", "W", "T", "F", "S", "S")
+                                    Row(modifier = Modifier.padding(top = 8.dp)) {
+                                        (1..7).forEach { d ->
+                                            val isActive = days.contains(d)
+                                            Surface(
+                                                modifier = Modifier.padding(end = 4.dp).size(20.dp),
+                                                shape = CircleShape,
+                                                color = if (isActive) MaterialTheme.colorScheme.primary else Color.Gray.copy(alpha = 0.2f)
+                                            ) {
+                                                Box(contentAlignment = Alignment.Center) {
+                                                    Text(dayLabels[d-1], fontSize = 8.sp, fontWeight = FontWeight.Bold, color = if (isActive) Color.White else Color.Gray)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    IconButton(
+                                        onClick = { onPlanNow(template) },
+                                        modifier = Modifier.background(Color.Green.copy(alpha = 0.1f), CircleShape)
+                                    ) {
+                                        Icon(Icons.Rounded.PostAdd, null, tint = Color.Green)
+                                    }
+                                    Text(stringResource(R.string.deploy_to_today), fontSize = 8.sp, color = Color.Green, fontWeight = FontWeight.Bold)
+                                }
+                                Spacer(modifier = Modifier.width(8.dp))
+                                IconButton(onClick = { onDelete(template) }) {
+                                    Icon(Icons.Rounded.DeleteForever, null, tint = Color.Gray.copy(alpha = 0.5f))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insult: String, streak: Int, isDark: Boolean, toxicity: ToxicityLevel) {
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "Progress")
     val labelRes = if (role == PlayerRole.SLACKER) {
-        if (toxicity == ToxicityLevel.LOW) R.string.role_slacker else R.string.role_lox
+        when (toxicity) {
+            ToxicityLevel.LOW -> R.string.role_slacker
+            ToxicityLevel.NORMAL -> R.string.role_lox
+            ToxicityLevel.EXTREME -> R.string.role_extreme_lox
+        }
     } else {
         role.labelRes
     }
@@ -341,8 +612,12 @@ fun TaskBottomSheet(
     var repeatDays by remember { mutableStateOf(task.repeatDays) }
     
     val context = LocalContext.current
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState
+    ) {
         Column(modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 40.dp).fillMaxWidth().verticalScroll(rememberScrollState())) {
             Text(if (isEditing) stringResource(R.string.edit_mission) else stringResource(R.string.new_mission), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Black)
             
@@ -587,81 +862,98 @@ fun StatItem(label: String, value: String) {
 @Composable
 fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySettings: NotificationSettings, isDark: Boolean, onDismiss: () -> Unit, onThemeChange: (ThemeMode) -> Unit, onLangChange: (LanguageCode) -> Unit, onNotifySettingsChange: (NotificationSettings) -> Unit) {
     var showDisclaimer by remember { mutableStateOf(false) }
+    var timeErrorTitle by remember { mutableStateOf<String?>(null) }
+    var timeErrorMessage by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
 
-    key(currentLang) {
-        if (showDisclaimer) {
-            AlertDialog(
-                onDismissRequest = { showDisclaimer = false },
-                confirmButton = { TextButton(onClick = { showDisclaimer = false }) { Text(stringResource(android.R.string.ok)) } },
-                title = { Text(stringResource(R.string.disclaimer_title), fontWeight = FontWeight.Bold) },
-                text = { Text(stringResource(R.string.disclaimer_text)) }
-            )
-        }
-
+    if (timeErrorMessage != null) {
         AlertDialog(
-            onDismissRequest = onDismiss,
-            confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(android.R.string.ok)) } },
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.settings), fontWeight = FontWeight.Bold)
-                    Spacer(modifier = Modifier.weight(1f))
-                    IconButton(onClick = { showDisclaimer = true }) {
-                        Icon(Icons.Rounded.Info, contentDescription = "Disclaimer")
+            onDismissRequest = { timeErrorMessage = null; timeErrorTitle = null },
+            confirmButton = { TextButton(onClick = { timeErrorMessage = null; timeErrorTitle = null }) { Text(stringResource(android.R.string.ok)) } },
+            title = { Text(timeErrorTitle ?: stringResource(R.string.settings), fontWeight = FontWeight.Bold) },
+            text = { Text(timeErrorMessage!!) }
+        )
+    }
+
+    if (showDisclaimer) {
+        AlertDialog(
+            onDismissRequest = { showDisclaimer = false },
+            confirmButton = { TextButton(onClick = { showDisclaimer = false }) { Text(stringResource(android.R.string.ok)) } },
+            title = { Text(stringResource(R.string.disclaimer_title), fontWeight = FontWeight.Bold) },
+            text = { Text(stringResource(R.string.disclaimer_text)) }
+        )
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(android.R.string.ok)) } },
+        title = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.settings), fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = { showDisclaimer = true }) {
+                    Icon(Icons.Rounded.Info, contentDescription = "Disclaimer")
+                }
+            }
+        },
+        text = {
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                item {
+                    Column {
+                        Text(stringResource(R.string.theme), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+                        Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            val themes = listOf(ThemeMode.LIGHT to R.string.theme_light, ThemeMode.DARK to R.string.theme_dark, ThemeMode.SYSTEM to R.string.theme_system)
+                            themes.forEach { (mode, labelRes) ->
+                                FilterChip(selected = currentTheme == mode, onClick = { onThemeChange(mode) }, label = { Text(stringResource(labelRes)) })
+                            }
+                        }
                     }
                 }
-            },
-            text = {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                    item {
-                        Column {
-                            Text(stringResource(R.string.theme), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                            Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                val themes = listOf(ThemeMode.LIGHT to R.string.theme_light, ThemeMode.DARK to R.string.theme_dark, ThemeMode.SYSTEM to R.string.theme_system)
-                                themes.forEach { (mode, labelRes) ->
-                                    FilterChip(selected = currentTheme == mode, onClick = { onThemeChange(mode) }, label = { Text(stringResource(labelRes)) })
-                                }
+                item {
+                    Column {
+                        Text(stringResource(R.string.language), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+                        Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            val langs = listOf(LanguageCode.EN to R.string.lang_en, LanguageCode.UK to R.string.lang_uk, LanguageCode.DE to R.string.lang_de)
+                            langs.forEach { (lang, labelRes) ->
+                                FilterChip(selected = currentLang == lang, onClick = { onLangChange(lang) }, label = { Text(stringResource(labelRes)) })
                             }
                         }
                     }
-                    item {
-                        Column {
-                            Text(stringResource(R.string.language), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                            Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                val langs = listOf(LanguageCode.EN to R.string.lang_en, LanguageCode.UK to R.string.lang_uk)
-                                langs.forEach { (lang, labelRes) ->
-                                    FilterChip(selected = currentLang == lang, onClick = { onLangChange(lang) }, label = { Text(stringResource(labelRes)) })
-                                }
+                }
+                item {
+                    Column {
+                        Text(stringResource(R.string.toxicity_level), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+                        Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            val levels = listOf(ToxicityLevel.LOW to R.string.toxicity_low, ToxicityLevel.NORMAL to R.string.toxicity_normal, ToxicityLevel.EXTREME to R.string.toxicity_extreme)
+                            levels.forEach { (level, labelRes) ->
+                                FilterChip(selected = notifySettings.toxicityLevel == level, onClick = { onNotifySettingsChange(notifySettings.copy(toxicityLevel = level)) }, label = { Text(stringResource(labelRes)) })
                             }
                         }
                     }
-                    item {
-                        Column {
-                            Text(stringResource(R.string.toxicity_level), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                            Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                val levels = listOf(ToxicityLevel.LOW to R.string.toxicity_low, ToxicityLevel.NORMAL to R.string.toxicity_normal, ToxicityLevel.EXTREME to R.string.toxicity_extreme)
-                                levels.forEach { (level, labelRes) ->
-                                    FilterChip(selected = notifySettings.toxicityLevel == level, onClick = { onNotifySettingsChange(notifySettings.copy(toxicityLevel = level)) }, label = { Text(stringResource(labelRes)) })
+                }
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(stringResource(R.string.notifications), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+                        Surface(color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), shape = RoundedCornerShape(12.dp)) {
+                            Column(modifier = Modifier.padding(12.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(stringResource(R.string.enabled), modifier = Modifier.weight(1f), fontWeight = FontWeight.Medium)
+                                    Switch(checked = notifySettings.enabled, onCheckedChange = { onNotifySettingsChange(notifySettings.copy(enabled = it)) })
                                 }
-                            }
-                        }
-                    }
-                    item {
-                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            Text(stringResource(R.string.notifications), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                            Surface(color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), shape = RoundedCornerShape(12.dp)) {
-                                Column(modifier = Modifier.padding(12.dp)) {
+                                if (notifySettings.enabled) {
+                                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Text(stringResource(R.string.enabled), modifier = Modifier.weight(1f), fontWeight = FontWeight.Medium)
-                                        Switch(checked = notifySettings.enabled, onCheckedChange = { onNotifySettingsChange(notifySettings.copy(enabled = it)) })
+                                        Text(stringResource(R.string.nag_until_100), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+                                        Checkbox(checked = notifySettings.nagUntilFinish, onCheckedChange = { onNotifySettingsChange(notifySettings.copy(nagUntilFinish = it)) })
                                     }
-                                    if (notifySettings.enabled) {
-                                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
-                                        Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Text(stringResource(R.string.nag_until_100), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
-                                            Checkbox(checked = notifySettings.nagUntilFinish, onCheckedChange = { onNotifySettingsChange(notifySettings.copy(nagUntilFinish = it)) })
-                                        }
-                                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
+                                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
+                                    
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(stringResource(R.string.detailed_schedule), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+                                        Switch(checked = notifySettings.useDetailedSchedule, onCheckedChange = { onNotifySettingsChange(notifySettings.copy(useDetailedSchedule = it)) })
+                                    }
+
+                                    if (!notifySettings.useDetailedSchedule) {
                                         Text(stringResource(R.string.active_hours), style = MaterialTheme.typography.bodySmall, color = Color.Gray)
                                         Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
                                             ActiveTimeSelector(notifySettings.startHour, notifySettings.startMinute, stringResource(R.string.start), isDark, context) { h, m ->
@@ -669,30 +961,82 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                                                 val newStartTotal = h * 60 + m
                                                 if (newStartTotal < currentEndTotal) {
                                                     onNotifySettingsChange(notifySettings.copy(startHour = h, startMinute = m))
+                                                } else {
+                                                    val startTimeStr = String.format("%02d:%02d", h, m)
+                                                    val endTimeStr = String.format("%02d:%02d", notifySettings.endHour, notifySettings.endMinute)
+                                                    timeErrorTitle = if(currentLang == LanguageCode.UK) "ПОМИЛКА ЧАСУ" else if(currentLang == LanguageCode.DE) "ZEITFEHLER" else "TIME ERROR"
+                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
                                                 }
                                             }
                                             Text("—", fontWeight = FontWeight.Bold)
                                             ActiveTimeSelector(notifySettings.endHour, notifySettings.endMinute, stringResource(R.string.end), isDark, context) { h, m ->
+                                                var finalH = h
+                                                var finalM = m
+                                                var autoFixed = false
+                                                if (h == 0 && m == 0) {
+                                                    finalH = 23
+                                                    finalM = 59
+                                                    autoFixed = true
+                                                }
+                                                
                                                 val currentStartTotal = notifySettings.startHour * 60 + notifySettings.startMinute
-                                                val newEndTotal = h * 60 + m
+                                                val newEndTotal = finalH * 60 + finalM
+                                                
                                                 if (newEndTotal > currentStartTotal) {
-                                                    onNotifySettingsChange(notifySettings.copy(endHour = h, endMinute = m))
+                                                    onNotifySettingsChange(notifySettings.copy(endHour = finalH, endMinute = finalM))
+                                                    if (autoFixed) {
+                                                        timeErrorTitle = if(currentLang == LanguageCode.UK) "Я ВИПРАВИВ" else if(currentLang == LanguageCode.DE) "KORRIGIERT" else "FIXED"
+                                                        timeErrorMessage = ToxicStrings.getTimeFixMessage(currentLang)
+                                                    }
+                                                } else {
+                                                    val startTimeStr = String.format("%02d:%02d", notifySettings.startHour, notifySettings.startMinute)
+                                                    val endTimeStr = String.format("%02d:%02d", finalH, finalM)
+                                                    timeErrorTitle = if(currentLang == LanguageCode.UK) "ПОМИЛКА ЧАСУ" else if(currentLang == LanguageCode.DE) "ZEITFEHLER" else "TIME ERROR"
+                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
                                                 }
                                             }
                                         }
-                                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
-                                        var intervalText by remember { mutableStateOf(notifySettings.intervalMinutes.toString()) }
-                                        OutlinedTextField(value = intervalText, onValueChange = { intervalText = it; it.toIntOrNull()?.let { m -> onNotifySettingsChange(notifySettings.copy(intervalMinutes = m.coerceAtLeast(15))) } },
-                                            label = { Text(stringResource(R.string.interval)) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), shape = RoundedCornerShape(12.dp))
+                                    } else {
+                                        Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+                                            (1..7).forEach { day ->
+                                                val schedule = notifySettings.detailedSchedule[day] ?: com.gogart.toxictask.settings.DaySchedule()
+                                                val dayNameRes = when(day) {
+                                                    1 -> R.string.day_1; 2 -> R.string.day_2; 3 -> R.string.day_3; 4 -> R.string.day_4;
+                                                    5 -> R.string.day_5; 6 -> R.string.day_6; else -> R.string.day_7
+                                                }
+                                                Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                                                    Text(stringResource(dayNameRes), modifier = Modifier.width(40.dp), style = MaterialTheme.typography.bodySmall)
+                                                    Spacer(modifier = Modifier.width(8.dp))
+                                                    ActiveTimeSelector(schedule.startHour, schedule.startMinute, "", isDark, context) { h, m ->
+                                                        val newSchedule = schedule.copy(startHour = h, startMinute = m)
+                                                        val newMap = notifySettings.detailedSchedule.toMutableMap()
+                                                        newMap[day] = newSchedule
+                                                        onNotifySettingsChange(notifySettings.copy(detailedSchedule = newMap))
+                                                    }
+                                                    Text("—", modifier = Modifier.padding(horizontal = 4.dp))
+                                                    ActiveTimeSelector(schedule.endHour, schedule.endMinute, "", isDark, context) { h, m ->
+                                                        val newSchedule = schedule.copy(endHour = h, endMinute = m)
+                                                        val newMap = notifySettings.detailedSchedule.toMutableMap()
+                                                        newMap[day] = newSchedule
+                                                        onNotifySettingsChange(notifySettings.copy(detailedSchedule = newMap))
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
+
+                                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
+                                    var intervalText by remember { mutableStateOf(notifySettings.intervalMinutes.toString()) }
+                                    OutlinedTextField(value = intervalText, onValueChange = { intervalText = it; it.toIntOrNull()?.let { m -> onNotifySettingsChange(notifySettings.copy(intervalMinutes = m.coerceAtLeast(15))) } },
+                                        label = { Text(stringResource(R.string.interval)) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), shape = RoundedCornerShape(12.dp))
                                 }
                             }
                         }
                     }
                 }
             }
-        )
-    }
+        }
+    )
 }
 
 @Composable

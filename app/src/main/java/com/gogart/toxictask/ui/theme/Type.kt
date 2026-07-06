@@ -1,4 +1,4 @@
-package com.example.toxictask.ui.theme
+package com.gogart.toxictask.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

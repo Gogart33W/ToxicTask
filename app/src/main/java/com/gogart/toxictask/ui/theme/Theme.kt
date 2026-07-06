@@ -1,4 +1,4 @@
-package com.example.toxictask.ui.theme
+package com.gogart.toxictask.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -11,38 +11,45 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-
-private val ToxicDarkColorScheme = darkColorScheme(
-    primary = ToxicRed,
-    secondary = ToxicGray,
-    background = ToxicBlack,
-    surface = ToxicSurface,
-    onPrimary = Color.White,
-    onBackground = Color.White,
-    onSurface = Color.White
-)
-
-private val ToxicLightColorScheme = lightColorScheme(
-    primary = LightPrimary,
-    secondary = ToxicGray,
-    background = LightBackground,
-    surface = LightSurface,
-    onPrimary = Color.White,
-    onBackground = Color.Black,
-    onSurface = Color.Black
-)
 
 enum class ThemeMode {
     LIGHT, DARK, SYSTEM
 }
 
+private val DarkColorScheme = darkColorScheme(
+    primary = ToxicRed,
+    secondary = Color.DarkGray,
+    tertiary = Color.Red,
+    background = ToxicDark,
+    surface = ToxicGray,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+    onBackground = Color.White,
+    onSurface = Color.White,
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = ToxicRed,
+    secondary = Color.Gray,
+    tertiary = Color.Red,
+    background = Color(0xFFF5F5F5),
+    surface = Color.White,
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
+    onTertiary = Color.White,
+    onBackground = Color.Black,
+    onSurface = Color.Black,
+)
+
 @Composable
 fun ToxicTaskTheme(
     themeMode: ThemeMode = ThemeMode.SYSTEM,
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val darkTheme = when (themeMode) {
@@ -50,14 +57,22 @@ fun ToxicTaskTheme(
         ThemeMode.DARK -> true
         ThemeMode.SYSTEM -> isSystemInDarkTheme()
     }
+    
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
 
-    val colorScheme = if (darkTheme) ToxicDarkColorScheme else ToxicLightColorScheme
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.background.toArgb()
-            window.navigationBarColor = colorScheme.background.toArgb()
+            // Android 15 edge-to-edge support: window.statusBarColor is deprecated for SDK 35+
+            // enableEdgeToEdge() in MainActivity handles this.
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
