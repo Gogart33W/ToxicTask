@@ -29,6 +29,7 @@ class BackupManager(private val context: Context) {
                 put("notes", task.notes)
                 put("taskType", task.taskType.name)
                 put("repeatDays", task.repeatDays)
+                put("isRolledOver", task.isRolledOver)
             }
             jsonArray.put(obj)
         }
@@ -50,6 +51,9 @@ class BackupManager(private val context: Context) {
             }
             
             val jsonArray = JSONArray(content.toString())
+            // Повністю видаляємо старі таски перед імпортом
+            dao.deleteAll()
+            
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val task = TaskEntity(
@@ -61,7 +65,8 @@ class BackupManager(private val context: Context) {
                     deadlineTime = obj.optString("deadlineTime").takeIf { it.isNotBlank() },
                     notes = obj.optString("notes", ""),
                     taskType = TaskType.valueOf(obj.optString("taskType", "ONE_TIME")),
-                    repeatDays = obj.optString("repeatDays", "")
+                    repeatDays = obj.optString("repeatDays", ""),
+                    isRolledOver = obj.optBoolean("isRolledOver", false)
                 )
                 dao.insertTask(task)
             }

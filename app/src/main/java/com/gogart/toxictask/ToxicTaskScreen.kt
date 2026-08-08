@@ -805,9 +805,7 @@ fun TaskCard(task: TaskEntity, isDark: Boolean, onCheckedChange: (Boolean) -> Un
                     }
                 }
             }
-            if (!task.isRolledOver) {
-                IconButton(onClick = onDelete) { Icon(Icons.Rounded.DeleteOutline, null, tint = Color.Gray) }
-            }
+            IconButton(onClick = onDelete) { Icon(Icons.Rounded.DeleteOutline, null, tint = Color.Gray) }
         }
     }
 }
