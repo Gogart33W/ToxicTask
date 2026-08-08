@@ -3,6 +3,7 @@ package com.gogart.toxictask
 import android.app.Application
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ToxicApplication : Application() {
     private val applicationScope = CoroutineScope(Dispatchers.Default)
@@ -19,6 +20,8 @@ class ToxicApplication : Application() {
         }
 
         // We only use AlarmManager now for "clock-like" precision
-        com.gogart.toxictask.worker.ToxicAlarmReceiver.scheduleNextAlarm(this)
+        applicationScope.launch {
+            com.gogart.toxictask.worker.ToxicAlarmReceiver.scheduleNextAlarm(this@ToxicApplication)
+        }
     }
 }
