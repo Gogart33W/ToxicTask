@@ -1,14 +1,52 @@
 package com.gogart.toxictask.utils
 
+import com.gogart.toxictask.data.TaskDao
 import com.gogart.toxictask.data.TaskEntity
+import com.gogart.toxictask.data.TaskType
+import kotlinx.coroutines.flow.first
 import java.time.LocalDate
 
 object TaskUtils {
     fun isGigaDay(tasks: List<TaskEntity>): Boolean {
+        if (tasks.isEmpty()) return false
+        
+        // Всі таски (включаючи перенесені) рахуються в загальну кількість для перевірки на ЛОХ-статус (мін 3)
         if (tasks.size < 3) return false
-        val weight = tasks.sumOf { it.priority.weight }
-        val done = tasks.filter { it.isCompleted }.sumOf { it.priority.weight }
-        return (if (weight == 0) 0f else done.toFloat() / weight) >= 0.75f
+        
+        // Але для прогресу перенесені таски ігноруються (вони не дають % і не заважають його досягти)
+        val validTasks = tasks.filter { !it.isRolledOver }
+        if (validTasks.isEmpty()) return false
+        
+        val weight = validTasks.sumOf { it.priority.weight }
+        val done = validTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
+        return (done.toFloat() / weight) >= 0.75f
+    }
+
+    suspend fun checkAndAddRepeatingTasks(dao: TaskDao) {
+        val today = LocalDate.now()
+        val todayStr = today.toString()
+        val dayOfWeek = today.dayOfWeek.value.toString()
+        
+        val allTasks = dao.getAllTasksStatic()
+        val repeatingTemplates = allTasks
+            .filter { it.taskType == TaskType.WEEKLY && it.repeatDays.contains(dayOfWeek) }
+            .distinctBy { it.title }
+        
+        val todayExisting = dao.getTasksByDate(todayStr).first()
+        
+        repeatingTemplates.forEach { template ->
+            if (todayExisting.none { it.title == template.title && it.taskType == template.taskType }) {
+                dao.insertTask(TaskEntity(
+                    title = template.title,
+                    priority = template.priority,
+                    scheduledDate = todayStr,
+                    deadlineTime = template.deadlineTime,
+                    notes = "",
+                    taskType = template.taskType,
+                    repeatDays = template.repeatDays
+                ))
+            }
+        }
     }
 
     fun calculateStreak(allTasks: List<TaskEntity>, today: LocalDate = LocalDate.now()): Int {

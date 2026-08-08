@@ -23,7 +23,7 @@ interface TaskDao {
     @Delete
     suspend fun deleteTask(task: TaskEntity)
 
-    @Query("SELECT * FROM tasks WHERE isCompleted = 0 AND scheduledDate < :date")
+    @Query("SELECT * FROM tasks WHERE isCompleted = 0 AND isRolledOver = 0 AND scheduledDate < :date")
     fun observeUncompletedTasksBefore(date: String): Flow<List<TaskEntity>>
 
     @Query("DELETE FROM tasks")

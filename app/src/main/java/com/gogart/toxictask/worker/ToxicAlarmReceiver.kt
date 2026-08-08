@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.gogart.toxictask.MainActivity
 import com.gogart.toxictask.ToxicStrings
@@ -19,19 +20,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 
 class ToxicAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        val scope = CoroutineScope(Dispatchers.Default)
+        
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            scheduleNextAlarm(context)
+            scope.launch { scheduleNextAlarm(context) }
             return
         }
 
-        val scope = CoroutineScope(Dispatchers.Default)
         scope.launch {
-            processNotifications(context)
-            scheduleNextAlarm(context)
+            try {
+                processNotifications(context)
+            } catch (e: Exception) {
+                Log.e("ToxicAlarm", "Error processing notifications", e)
+            } finally {
+                scheduleNextAlarm(context)
+            }
         }
     }
 
@@ -63,7 +72,12 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
         if (!isWithinRange) return
 
         val db = AppDatabase.getDatabase(context)
-        val tasks = db.taskDao().getTasksByDate(LocalDate.now().toString()).first()
+        val dao = db.taskDao()
+        
+        // Автоматично додаємо повторювані завдання на сьогодні
+        com.gogart.toxictask.utils.TaskUtils.checkAndAddRepeatingTasks(dao)
+        
+        val tasks = dao.getTasksByDate(LocalDate.now().toString()).first()
         val uncompletedTasks = tasks.filter { !it.isCompleted }
 
         val totalWeight = tasks.sumOf { it.priority.weight }
@@ -161,14 +175,55 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        fun scheduleNextAlarm(context: Context) {
+        suspend fun scheduleNextAlarm(context: Context) {
+            val settingsManager = SettingsManager(context)
+            val settings = settingsManager.notificationSettings.first()
+            if (!settings.enabled) return
+
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(context, ToxicAlarmReceiver::class.java)
             val pendingIntent = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-            // Перевірка кожні 15 хвилин для економії батареї
-            val interval = 15 * 60 * 1000L
-            val triggerAt = System.currentTimeMillis() + interval 
+            val now = LocalDateTime.now()
+            val currentDay = now.toLocalDate().dayOfWeek.value
+            val daySchedule = settings.detailedSchedule[currentDay] ?: com.gogart.toxictask.settings.DaySchedule()
+
+            val startTime = if (settings.useDetailedSchedule) LocalTime.of(daySchedule.startHour, daySchedule.startMinute)
+                            else LocalTime.of(settings.startHour, settings.startMinute)
+            val endTime = if (settings.useDetailedSchedule) LocalTime.of(daySchedule.endHour, daySchedule.endMinute)
+                          else LocalTime.of(settings.endHour, settings.endMinute)
+
+            var triggerAt: Long
+            val currentTime = now.toLocalTime()
+
+            val isWithinRange = if (startTime.isBefore(endTime)) {
+                currentTime.isAfter(startTime) && currentTime.isBefore(endTime)
+            } else {
+                currentTime.isAfter(startTime) || currentTime.isBefore(endTime)
+            }
+
+            if (isWithinRange) {
+                // В робочий час - кожні 15 хвилин
+                triggerAt = System.currentTimeMillis() + (15 * 60 * 1000L)
+            } else {
+                // Вночі - плануємо на початок наступного робочого дня
+                var nextStart = now.toLocalDate().atTime(startTime)
+                if (currentTime.isAfter(endTime) || currentTime == endTime) {
+                    nextStart = nextStart.plusDays(1)
+                    // Оновити startTime для наступного дня, якщо використовується детальний графік
+                    if (settings.useDetailedSchedule) {
+                        val nextDay = nextStart.dayOfWeek.value
+                        val nextSchedule = settings.detailedSchedule[nextDay] ?: com.gogart.toxictask.settings.DaySchedule()
+                        nextStart = nextStart.toLocalDate().atTime(nextSchedule.startHour, nextSchedule.startMinute)
+                    }
+                }
+                triggerAt = nextStart.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                
+                // Якщо раптом час вже минув (наприклад, через зміну годинника), додаємо 15 хв
+                if (triggerAt <= System.currentTimeMillis()) {
+                    triggerAt = System.currentTimeMillis() + (15 * 60 * 1000L)
+                }
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)

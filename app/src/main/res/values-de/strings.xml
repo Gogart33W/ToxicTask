@@ -74,4 +74,5 @@
     <string name="day_7">So</string>
     <string name="mission_deployed">Mission gestartet</string>
     <string name="deploy_to_today">Heute erledigen</string>
+    <string name="rolled_over">Übertragen</string>
 </resources>

@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-07-05T23:32:43.437530800Z">
+        <DropdownSelection timestamp="2026-07-06T09:37:57.127522100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\gogar\.android\avd\Medium_Phone.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=robiqww87dqwmrj7" />
             </handle>
           </Target>
         </DropdownSelection>

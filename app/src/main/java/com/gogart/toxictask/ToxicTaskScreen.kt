@@ -334,12 +334,41 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                 }
 
                 if (pendingRollover.isNotEmpty()) {
+                    var selectedTasks by remember { mutableStateOf(pendingRollover.toSet()) }
                     AlertDialog(
                         onDismissRequest = { viewModel.clearRollover() },
                         title = { Text(stringResource(R.string.rollover_title), fontWeight = FontWeight.Bold) },
-                        text = { Text(stringResource(R.string.rollover_text, pendingRollover.size)) },
+                        text = {
+                            Column {
+                                Text(stringResource(R.string.rollover_text, pendingRollover.size))
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Box(modifier = Modifier.heightIn(max = 300.dp)) {
+                                    LazyColumn {
+                                        items(pendingRollover) { task ->
+                                            Row(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .clickable {
+                                                        selectedTasks = if (selectedTasks.contains(task)) selectedTasks - task else selectedTasks + task
+                                                    }
+                                                    .padding(vertical = 4.dp),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Checkbox(
+                                                    checked = selectedTasks.contains(task),
+                                                    onCheckedChange = { isChecked ->
+                                                        selectedTasks = if (isChecked) selectedTasks + task else selectedTasks - task
+                                                    }
+                                                )
+                                                Text(task.title, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         confirmButton = {
-                            Button(onClick = { viewModel.rolloverTasks(pendingRollover) }) {
+                            Button(onClick = { viewModel.rolloverTasks(selectedTasks.toList()) }) {
                                 Text(stringResource(R.string.rollover_move))
                             }
                         },
@@ -732,31 +761,53 @@ fun PrioritySelector(current: Priority, onSelect: (Priority) -> Unit) {
 @Composable
 fun TaskCard(task: TaskEntity, isDark: Boolean, onCheckedChange: (Boolean) -> Unit, onDelete: () -> Unit, onEdit: () -> Unit) {
     val priorityColor = if (task.priority == Priority.MEDIUM && !isDark) Color(0xFFC0A000) else task.priority.color
-    Surface(modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(20.dp)).clickable { onEdit() }, color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(20.dp)) {
+    Surface(
+        modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(20.dp)).clickable { if (!task.isRolledOver) onEdit() }, 
+        color = if (task.isRolledOver) MaterialTheme.colorScheme.surface.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surface, 
+        shape = RoundedCornerShape(20.dp)
+    ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(checked = task.isCompleted, onCheckedChange = onCheckedChange)
+            if (!task.isRolledOver) {
+                Checkbox(checked = task.isCompleted, onCheckedChange = onCheckedChange)
+            } else {
+                Icon(Icons.Rounded.ArrowForward, null, tint = Color.Gray, modifier = Modifier.padding(12.dp))
+            }
             Spacer(modifier = Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = task.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null)
+                Text(
+                    text = task.title, 
+                    style = MaterialTheme.typography.titleMedium, 
+                    fontWeight = FontWeight.Bold, 
+                    textDecoration = if (task.isCompleted || task.isRolledOver) TextDecoration.LineThrough else null,
+                    color = if (task.isRolledOver) Color.Gray else Color.Unspecified
+                )
                 if (task.notes.isNotBlank()) Text(task.notes, style = MaterialTheme.typography.bodySmall, color = Color.Gray, maxLines = 1)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(task.priority.icon, null, tint = priorityColor, modifier = Modifier.size(14.dp))
-                    Spacer(modifier = Modifier.width(4.dp))
-                    val labelRes = when(task.priority) {
-                        Priority.LOW -> R.string.priority_low
-                        Priority.MEDIUM -> R.string.priority_mid
-                        Priority.HARD -> R.string.priority_hardcore
-                    }
-                    Text(stringResource(labelRes), color = priorityColor, style = MaterialTheme.typography.labelSmall)
-                    if (task.deadlineTime != null) {
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Icon(Icons.Default.Timer, null, tint = Color.Gray, modifier = Modifier.size(12.dp))
+                    if (task.isRolledOver) {
+                        Surface(color = Color.Gray.copy(alpha = 0.2f), shape = RoundedCornerShape(4.dp)) {
+                            Text(stringResource(R.string.rolled_over).uppercase(), modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp), style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Black, color = Color.Gray)
+                        }
+                    } else {
+                        Icon(task.priority.icon, null, tint = priorityColor, modifier = Modifier.size(14.dp))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text(task.deadlineTime, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                        val labelRes = when(task.priority) {
+                            Priority.LOW -> R.string.priority_low
+                            Priority.MEDIUM -> R.string.priority_mid
+                            Priority.HARD -> R.string.priority_hardcore
+                        }
+                        Text(stringResource(labelRes), color = priorityColor, style = MaterialTheme.typography.labelSmall)
+                        if (task.deadlineTime != null) {
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Icon(Icons.Default.Timer, null, tint = Color.Gray, modifier = Modifier.size(12.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(task.deadlineTime, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                        }
                     }
                 }
             }
-            IconButton(onClick = onDelete) { Icon(Icons.Rounded.DeleteOutline, null, tint = Color.Gray) }
+            if (!task.isRolledOver) {
+                IconButton(onClick = onDelete) { Icon(Icons.Rounded.DeleteOutline, null, tint = Color.Gray) }
+            }
         }
     }
 }

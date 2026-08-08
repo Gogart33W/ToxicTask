@@ -86,4 +86,5 @@
     <string name="day_7">Нд</string>
     <string name="mission_deployed">Місію Розгорнуто</string>
     <string name="deploy_to_today">Додати на сьогодні</string>
+    <string name="rolled_over">Перенесено</string>
 </resources>

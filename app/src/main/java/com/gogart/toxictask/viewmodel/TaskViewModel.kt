@@ -65,13 +65,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     val playerStatus = tasks.map { list ->
         if (list == null) return@map PlayerRole.SLACKER
-        val totalCount = list.size
-        val totalWeight = list.sumOf { it.priority.weight }
-        val completedWeight = list.filter { it.isCompleted }.sumOf { it.priority.weight }
+        val activeTasks = list.filter { !it.isRolledOver }
+        val totalWeight = activeTasks.sumOf { it.priority.weight }
+        val completedWeight = activeTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
         val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
 
         when {
-            totalCount < 3 -> PlayerRole.SLACKER
+            list.size < 3 -> PlayerRole.SLACKER
             progress < 0.35f -> PlayerRole.SLACKER
             progress < 0.75f -> PlayerRole.WANNABE
             else -> PlayerRole.GIGACHAD
@@ -94,18 +94,18 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     val historyData = dao.getAllTasks().map { allTasks ->
         allTasks.groupBy { it.scheduledDate }.mapValues { (_, dayTasks) ->
-            val totalCount = dayTasks.size
-            val totalWeight = dayTasks.sumOf { it.priority.weight }
-            val completedWeight = dayTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
+            val activeTasks = dayTasks.filter { !it.isRolledOver }
+            val totalWeight = activeTasks.sumOf { it.priority.weight }
+            val completedWeight = activeTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
             val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
             
             val role = when {
-                totalCount < 3 -> PlayerRole.SLACKER
+                dayTasks.size < 3 -> PlayerRole.SLACKER
                 progress < 0.35f -> PlayerRole.SLACKER
                 progress < 0.75f -> PlayerRole.WANNABE
                 else -> PlayerRole.GIGACHAD
             }
-            Triple(progress, totalCount, dayTasks.count { it.isCompleted }) to role
+            Triple(progress, dayTasks.size, dayTasks.count { it.isCompleted && !it.isRolledOver }) to role
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
 
@@ -128,11 +128,29 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun rolloverTasks(tasks: List<TaskEntity>) {
+    fun rolloverTasks(selectedTasks: List<TaskEntity>) {
         viewModelScope.launch {
             val today = LocalDate.now().toString()
-            tasks.forEach { task ->
-                dao.updateTask(task.copy(scheduledDate = today))
+            val todayTasks = dao.getTasksByDate(today).first()
+            
+            selectedTasks.forEach { task ->
+                // Перевіряємо чи це повторювана задача і чи вона вже є сьогодні
+                val alreadyExists = task.taskType == TaskType.WEEKLY && 
+                                    todayTasks.any { it.title == task.title && it.taskType == TaskType.WEEKLY }
+                
+                if (!alreadyExists) {
+                    // Створюємо копію на сьогодні
+                    dao.insertTask(task.copy(
+                        id = 0, 
+                        scheduledDate = today, 
+                        isCompleted = false, 
+                        isRolledOver = false,
+                        timestamp = System.currentTimeMillis()
+                    ))
+                }
+                
+                // Стару задачу маркуємо як перенесену
+                dao.updateTask(task.copy(isRolledOver = true))
             }
         }
     }
@@ -142,30 +160,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun checkAndAddRepeatingTasks() {
-        val today = LocalDate.now()
-        val todayStr = today.toString()
-        val dayOfWeek = today.dayOfWeek.value.toString()
-        
-        val allTasks = dao.getAllTasks().first()
-        val repeatingTemplates = allTasks
-            .filter { it.taskType == TaskType.WEEKLY && it.repeatDays.contains(dayOfWeek) }
-            .distinctBy { it.title }
-        
-        val todayExisting = dao.getTasksByDate(todayStr).first()
-        
-        repeatingTemplates.forEach { template ->
-            if (todayExisting.none { it.title == template.title && it.taskType == template.taskType }) {
-                dao.insertTask(TaskEntity(
-                    title = template.title,
-                    priority = template.priority,
-                    scheduledDate = todayStr,
-                    deadlineTime = template.deadlineTime,
-                    notes = "",
-                    taskType = template.taskType,
-                    repeatDays = template.repeatDays
-                ))
-            }
-        }
+        TaskUtils.checkAndAddRepeatingTasks(dao)
     }
 
     fun setDate(date: LocalDate) {
@@ -251,8 +246,21 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteRecurringTemplate(title: String) {
         viewModelScope.launch {
             val all = dao.getAllTasks().first()
-            all.filter { it.title == title && it.taskType == TaskType.WEEKLY }.forEach {
-                dao.deleteTask(it)
+            val today = LocalDate.now()
+            all.filter { it.title == title && it.taskType == TaskType.WEEKLY }.forEach { task ->
+                val taskDate = try {
+                    LocalDate.parse(task.scheduledDate)
+                } catch (e: Exception) {
+                    today
+                }
+                
+                if (taskDate.isAfter(today)) {
+                    dao.deleteTask(task)
+                } else {
+                    // Перетворюємо старі таски на звичайні, щоб вони лишилися в історії,
+                    // але перестали бути шаблонами для нових днів.
+                    dao.updateTask(task.copy(taskType = TaskType.ONE_TIME))
+                }
             }
         }
     }

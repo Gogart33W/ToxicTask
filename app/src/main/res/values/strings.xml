@@ -86,4 +86,5 @@
     <string name="day_7">Sun</string>
     <string name="mission_deployed">Mission Deployed</string>
     <string name="deploy_to_today">Grind Today</string>
+    <string name="rolled_over">Rolled Over</string>
 </resources>

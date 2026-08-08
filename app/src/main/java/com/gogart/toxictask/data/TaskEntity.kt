@@ -20,5 +20,6 @@ data class TaskEntity(
     val deadlineTime: String? = null, // HH:mm
     val notes: String = "",
     val taskType: TaskType = TaskType.ONE_TIME,
-    val repeatDays: String = "" // e.g. "1,3,5" for Mon, Wed, Fri
+    val repeatDays: String = "", // e.g. "1,3,5" for Mon, Wed, Fri
+    val isRolledOver: Boolean = false
 )
