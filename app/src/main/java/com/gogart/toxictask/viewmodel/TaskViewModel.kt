@@ -14,6 +14,7 @@ import com.gogart.toxictask.settings.NotificationSettings
 import com.gogart.toxictask.data.backup.BackupManager
 import com.gogart.toxictask.settings.SettingsManager
 import com.gogart.toxictask.ui.theme.ThemeMode
+import com.gogart.toxictask.utils.AnalyticsManager
 import com.gogart.toxictask.utils.TaskUtils
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -33,12 +34,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val dao = db.taskDao()
     private val settingsManager = SettingsManager(application)
     private val backupManager = BackupManager(application)
+    private val analyticsManager = AnalyticsManager(application)
 
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
     private val _ignoredRollover = MutableStateFlow(false)
-    val pendingRolloverTasks: StateFlow<List<TaskEntity>> = dao.observeUncompletedTasksBefore(LocalDate.now().toString())
+    val pendingRolloverTasks: StateFlow<List<TaskEntity>> = dao.observeUncompletedTasksOn(LocalDate.now().minusDays(1).toString())
         .combine(_ignoredRollover) { tasks, ignored ->
             if (ignored) emptyList() else tasks
         }
@@ -130,6 +132,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun rolloverTasks(selectedTasks: List<TaskEntity>) {
         viewModelScope.launch {
+            analyticsManager.logTaskRollover(selectedTasks.size)
+            
             val today = LocalDate.now().toString()
             val todayTasks = dao.getTasksByDate(today).first()
             
@@ -189,6 +193,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addTask(title: String, priority: Priority, deadline: String? = null, notes: String = "", type: TaskType = TaskType.ONE_TIME, repeatDays: String = "") {
         viewModelScope.launch {
+            analyticsManager.logTaskCreated(type.name, priority.weight)
+            
             settingsManager.setLastTaskAddedTime(System.currentTimeMillis())
             val date = _selectedDate.value
             val scheduledDate = when (type) {

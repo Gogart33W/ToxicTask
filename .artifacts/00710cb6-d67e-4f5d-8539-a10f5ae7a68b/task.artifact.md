@@ -1,0 +1,8 @@
+- [ ] Update `libs.versions.toml` with Firebase versions.
+- [ ] Add Google Services & Crashlytics plugins to project `build.gradle.kts`.
+- [ ] Add plugins, dependencies, and bump version in app `build.gradle.kts`.
+- [ ] Modify `TaskDao.kt` for strict yesterday logic on rollover tasks.
+- [ ] Create `AnalyticsManager.kt`.
+- [ ] Update `TaskViewModel.kt` to use the new DAO method and log events via `AnalyticsManager`.
+- [ ] Build and verify (with a dummy `google-services.json`).
+- [ ] Commit changes locally.
