@@ -1,8 +1,7 @@
-- [ ] Update `libs.versions.toml` with Firebase versions.
-- [ ] Add Google Services & Crashlytics plugins to project `build.gradle.kts`.
-- [ ] Add plugins, dependencies, and bump version in app `build.gradle.kts`.
-- [ ] Modify `TaskDao.kt` for strict yesterday logic on rollover tasks.
-- [ ] Create `AnalyticsManager.kt`.
-- [ ] Update `TaskViewModel.kt` to use the new DAO method and log events via `AnalyticsManager`.
-- [ ] Build and verify (with a dummy `google-services.json`).
-- [ ] Commit changes locally.
+- [ ] Update `libs.versions.toml` with `androidx-fragment-ktx` version `1.8.4`.
+- [ ] Add `implementation(libs.androidx.fragment.ktx)` to `app/build.gradle.kts`.
+- [ ] Verify `enableEdgeToEdge()` in `MainActivity.kt`.
+- [ ] Check `ToxicTaskScreen.kt` for proper `WindowInsets` handling (e.g., `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)`).
+- [ ] Bump `versionCode` to 10 and `versionName` to "1.0.9" in `app/build.gradle.kts`.
+- [ ] Build project to ensure no errors.
+- [ ] Commit changes.

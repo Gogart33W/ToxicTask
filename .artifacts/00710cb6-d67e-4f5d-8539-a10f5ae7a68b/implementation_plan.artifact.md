@@ -1,57 +1,49 @@
-# ToxicTask Feature Implementation Plan
+# Plan to Resolve Google Play Console Warnings (Release 1.0.9)
 
 ## Goal Description
-Implement strict "yesterday-only" logic for task rollover and integrate Firebase Analytics & Crashlytics, ensuring clean architecture, best practices, and no breaking changes to the existing database schema.
+The Google Play Console flagged three technical quality issues in the `1.0.8` release:
+1. Deprecated `androidx.fragment:fragment` version.
+2. Two warnings related to Edge-to-Edge display compatibility on newer Android versions.
+
+The goal is to fix these warnings by updating dependencies, ensuring proper Edge-to-Edge implementation in Jetpack Compose, and bumping the app version to `1.0.9` (`versionCode 10`) to improve the app's ranking and recommendation potential on the Play Store.
 
 ## User Review Required
-> [!IMPORTANT]
-> The Firebase integration requires a valid `google-services.json` file to be placed inside the `app/` directory to compile and run successfully with Firebase enabled. Since I cannot generate this file on your behalf, you'll need to add it yourself either before or after I apply these code changes. **Please confirm if you are okay with proceeding, knowing this file is required for successful builds.**
+> [!NOTE]
+> We will force the `androidx.fragment:fragment-ktx` version to `1.8.4` (or the latest stable) via dependencies to satisfy the Play Console warning, even though Compose handles the UI.
+> We will also ensure `enableEdgeToEdge()` is called properly in `MainActivity` and check `ToxicTaskScreen` to ensure `WindowInsets.safeDrawing` or similar is used to prevent content from going under system bars.
 
 ## Proposed Changes
 
-### Feature 1: Fix Task Rollover Logic (Strictly Yesterday)
-
-#### [MODIFY] [TaskDao.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/data/TaskDao.kt)
-- Update the SQL query for fetching pending rollover tasks.
-- Change `scheduledDate < :date` to `scheduledDate = :date`.
-- Rename `observeUncompletedTasksBefore` to `observeUncompletedTasksOn`.
-
-#### [MODIFY] [TaskViewModel.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/viewmodel/TaskViewModel.kt)
-- Update the call to the DAO in `pendingRolloverTasks`.
-- Pass exactly yesterday's date `LocalDate.now().minusDays(1).toString()` instead of today's date.
-- This ensures only yesterday's unfinished tasks prompt the user for rollover.
-
----
-
-### Feature 2: Firebase Integration (Analytics & Crashlytics)
+### Resolve Deprecated Fragment Version
 
 #### [MODIFY] [libs.versions.toml](file:///home/gogart/AndroidStudioProjects/ToxicTask/gradle/libs.versions.toml)
-- Add versions for Firebase BoM (`33.9.0`) and Crashlytics Gradle Plugin (`3.0.3`).
-- Define libraries for `firebase-bom`, `firebase-analytics`, and `firebase-crashlytics`.
-- Define the plugin alias for `firebase-crashlytics`.
+- Add a version definition for `androidx-fragment` (e.g., `1.8.4`).
+- Add a library definition for `androidx-fragment-ktx`.
 
-#### [MODIFY] [build.gradle.kts (Project)](file:///home/gogart/AndroidStudioProjects/ToxicTask/build.gradle.kts)
-- Include the `google-services` and `firebase-crashlytics` plugins at the top level with `apply false`.
+#### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
+- Add `implementation(libs.androidx.fragment.ktx)` to force the newer fragment version into the dependency tree.
 
-#### [MODIFY] [build.gradle.kts (App)](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
-- Apply `com.google.gms.google-services` and `com.google.firebase.crashlytics` plugins.
-- Add dependencies for the Firebase BoM, Analytics, and Crashlytics using the platform paradigm.
+### Resolve Edge-to-Edge Warnings
 
-#### [NEW] [AnalyticsManager.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/utils/AnalyticsManager.kt)
-- Create a helper class injected or instantiated in the ViewModel.
-- Initialize `FirebaseAnalytics.getInstance(context)`.
-- Expose suspend functions (`logTaskRollover`, `logTaskCreated`) that safely execute logging on `Dispatchers.IO`.
+#### [MODIFY] [MainActivity.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/MainActivity.kt)
+- Ensure `enableEdgeToEdge()` is called *before* `setContent` (it already is, but we will double-check).
+- Check for and remove any legacy window flag manipulations if they exist (though this seems unlikely given the current Compose setup).
 
-#### [MODIFY] [TaskViewModel.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/viewmodel/TaskViewModel.kt)
-- Instantiate `AnalyticsManager`.
-- Hook up event logging within the `rolloverTasks` and `addTask` coroutines.
+#### [MODIFY] [ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
+- Ensure the root `Scaffold` or `Box` uses `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)` (or similar like `.systemBarsPadding()`) so UI elements don't overlap with the navigation/status bars.
+
+### Version Bump
+
+#### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
+- Increment `versionCode` to `10`.
+- Increment `versionName` to `"1.0.9"`.
 
 ## Verification Plan
 
 ### Automated Tests
-- Validate Gradle sync successfully processes the new dependencies and plugins.
-- Note: Application build will likely fail locally *unless* the `google-services.json` file is present.
+- Build the project successfully (`app:assembleRelease`).
+- Check lint warnings related to Edge-to-Edge or Fragment versions.
 
 ### Manual Verification
-- Review the modified DAO and ViewModel code to ensure Room schema is completely untouched.
-- Verify `AnalyticsManager` uses `Dispatchers.IO` for logging calls, as requested for clean coroutines execution.
+- Review the `MainActivity.kt` and `ToxicTaskScreen.kt` changes to confirm proper Edge-to-Edge setup according to Jetpack Compose guidelines.
+- Build the AAB and note that the user will upload it to Play Console to see the warnings disappear.
