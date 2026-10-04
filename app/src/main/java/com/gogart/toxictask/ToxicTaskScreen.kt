@@ -988,18 +988,25 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                 item {
                     Column {
                         Text(stringResource(R.string.toxicity_level), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                        @OptIn(ExperimentalLayoutApi::class)
-                        FlowRow(
+                        Row(
                             modifier = Modifier.padding(top = 8.dp).fillMaxWidth(), 
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             val levels = listOf(ToxicityLevel.LOW to R.string.toxicity_low, ToxicityLevel.NORMAL to R.string.toxicity_normal, ToxicityLevel.EXTREME to R.string.toxicity_extreme)
                             levels.forEach { (level, labelRes) ->
                                 FilterChip(
                                     selected = notifySettings.toxicityLevel == level, 
                                     onClick = { onNotifySettingsChange(notifySettings.copy(toxicityLevel = level)) }, 
-                                    label = { Text(stringResource(labelRes)) }
+                                    label = { 
+                                        Text(
+                                            text = stringResource(labelRes),
+                                            maxLines = 1,
+                                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) 
+                                    },
+                                    modifier = Modifier.weight(1f)
                                 )
                             }
                         }
