@@ -1,49 +1,43 @@
-# Plan to Resolve Google Play Console Warnings (Release 1.0.9)
+# Plan to Resolve Remaining Edge-to-Edge Warnings (Release 1.0.10)
 
 ## Goal Description
-The Google Play Console flagged three technical quality issues in the `1.0.8` release:
-1. Deprecated `androidx.fragment:fragment` version.
-2. Two warnings related to Edge-to-Edge display compatibility on newer Android versions.
+The Google Play Console still shows two warnings related to edge-to-edge display:
+- "Безрамковий показ може працювати не для всіх користувачів"
+- "У вашому додатку використовуються застарілі інтерфейси API або параметри для безрамкового показу"
 
-The goal is to fix these warnings by updating dependencies, ensuring proper Edge-to-Edge implementation in Jetpack Compose, and bumping the app version to `1.0.9` (`versionCode 10`) to improve the app's ranking and recommendation potential on the Play Store.
+Upon investigation, the root cause is that the main `Scaffold` has `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)` applied directly to it. This shrinks the entire scaffold (including the top and bottom app bars) away from the system edges, effectively creating black/white borders instead of true edge-to-edge rendering where the app bar backgrounds extend behind the system bars. Also, `android:windowSoftInputMode="adjustResize"` is missing from the Manifest, and `window.isNavigationBarContrastEnforced` needs to be set to `false` so the system doesn't draw an ugly semi-transparent box over the bottom navigation bar.
+
+We will fix these UI/UX parameters and bump the version to `1.0.10` (`versionCode 11`) to submit a perfectly clean build.
 
 ## User Review Required
-> [!NOTE]
-> We will force the `androidx.fragment:fragment-ktx` version to `1.8.4` (or the latest stable) via dependencies to satisfy the Play Console warning, even though Compose handles the UI.
-> We will also ensure `enableEdgeToEdge()` is called properly in `MainActivity` and check `ToxicTaskScreen` to ensure `WindowInsets.safeDrawing` or similar is used to prevent content from going under system bars.
+> [!TIP]
+> This plan will fully align the app with modern Android 15 edge-to-edge standards. No action is required from you other than approval, but after I implement this, you will need to push the new `.aab` to Play Console.
 
 ## Proposed Changes
 
-### Resolve Deprecated Fragment Version
-
-#### [MODIFY] [libs.versions.toml](file:///home/gogart/AndroidStudioProjects/ToxicTask/gradle/libs.versions.toml)
-- Add a version definition for `androidx-fragment` (e.g., `1.8.4`).
-- Add a library definition for `androidx-fragment-ktx`.
-
-#### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
-- Add `implementation(libs.androidx.fragment.ktx)` to force the newer fragment version into the dependency tree.
-
-### Resolve Edge-to-Edge Warnings
-
-#### [MODIFY] [MainActivity.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/MainActivity.kt)
-- Ensure `enableEdgeToEdge()` is called *before* `setContent` (it already is, but we will double-check).
-- Check for and remove any legacy window flag manipulations if they exist (though this seems unlikely given the current Compose setup).
+### Resolve Edge-to-Edge Misconfigurations
 
 #### [MODIFY] [ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
-- Ensure the root `Scaffold` or `Box` uses `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)` (or similar like `.systemBarsPadding()`) so UI elements don't overlap with the navigation/status bars.
+- Remove `.windowInsetsPadding(WindowInsets.safeDrawing)` from the main `Scaffold` modifier.
+- Since we use standard `TopAppBar` and `NavigationBar`, they handle insets themselves. We just need to make sure we use `paddingValues` correctly inside the `Box` content lambda (which is already happening!).
+
+#### [MODIFY] [AndroidManifest.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/AndroidManifest.xml)
+- Add `android:windowSoftInputMode="adjustResize"` to the `<activity>` tag for `.MainActivity`. This is a requirement for modern Compose IME edge-to-edge handling so the keyboard doesn't overlap input fields.
+
+#### [MODIFY] [MainActivity.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/MainActivity.kt)
+- Add `window.isNavigationBarContrastEnforced = false` (for Android Q / 29+) in `onCreate()`. This prevents the system from drawing an automatic scrim behind the bottom bar, ensuring the `NavigationBar` uses the app's clean color.
 
 ### Version Bump
 
 #### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
-- Increment `versionCode` to `10`.
-- Increment `versionName` to `"1.0.9"`.
+- Increment `versionCode` to `11`.
+- Increment `versionName` to `"1.0.10"`.
 
 ## Verification Plan
 
 ### Automated Tests
 - Build the project successfully (`app:assembleRelease`).
-- Check lint warnings related to Edge-to-Edge or Fragment versions.
 
 ### Manual Verification
-- Review the `MainActivity.kt` and `ToxicTaskScreen.kt` changes to confirm proper Edge-to-Edge setup according to Jetpack Compose guidelines.
-- Build the AAB and note that the user will upload it to Play Console to see the warnings disappear.
+- Review the `AndroidManifest.xml`, `ToxicTaskScreen.kt` and `MainActivity.kt` files.
+- The new `app-release.aab` will be ready to upload to Play Console to clear the final two UI warnings.

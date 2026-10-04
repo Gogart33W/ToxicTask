@@ -149,7 +149,7 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
     val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
 
     Scaffold(
-                modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing),
+                modifier = Modifier.fillMaxSize(),
                 floatingActionButton = {
                     if (currentTab == 0) {
                         FloatingActionButton(

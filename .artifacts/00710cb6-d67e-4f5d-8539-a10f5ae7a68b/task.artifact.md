@@ -1,7 +1,6 @@
-- [ ] Update `libs.versions.toml` with `androidx-fragment-ktx` version `1.8.4`.
-- [ ] Add `implementation(libs.androidx.fragment.ktx)` to `app/build.gradle.kts`.
-- [ ] Verify `enableEdgeToEdge()` in `MainActivity.kt`.
-- [ ] Check `ToxicTaskScreen.kt` for proper `WindowInsets` handling (e.g., `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)`).
-- [ ] Bump `versionCode` to 10 and `versionName` to "1.0.9" in `app/build.gradle.kts`.
-- [ ] Build project to ensure no errors.
-- [ ] Commit changes.
+- [ ] Remove `.windowInsetsPadding` from `Scaffold` in `ToxicTaskScreen.kt`
+- [ ] Add `android:windowSoftInputMode="adjustResize"` to `AndroidManifest.xml`
+- [ ] Add `isNavigationBarContrastEnforced = false` to `MainActivity.kt`
+- [ ] Bump version to `1.0.10` in `app/build.gradle.kts`
+- [ ] Verify build
+- [ ] Commit changes
