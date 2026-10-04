@@ -1,10 +1,7 @@
-- [ ] Track Task Progress
-- [ ] Create `res/values/arrays.xml` and `plurals.xml` for English
-- [ ] Create `res/values-uk/arrays.xml` and `plurals.xml` for Ukrainian
-- [ ] Create `res/values-de/arrays.xml` and `plurals.xml` for German
-- [ ] Update `strings.xml` to remove legacy plurals and add time error strings
-- [ ] Refactor `Strings.kt` to use Android resource arrays
-- [ ] Refactor `ToxicAlarmReceiver.kt` and `TaskViewModel.kt` context passing
-- [ ] Refactor `ToxicTaskScreen.kt` for proper plurals and weekday arrays
-- [ ] Verify build
-- [ ] Create git commit
+- [ ] Unify terminology in `values-uk/strings.xml` to "Таска" and update "Екстремальний" to "Екстрим".
+- [ ] Fix German translation in `values-de/strings.xml` (add missing keys, fix tone/grammar).
+- [ ] Add `disclaimer_content_desc` to English `values/strings.xml`.
+- [ ] Fix UI bug in `ToxicTaskScreen.kt` by using `FlowRow` for Toxicity levels.
+- [ ] Fix Date format in `ToxicTaskScreen.kt` using `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
+- [ ] Verify Build.
+- [ ] Commit changes locally (Without version bump).

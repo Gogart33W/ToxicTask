@@ -1,54 +1,52 @@
-# Plan to Refactor Localization and Expand "Toxic" Strings
+# Plan to Polish Localization and Fix UI Formatting (Release 1.0.11)
 
 ## Goal Description
-The current string architecture hardcodes "toxic" phrases in Kotlin logic (`Strings.kt`) across `when` expressions, which doesn't scale and makes translation expansion hard. English and German translations are heavily lacking in volume and variety (only 2-3 phrases per bucket), and grammar is broken in places (plurals, incorrect context).
-The goal is to refactor string logic to Android's built-in `string-array` and `plurals` resource system, fix the existing EN, UK, and DE grammar, expand the phrase pools significantly, and ensure push notifications respect the toxicity levels.
+The current UI strings are suffering from several translation inconsistencies, grammatical errors, and layout bugs.
+Specifically:
+- German translation has missing keys, bad terminology ("STREBER", "ABFALL"), formal/informal mixing ("Sie" vs "du"), and inconsistent caps.
+- Ukrainian translation mixes "місії", "таски", "цілі", and "задачі". The user prefers unifying this around "Таски" / "Таска" / "Таску".
+- UI bug: The "Екстремальний" chip in settings wraps awkwardly and breaks the layout.
+- The date formatter is hardcoded to US format ("MMM dd, yyyy").
+- Accessibility lacks a localized string for the disclaimer icon.
+
+The goal is to fix all translation files, align terminology, fix date formatting using a locale-aware formatter, fix the Chip layout bug, and bump the version to 1.0.11.
 
 ## User Review Required
-> [!IMPORTANT]
-> - We will be removing the hardcoded phrases from `Strings.kt` and converting them into `arrays.xml` and `plurals.xml` in the resource folders (`res/values`, `res/values-uk`, `res/values-de`).
-> - We will also increase the phrase variation for all 3 supported languages, ensuring EN and DE are as expressive and varied as the UK version.
-> - The profanity in the UK version ("довбойоб", "їбаш") is kept for the "Extreme" level as it's the core identity, but I will make sure the EN and DE "Extreme" versions match that tone accurately.
-> - **We are not bumping the version code** as requested, as this will just be a commit on the current version branch.
+> [!NOTE]
+> - Terminology in Ukrainian will be unified to "Таска" / "Таски" (e.g., "НОВА ТАСКА", "РЕДАГУВАТИ ТАСКУ").
+> - The layout issue with the "Екстремальний" chip will be fixed by allowing the chips to wrap to a new line (using FlowRow or standard scrollable Row if horizontal space is tight). Since it's inside a `Row(horizontalArrangement = Arrangement.spacedBy(4.dp))`, we will change it to an `Auto-wrapping` layout or just let the text size down if needed.
+> - Date formatting will use `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
 
 ## Proposed Changes
 
-### Feature 1: Move Phrases to `arrays.xml`
+### Feature 1: Polish Translations and Unify Terminology
+#### [MODIFY] [res/values/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values/strings.xml)
+- Add missing keys if any.
+- Change `disclaimer_content_desc` (new string for accessibility).
 
-#### [NEW] `res/values/arrays.xml`
-Create English (default) string arrays for:
-- 3 Toxicity Levels x 3 Roles (e.g. `insults_slacker_mild`, `insults_gigachad_extreme`)
-- Notification variants (e.g., `notif_inactive_title`, `notif_inactive_body`)
-- Empty state insults
+#### [MODIFY] [res/values-uk/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values-uk/strings.xml)
+- Unify terminology: `НОВА МІСІЯ` -> `НОВА ТАСКА`, `ПОТОЧНІ ЦІЛІ` -> `ПОТОЧНІ ТАСКИ`, `МІСІЇ ВІДСУТНІ` -> `ТАСКИ ВІДСУТНІ`, etc.
+- Change "Екстремальний" to "Екстрим" (or "Жорсткий") to prevent the severe text-wrapping UI bug on narrow screens, while keeping the meaning.
 
-#### [NEW] `res/values-uk/arrays.xml` & `res/values-de/arrays.xml`
-Create the localized versions, expanding the arrays to have at least 5-8 unique variations per bucket.
+#### [MODIFY] [res/values-de/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values-de/strings.xml)
+- Fix missing keys.
+- Fix grammar and terminology (e.g., `role_wannabe` -> `MÖCHTEGERN`, `role_extreme_lox` -> `VERSAGER`, `disclaimer_text` -> informal "du").
+- Ensure caps match English equivalents.
 
-### Feature 2: Fix Plurals
-
-#### [MODIFY/NEW] `res/values/strings.xml`, `values-uk/strings.xml`, `values-de/strings.xml`
-- Introduce `<plurals name="rollover_text">` to handle "1 task" vs "2 tasks".
-- Fix streak plurals logic to rely on native `plurals.xml` instead of the hardcoded mod-10 logic in Kotlin.
-
-### Feature 3: Refactor Kotlin Logic
-
-#### [MODIFY] [Strings.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/Strings.kt)
-- Remove all hardcoded string lists.
-- Update functions like `getInsults`, `getEmptyInsults`, and `getNotificationStrings` to accept `Context` and load from the respective XML resources using `context.resources.getStringArray(R.array.xxx)`.
-- Improve the randomizer to avoid repeating the last seen phrase (we can hold the last phrase in memory).
-
-#### [MODIFY] [ToxicAlarmReceiver.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/worker/ToxicAlarmReceiver.kt)
-- Pass `context` to the refactored `ToxicStrings` functions.
-
-#### [MODIFY] [TaskViewModel.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/viewmodel/TaskViewModel.kt)
-- Access strings using `getApplication<Application>()` as context for the `Combine` flow that resolves the insult.
-
+### Feature 2: Fix UI Layouts and Formatters
 #### [MODIFY] [ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
-- Fix the hardcoded "M T W T F S S" and "Пн Вт Ср..." for repeating days. Use the `day_1` through `day_7` string resources already present in the XML.
+- **Date Format**: Change `DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.getDefault())` to `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
+- **Accessibility**: Add localized `contentDescription` for the Info icon.
+- **Chip Wrapping**: Change the `Row` holding the toxicity levels to `ExperimentalLayoutApi FlowRow` so if translations are too long (like "Екстремальний" or "Extrem"), they wrap gracefully instead of squishing and breaking text. Alternatively, use a `ScrollableRow`. Since it's a settings dialog, `FlowRow` is perfect.
+
+### Feature 3: Version Bump
+- Bump `versionCode` to 12.
+- Bump `versionName` to `1.0.11`.
 
 ## Verification Plan
 ### Automated Tests
-- Gradle sync and build.
+- `app:assembleDebug`
+
 ### Manual Verification
-- Review the `ToxicTaskScreen.kt` changes to ensure localized day letters are used.
-- Check `Strings.kt` to ensure Context is correctly passed and strings are loaded from arrays.
+- Verify the settings dialog chips no longer squish text.
+- Verify the date selector displays correctly localized dates (e.g., "04 жовт. 2026" for UK, "04. Okt. 2026" for DE).

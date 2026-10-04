@@ -14,7 +14,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -815,7 +816,7 @@ fun TaskCard(task: TaskEntity, isDark: Boolean, onCheckedChange: (Boolean) -> Un
 fun DateSelector(selectedDate: LocalDate, onDateSelected: (LocalDate) -> Unit) {
     Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
         IconButton(onClick = { onDateSelected(selectedDate.minusDays(1)) }) { Icon(Icons.Default.ChevronLeft, null) }
-        Text(text = if (selectedDate == LocalDate.now()) stringResource(R.string.today) else selectedDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.getDefault())), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 16.dp))
+        Text(text = if (selectedDate == LocalDate.now()) stringResource(R.string.today) else selectedDate.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM).withLocale(Locale.getDefault())), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 16.dp))
         IconButton(onClick = { onDateSelected(selectedDate.plusDays(1)) }) { Icon(Icons.Default.ChevronRight, null) }
     }
 }
@@ -954,7 +955,7 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                 Text(stringResource(R.string.settings), fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = { showDisclaimer = true }) {
-                    Icon(Icons.Rounded.Info, contentDescription = "Disclaimer")
+                    Icon(Icons.Rounded.Info, contentDescription = stringResource(R.string.disclaimer_content_desc))
                 }
             }
         },
@@ -985,7 +986,8 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                 item {
                     Column {
                         Text(stringResource(R.string.toxicity_level), style = MaterialTheme.typography.labelLarge, color = Color.Gray)
-                        Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        @OptIn(ExperimentalLayoutApi::class)
+                        FlowRow(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             val levels = listOf(ToxicityLevel.LOW to R.string.toxicity_low, ToxicityLevel.NORMAL to R.string.toxicity_normal, ToxicityLevel.EXTREME to R.string.toxicity_extreme)
                             levels.forEach { (level, labelRes) ->
                                 FilterChip(selected = notifySettings.toxicityLevel == level, onClick = { onNotifySettingsChange(notifySettings.copy(toxicityLevel = level)) }, label = { Text(stringResource(labelRes)) })

@@ -66,6 +66,7 @@
     <string name="priority_hardcore">Hardcore</string>
     <string name="about_us">About Us</string>
     <string name="disclaimer_title">Disclaimer</string>
+    <string name="disclaimer_content_desc">Disclaimer Information</string>
     <string name="disclaimer_text">ToxicTask is a motivational productivity tool. The \"insults\" and status labels are meant for entertainment and psychological nudge purposes only. We do not intend to offend anyone. If you find this style unsuitable, please set Toxicity Level to Mild or disable notifications in Settings. Grind on!</string>
     <string name="delete_confirm_title">Delete mission?</string>
     <string name="delete_confirm_text">Delete this mission? Giving up or just a misclick? Real Gigachads don\'t run from challenges, they destroy them.</string>

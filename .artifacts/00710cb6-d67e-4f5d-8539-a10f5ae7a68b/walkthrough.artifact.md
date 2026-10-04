@@ -1,14 +1,14 @@
-# Complete Edge-to-Edge Fix
+# Localization and Toxic String Refactoring
 
-The app has been thoroughly updated to conform strictly with modern Android edge-to-edge layout requirements.
+The codebase has been refactored to remove all hardcoded "toxic" logic from `Strings.kt`, resolving repeated-phrase bugs, bad English/German localization, and flawed pluralization.
 
 ## Changes Made
-- **Removed Layout Constraint**: Removed `windowInsetsPadding(WindowInsets.safeDrawing)` directly from the root `Scaffold` in `ToxicTaskScreen.kt`. The Scaffold components (TopAppBar, NavigationBar) inherently handle edge rendering to create a genuine borderless look.
-- **Keyboard Handling**: Added `android:windowSoftInputMode="adjustResize"` to the `<activity>` tag in `AndroidManifest.xml` to ensure software keyboards properly shift layout elements instead of overlapping them.
-- **Clean Navigation Bar**: Appended `window.isNavigationBarContrastEnforced = false` in `MainActivity.kt` to disable the default Android system scrim placed behind the bottom navigation bar on newer API levels (API 29+).
-- **Version Bump**: Bumped to **1.0.10** (`versionCode 11`).
+- **Resource Extraction**: Created `arrays.xml` inside `res/values/`, `res/values-de/`, and `res/values-uk/`. All strings (insults, empty lists, push notification bodies and titles) have been moved into language-specific resource arrays.
+- **Phrase Expansion**:
+    - The EN and DE versions now have as much unique content and aggressive tone as the original UK version.
+    - Added dedicated extreme, normal, and mild arrays, guaranteeing the chosen notifications precisely match the toxicity level set in settings.
+- **Plurals Fixed**: Removed the `%10` Kotlin hack for Ukrainian streaks. We now use standard `<plurals>` formatting which automatically selects `one`, `few`, `many`, or `other` correctly across languages. The "roll-over" string was also converted to a plural format to avoid grammar bugs like "Only 1 tasks".
+- **Dynamic Days of the Week**: Weekday strings ("Пн", "Вт" vs "M", "T") are no longer hardcoded in Compose. They are fetched from `R.array.week_days_short`.
+- **Anti-Repetition Logic**: `Strings.kt` now tracks the last shown string in memory to guarantee the user rarely sees the same insult twice in a row.
 
-## Result
-Google Play's automated pre-launch reports should now report zero warnings related to layout edge-to-edge support or accessibility issues under the system bars.
-
-The release build (`assembleRelease`) is verified and ready for upload to Google Play.
+The application has been successfully compiled (`app:assembleDebug`) and all translations appear intact and properly configured.
