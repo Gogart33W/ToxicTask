@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ToxicTask</string>
     <string name="status_label">STATUS:</string>
@@ -25,7 +26,6 @@
     <string name="nag_until_100">Nag until 100%</string>
     <string name="history">History</string>
     <string name="tasks">Tasks</string>
-    <string name="streak_label">Streak: %1$d days</string>
     <string name="set_deadline">Set Deadline</string>
     <string name="deadline_label">Deadline: %1$s</string>
     <string name="today">TODAY</string>
@@ -66,13 +66,12 @@
     <string name="priority_hardcore">Hardcore</string>
     <string name="about_us">About Us</string>
     <string name="disclaimer_title">Disclaimer</string>
-    <string name="disclaimer_text">ToxicTask is a motivational productivity tool. The "insults" and status labels are meant for entertainment and psychological nudge purposes only. We do not intend to offend anyone. If you find this style unsuitable, please set Toxicity Level to Mild or disable notifications in Settings. Grind on!</string>
+    <string name="disclaimer_text">ToxicTask is a motivational productivity tool. The \"insults\" and status labels are meant for entertainment and psychological nudge purposes only. We do not intend to offend anyone. If you find this style unsuitable, please set Toxicity Level to Mild or disable notifications in Settings. Grind on!</string>
     <string name="delete_confirm_title">Delete mission?</string>
     <string name="delete_confirm_text">Delete this mission? Giving up or just a misclick? Real Gigachads don\'t run from challenges, they destroy them.</string>
     <string name="delete_confirm_yes">Yes, delete</string>
     <string name="delete_confirm_no">No, wait</string>
     <string name="rollover_title">UNFINISHED BUSINESS</string>
-    <string name="rollover_text">You left %d tasks uncompleted. Move them to today, slacker?</string>
     <string name="rollover_move">YES, MOVE</string>
     <string name="rollover_ignore">NO, I\'M A LOSER</string>
     <string name="recurring_missions">RECURRING MISSIONS</string>
@@ -87,4 +86,7 @@
     <string name="mission_deployed">Mission Deployed</string>
     <string name="deploy_to_today">Grind Today</string>
     <string name="rolled_over">Rolled Over</string>
+    <string name="time_fix_msg">Changed to 23:59. Even my code knows time better than you, slacker.</string>
+    <string name="time_fix_title">FIXED</string>
+    <string name="time_error_title">TIME ERROR</string>
 </resources>

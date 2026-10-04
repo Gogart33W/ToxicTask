@@ -1,6 +1,10 @@
-- [ ] Remove `.windowInsetsPadding` from `Scaffold` in `ToxicTaskScreen.kt`
-- [ ] Add `android:windowSoftInputMode="adjustResize"` to `AndroidManifest.xml`
-- [ ] Add `isNavigationBarContrastEnforced = false` to `MainActivity.kt`
-- [ ] Bump version to `1.0.10` in `app/build.gradle.kts`
+- [ ] Track Task Progress
+- [ ] Create `res/values/arrays.xml` and `plurals.xml` for English
+- [ ] Create `res/values-uk/arrays.xml` and `plurals.xml` for Ukrainian
+- [ ] Create `res/values-de/arrays.xml` and `plurals.xml` for German
+- [ ] Update `strings.xml` to remove legacy plurals and add time error strings
+- [ ] Refactor `Strings.kt` to use Android resource arrays
+- [ ] Refactor `ToxicAlarmReceiver.kt` and `TaskViewModel.kt` context passing
+- [ ] Refactor `ToxicTaskScreen.kt` for proper plurals and weekday arrays
 - [ ] Verify build
-- [ ] Commit changes
+- [ ] Create git commit

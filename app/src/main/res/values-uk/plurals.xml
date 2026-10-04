@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="streak_days">
+        <item quantity="one">Стрік: %d день</item>
+        <item quantity="few">Стрік: %d дні</item>
+        <item quantity="many">Стрік: %d днів</item>
+        <item quantity="other">Стрік: %d днів</item>
+    </plurals>
+    <plurals name="rollover_tasks">
+        <item quantity="one">У тебе залишилась %d невиконана таска. Переносимо на сьогодні, ледарю?</item>
+        <item quantity="few">У тебе залишилось %d невиконані таски. Переносимо на сьогодні, ледарю?</item>
+        <item quantity="many">У тебе залишилось %d невиконаних тасок. Переносимо на сьогодні, ледарю?</item>
+        <item quantity="other">У тебе залишилось %d невиконаних тасок. Переносимо на сьогодні, ледарю?</item>
+    </plurals>
+    <plurals name="tasks_too_few_mild">
+        <item quantity="one">Всього %d таска? Додай ще хоча б одну для продуктивності.</item>
+        <item quantity="few">Всього %d таски? Додай ще хоча б одну для продуктивності.</item>
+        <item quantity="many">Всього %d тасок? Додай ще хоча б одну для продуктивності.</item>
+        <item quantity="other">Всього %d тасок? Додай ще хоча б одну для продуктивності.</item>
+    </plurals>
+    <plurals name="tasks_too_few_normal">
+        <item quantity="one">Всього %d таска? Тобі не здається, що цього замало для результату?</item>
+        <item quantity="few">Всього %d таски? Тобі не здається, що цього замало для результату?</item>
+        <item quantity="many">Всього %d тасок? Тобі не здається, що цього замало для результату?</item>
+        <item quantity="other">Всього %d тасок? Тобі не здається, що цього замало для результату?</item>
+    </plurals>
+    <plurals name="tasks_too_few_extreme">
+        <item quantity="one">Всього %d таска? Ти реально думаєш що цього достатньо? Мінімум 3 треба для поваги, ЛОХ!</item>
+        <item quantity="few">Всього %d таски? Ти реально думаєш що цього достатньо? Мінімум 3 треба для поваги, ЛОХ!</item>
+        <item quantity="many">Всього %d тасок? Ти реально думаєш що цього достатньо? Мінімум 3 треба для поваги, ЛОХ!</item>
+        <item quantity="other">Всього %d тасок? Ти реально думаєш що цього достатньо? Мінімум 3 треба для поваги, ЛОХ!</item>
+    </plurals>
+</resources>

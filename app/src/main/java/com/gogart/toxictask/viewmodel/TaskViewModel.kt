@@ -84,13 +84,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         if (list == null) return@combine "..."
         val totalCount = list.size
         val toxicity = settings.toxicityLevel
+        val ctx = getApplication<Application>()
         
         when {
-            totalCount == 0 -> ToxicStrings.getEmptyInsults(lang, toxicity).random()
+            totalCount == 0 -> ToxicStrings.getEmptyInsults(ctx, lang, toxicity)
             totalCount < 3 -> {
-                ToxicStrings.getTooFewTasksInsult(totalCount, lang, toxicity)
+                ToxicStrings.getTooFewTasksInsult(ctx, totalCount, lang, toxicity)
             }
-            else -> ToxicStrings.getInsults(lang, toxicity, role.key).random()
+            else -> ToxicStrings.getInsults(ctx, lang, toxicity, role.key)
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "...")
 
@@ -120,7 +121,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         Triple(completed, total, gigachadDays)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Triple(0, 0, 0))
 
-    val currentStreak = dao.getAllTasks().map { allTasks ->
+    val currentStreak = combine(dao.getAllTasks(), language) { allTasks, lang ->
+        val ctx = getApplication<Application>()
         TaskUtils.calculateStreak(allTasks)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 

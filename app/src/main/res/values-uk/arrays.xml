@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Days -->
+    <string-array name="week_days_short">
+        <item>Пн</item><item>Вт</item><item>Ср</item><item>Чт</item><item>Пт</item><item>Сб</item><item>Нд</item>
+    </string-array>
+
+    <!-- Empty Insults -->
+    <string-array name="empty_insults_mild">
+        <item>Де таски, друже?</item>
+        <item>Додай хоч щось на сьогодні.</item>
+        <item>Твій список порожній. Давай це виправимо.</item>
+        <item>Час поставити собі кілька цілей.</item>
+        <item>Нумо до роботи, напиши свої плани.</item>
+    </string-array>
+    <string-array name="empty_insults_normal">
+        <item>Екран такий же порожній, як і твоя голова?</item>
+        <item>Деградуєш, да? Додай таску.</item>
+        <item>Жодних планів? Як сумно.</item>
+        <item>Сьогодні вирішив взагалі нічого не робити?</item>
+        <item>Порожній список, порожнє життя.</item>
+    </string-array>
+    <string-array name="empty_insults_extreme">
+        <item>Хулі порожньо? Пиши таски, ледаче м\'ясо!</item>
+        <item>Твій список — дзеркало твого нікчемного життя. ПРАЦЮЙ!</item>
+        <item>Абсолютно порожньо! У тебе взагалі є цілі в житті?</item>
+        <item>Досить вилуплюватися в пустий екран, довбойоб!</item>
+        <item>Ти просто ганьба. Напиши план, ЖИВО!</item>
+    </string-array>
+
+    <!-- Slacker (LOX) Insults -->
+    <string-array name="slacker_insults_mild">
+        <item>Ти ще довго збираєшся байдикувати?</item>
+        <item>План сам себе не виконає, друже.</item>
+        <item>День іде, а таски стоять. Може почнеш?</item>
+        <item>Маленький крок краще, ніж нічого. Зроби його!</item>
+        <item>Відкладати на потім — погана звичка.</item>
+    </string-array>
+    <string-array name="slacker_insults_normal">
+        <item>Хулі таски не додав? Чекаєш на диво?</item>
+        <item>Твій прогрес такий самий нульовий, як і твої амбіції.</item>
+        <item>Твої плани — це просто повітря, поки ти нічого не робиш.</item>
+        <item>Статус ЛОХ — це твій стиль життя, чи як?</item>
+        <item>Ти деградуєш швидше, ніж я встигаю це помічати.</item>
+    </string-array>
+    <string-array name="slacker_insults_extreme">
+        <item>Чуєш, ти, кусок ледачого м\'яса! Хулі ти сидиш?</item>
+        <item>Твоя нікчемність просто зашкалює. Зроби хоч щось!</item>
+        <item>Ти — ганьба для свого роду. Навіть мікрохвильовка корисніша за тебе.</item>
+        <item>Ти ніколи не станеш Гігачадом, бо ти безвольна ганчірка!</item>
+        <item>Хочеш знати, чому ти ще не успішний? Бо ти ледачий довбойоб.</item>
+    </string-array>
+
+    <!-- Wannabe Insults -->
+    <string-array name="wannabe_insults_mild">
+        <item>Ти на середині шляху. Непогано, але давай дотиснемо.</item>
+        <item>Половина справи зроблена. Тільки не зупиняйся.</item>
+        <item>Ти вже майже Гігачад. Ще трохи зусиль!</item>
+        <item>Твій прогрес стабільний. Продовжуй!</item>
+        <item>Вже краще, але ще є куди рости.</item>
+    </string-array>
+    <string-array name="wannabe_insults_normal">
+        <item>Ти намагаєшся, це видно. Але ПРАГНУЧИЙ — це ще не GIGACHAD.</item>
+        <item>Не розслабляй булки, ти ще не на вершині.</item>
+        <item>Ти вже не в ямі, але ще не в космосі. Грінд продовжується.</item>
+        <item>Твої зусилля помітні, але мені потрібно більше крові і поту!</item>
+        <item>Посередні зусилля дають посередній результат. Натисни!</item>
+    </string-array>
+    <string-array name="wannabe_insults_extreme">
+        <item>Ти думаєш, що ти крутий, бо зробив половину? ХУЙ ТАМ! Доробляй!</item>
+        <item>Півдороги пройдено, а ти вже втомився? Жалюгідно. Їбаш!</item>
+        <item>Ще трохи і ти станеш людиною. А поки що — працюй, раб цілей!</item>
+        <item>Ти застряг посередині. Або вгору, або назад у багно. Обирай!</item>
+        <item>Заверши те, що почав, або йди плакати в куток!</item>
+    </string-array>
+
+    <!-- Gigachad Insults (Compliments) -->
+    <string-array name="gigachad_insults_mild">
+        <item>Respect ++. Сьогодні ти молодець.</item>
+        <item>План виконано. Ти заслужив на відпочинок.</item>
+        <item>Сьогодні ти реально машина. Хороша робота.</item>
+        <item>GIGACHAD статус активовано.</item>
+        <item>Місію виконано успішно.</item>
+    </string-array>
+    <string-array name="gigachad_insults_normal">
+        <item>Ось це я розумію — GIGACHAD! Всім б таку витримку.</item>
+        <item>Ти сьогодні просто розірвав цей список. Красавчик!</item>
+        <item>Статус Гігачада заслужений. Але не звикай.</item>
+        <item>Ти довів, що ти не просто кусок м\'яса. Повага.</item>
+        <item>Так тримати! Ось так і треба домінувати над лінню.</item>
+    </string-array>
+    <string-array name="gigachad_insults_extreme">
+        <item>Сьогодні ти — Бог продуктивності. Завтра я знайду до чого приїбатися.</item>
+        <item>Ти зробив це, сучий сину! Справжній GIGACHAD!</item>
+        <item>Навіть я в шоці. Ти сьогодні реально ахуєнний.</item>
+        <item>Ти витиснув з цього дня все. Сьогодні ти — Король.</item>
+        <item>Незупинна машина! Продовжуй цей грінд!</item>
+    </string-array>
+
+    <!-- Notifications - INACTIVE -->
+    <string-array name="notif_inactive_title_mild">
+        <item>Час нагадати про себе</item>
+        <item>Ти десь зник</item>
+    </string-array>
+    <string-array name="notif_inactive_body_mild">
+        <item>Вже 3 дні тиші. Маленький крок краще за відсутність руху!</item>
+        <item>Твої таски зачекалися. Повертайся.</item>
+    </string-array>
+
+    <string-array name="notif_inactive_title_normal">
+        <item>Ти ще живий?</item>
+        <item>ТИТУЛ ЛОХА ВЖЕ БЛИЗЬКО</item>
+    </string-array>
+    <string-array name="notif_inactive_body_normal">
+        <item>3 дні повної бездіяльності. Ти втрачаєш форму.</item>
+        <item>Твій список припадає пилом. Починай працювати.</item>
+    </string-array>
+
+    <string-array name="notif_inactive_title_extreme">
+        <item>ТИТУЛ ЛОХА ПІДТВЕРДЖЕНО!</item>
+        <item>ПРОКИДАЙСЯ, СМІТТЯ!</item>
+    </string-array>
+    <string-array name="notif_inactive_body_extreme">
+        <item>Ти вже 3 дні нічого не робиш! Твій список такий же порожній, як і твоє майбутнє!</item>
+        <item>Ти вмер чи що? Вставай і зроби хоч щось корисне у своєму нікчемному житті!</item>
+    </string-array>
+
+    <!-- Notifications - EXPIRED -->
+    <string-array name="notif_expired_title_mild">
+        <item>Дедлайн минув</item>
+    </string-array>
+    <string-array name="notif_expired_body_mild">
+        <item>Місія \'%1$s\' не вклалася у дедлайн %2$s. Наступного разу пощастить більше.</item>
+    </string-array>
+
+    <string-array name="notif_expired_title_normal">
+        <item>Ти провалився.</item>
+    </string-array>
+    <string-array name="notif_expired_body_normal">
+        <item>Місія \'%1$s\' провалена! Дедлайн був о %2$s.</item>
+    </string-array>
+
+    <string-array name="notif_expired_title_extreme">
+        <item>ДЕДЛАЙН ПРОЙОБАНО!</item>
+    </string-array>
+    <string-array name="notif_expired_body_extreme">
+        <item>Ось ти і впав лицем у бруд. \'%1$s\' прострочена з %2$s!</item>
+    </string-array>
+
+    <!-- Notifications - URGENT -->
+    <string-array name="notif_urgent_title_mild">
+        <item>Час майже вийшов</item>
+    </string-array>
+    <string-array name="notif_urgent_body_mild">
+        <item>Залишилось лише %2$d хв, щоб виконати \'%1$s\'.</item>
+    </string-array>
+
+    <string-array name="notif_urgent_title_normal">
+        <item>Поквапся!</item>
+    </string-array>
+    <string-array name="notif_urgent_body_normal">
+        <item>Ти ще не виконав \'%1$s\'! Годинник тікає: залишилось %2$d хв.</item>
+    </string-array>
+
+    <string-array name="notif_urgent_title_extreme">
+        <item>ВОРУШИ ЗАДОМ!</item>
+    </string-array>
+    <string-array name="notif_urgent_body_extreme">
+        <item>Всього %2$d хв залишилось для \'%1$s\'! Спробуй тільки провалити її!</item>
+    </string-array>
+
+    <!-- Notifications - END_OF_DAY -->
+    <string-array name="notif_end_of_day_title_mild">
+        <item>День закінчується</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_mild">
+        <item>Спробуй закрити ще кілька тасок до кінця дня.</item>
+    </string-array>
+
+    <string-array name="notif_end_of_day_title_normal">
+        <item>ДЕНЬ ЗАКІНЧУЄТЬСЯ!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_normal">
+        <item>День добігає кінця, а ти ще не добив план! Живо за роботу!</item>
+    </string-array>
+
+    <string-array name="notif_end_of_day_title_extreme">
+        <item>ОСТАННЄ ПОПЕРЕДЖЕННЯ!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_extreme">
+        <item>День майже скінчився, а твій список — це просто ганьба! Працюй ЗАРАЗ, або залишайся ЛОХОМ!</item>
+    </string-array>
+
+    <!-- Notifications - DEFAULT -->
+    <string-array name="notif_default_title_mild">
+        <item>Легке нагадування</item>
+    </string-array>
+    <string-array name="notif_default_title_normal">
+        <item>ЕЙ, ТИ!</item>
+    </string-array>
+    <string-array name="notif_default_title_extreme">
+        <item>ВСТАВАЙ, НІКЧЕМО!</item>
+    </string-array>
+</resources>

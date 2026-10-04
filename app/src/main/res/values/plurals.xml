@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="streak_days">
+        <item quantity="one">Streak: %d day</item>
+        <item quantity="other">Streak: %d days</item>
+    </plurals>
+    <plurals name="rollover_tasks">
+        <item quantity="one">You left %d task uncompleted. Move it to today, slacker?</item>
+        <item quantity="other">You left %d tasks uncompleted. Move them to today, slacker?</item>
+    </plurals>
+    <plurals name="tasks_too_few_mild">
+        <item quantity="one">Only %d task? Add at least one more for productivity.</item>
+        <item quantity="other">Only %d tasks? Add at least one more for productivity.</item>
+    </plurals>
+    <plurals name="tasks_too_few_normal">
+        <item quantity="one">Only %d task? Don\'t you think that\'s too little?</item>
+        <item quantity="other">Only %d tasks? Don\'t you think that\'s too little?</item>
+    </plurals>
+    <plurals name="tasks_too_few_extreme">
+        <item quantity="one">Only %d task? You think that\'s enough? 3 tasks minimum for respect, LOSER!</item>
+        <item quantity="other">Only %d tasks? You think that\'s enough? 3 tasks minimum for respect, LOSER!</item>
+    </plurals>
+</resources>

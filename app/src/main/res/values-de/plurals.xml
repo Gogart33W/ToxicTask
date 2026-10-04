@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="streak_days">
+        <item quantity="one">Streak: %d Tag</item>
+        <item quantity="other">Streak: %d Tage</item>
+    </plurals>
+    <plurals name="rollover_tasks">
+        <item quantity="one">Du hast %d Aufgabe nicht erledigt. Heute nachholen, Faulpelz?</item>
+        <item quantity="other">Du hast %d Aufgaben nicht erledigt. Heute nachholen, Faulpelz?</item>
+    </plurals>
+    <plurals name="tasks_too_few_mild">
+        <item quantity="one">Nur %d Aufgabe? Füge mindestens eine weitere für die Produktivität hinzu.</item>
+        <item quantity="other">Nur %d Aufgaben? Füge mindestens eine weitere für die Produktivität hinzu.</item>
+    </plurals>
+    <plurals name="tasks_too_few_normal">
+        <item quantity="one">Nur %d Aufgabe? Findest du nicht, dass das zu wenig ist?</item>
+        <item quantity="other">Nur %d Aufgaben? Findest du nicht, dass das zu wenig ist?</item>
+    </plurals>
+    <plurals name="tasks_too_few_extreme">
+        <item quantity="one">Nur %d Aufgabe? Glaubst du wirklich, das reicht? Mindestens 3 für Respekt, du VERSAGER!</item>
+        <item quantity="other">Nur %d Aufgaben? Glaubst du wirklich, das reicht? Mindestens 3 für Respekt, du VERSAGER!</item>
+    </plurals>
+</resources>

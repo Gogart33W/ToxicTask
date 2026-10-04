@@ -340,7 +340,8 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                         title = { Text(stringResource(R.string.rollover_title), fontWeight = FontWeight.Bold) },
                         text = {
                             Column {
-                                Text(stringResource(R.string.rollover_text, pendingRollover.size))
+                                val context = LocalContext.current
+                                Text(context.resources.getQuantityString(R.plurals.rollover_tasks, pendingRollover.size, pendingRollover.size))
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Box(modifier = Modifier.heightIn(max = 300.dp)) {
                                     LazyColumn {
@@ -521,8 +522,7 @@ fun RecurringPanel(
                                         }
                                     }
                                     val days = template.repeatDays.split(",").filter { it.isNotEmpty() }.map { it.toInt() }
-                                    val dayLabels = if (Locale.getDefault().language == "uk") listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд")
-                                                   else listOf("M", "T", "W", "T", "F", "S", "S")
+                                    val dayLabels = LocalContext.current.resources.getStringArray(R.array.week_days_short).toList()
                                     Row(modifier = Modifier.padding(top = 8.dp)) {
                                         (1..7).forEach { d ->
                                             val isActive = days.contains(d)
@@ -562,6 +562,7 @@ fun RecurringPanel(
 
 @Composable
 fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insult: String, streak: Int, isDark: Boolean, toxicity: ToxicityLevel) {
+    val context = LocalContext.current
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "Progress")
     val labelRes = if (role == PlayerRole.SLACKER) {
         when (toxicity) {
@@ -603,7 +604,7 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
                         Text(stringResource(R.string.player_status), style = MaterialTheme.typography.labelMedium, color = Color.Gray)
                         if (streak > 0) {
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(ToxicStrings.getStreakText(streak, lang), fontSize = 10.sp, color = Color.Red, fontWeight = FontWeight.Bold)
+                            Text(ToxicStrings.getStreakText(context, streak, lang), fontSize = 10.sp, color = Color.Red, fontWeight = FontWeight.Bold)
                         }
                     }
                     Text(text = roleLabel, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Black, color = roleColor)
@@ -695,7 +696,7 @@ fun TaskBottomSheet(
 @Composable
 fun WeekDayPicker(current: String): String {
     val days = listOf("1", "2", "3", "4", "5", "6", "7")
-    val labels = listOf("M", "T", "W", "T", "F", "S", "S")
+    val labels = LocalContext.current.resources.getStringArray(R.array.week_days_short).toList()
     var selected by remember { mutableStateOf(current.split(",").filter { it.isNotEmpty() }.toMutableList()) }
     
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -845,7 +846,7 @@ fun HistoryScreen(historyData: Map<String, Pair<Triple<Float, Int, Int>, PlayerR
             Spacer(modifier = Modifier.height(16.dp))
         }
         item {
-            val days = if (lang == LanguageCode.UK) listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд") else listOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")
+            val days = LocalContext.current.resources.getStringArray(R.array.week_days_short).toList()
             Column {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     days.forEach { Text(it, modifier = Modifier.weight(1f), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray) }
@@ -1025,8 +1026,8 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                                                 } else {
                                                     val startTimeStr = String.format("%02d:%02d", h, m)
                                                     val endTimeStr = String.format("%02d:%02d", notifySettings.endHour, notifySettings.endMinute)
-                                                    timeErrorTitle = if(currentLang == LanguageCode.UK) "ПОМИЛКА ЧАСУ" else if(currentLang == LanguageCode.DE) "ZEITFEHLER" else "TIME ERROR"
-                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
+                                                    timeErrorTitle = context.resources.getString(R.string.time_error_title)
+                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(context, startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
                                                 }
                                             }
                                             Text("—", fontWeight = FontWeight.Bold)
@@ -1046,14 +1047,14 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                                                 if (newEndTotal > currentStartTotal) {
                                                     onNotifySettingsChange(notifySettings.copy(endHour = finalH, endMinute = finalM))
                                                     if (autoFixed) {
-                                                        timeErrorTitle = if(currentLang == LanguageCode.UK) "Я ВИПРАВИВ" else if(currentLang == LanguageCode.DE) "KORRIGIERT" else "FIXED"
-                                                        timeErrorMessage = ToxicStrings.getTimeFixMessage(currentLang)
+                                                        timeErrorTitle = context.resources.getString(R.string.time_fix_title)
+                                                        timeErrorMessage = ToxicStrings.getTimeFixMessage(context, currentLang)
                                                     }
                                                 } else {
                                                     val startTimeStr = String.format("%02d:%02d", notifySettings.startHour, notifySettings.startMinute)
                                                     val endTimeStr = String.format("%02d:%02d", finalH, finalM)
-                                                    timeErrorTitle = if(currentLang == LanguageCode.UK) "ПОМИЛКА ЧАСУ" else if(currentLang == LanguageCode.DE) "ZEITFEHLER" else "TIME ERROR"
-                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
+                                                    timeErrorTitle = context.resources.getString(R.string.time_error_title)
+                                                    timeErrorMessage = ToxicStrings.getTimeErrorMessage(context, startTimeStr, endTimeStr, currentLang, notifySettings.toxicityLevel)
                                                 }
                                             }
                                         }

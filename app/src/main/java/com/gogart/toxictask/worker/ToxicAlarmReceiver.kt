@@ -109,12 +109,12 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
 
         when {
             inactiveForThreeDays -> {
-                val strs = ToxicStrings.getNotificationStrings(lang, "INACTIVE")
+                val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, "INACTIVE")
                 title = strs.first
                 message = strs.second
             }
             expiredTask != null -> {
-                val strs = ToxicStrings.getNotificationStrings(lang, "EXPIRED", expiredTask.title, expiredTask.deadlineTime ?: "")
+                val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, "EXPIRED", expiredTask.title, expiredTask.deadlineTime ?: "")
                 title = strs.first
                 message = strs.second
             }
@@ -122,17 +122,17 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
                 val deadline = LocalTime.parse(urgentTask.deadlineTime)
                 val diffMins = java.time.Duration.between(currentTime, deadline).toMinutes()
                 val type = if (diffMins in 0..20) "LAST_CHANCE" else "URGENT"
-                val strs = ToxicStrings.getNotificationStrings(lang, type, urgentTask.title, timeLeft = diffMins)
+                val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, type, urgentTask.title, timeLeft = diffMins)
                 title = strs.first
                 message = strs.second
             }
             isEndOfDayPressure && uncompletedTasks.isNotEmpty() && !shouldStopNagging -> {
-                val strs = ToxicStrings.getNotificationStrings(lang, "END_OF_DAY")
+                val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, "END_OF_DAY")
                 title = strs.first
                 message = strs.second
             }
             else -> {
-                val strs = ToxicStrings.getNotificationStrings(lang, "DEFAULT")
+                val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, "DEFAULT")
                 title = strs.first
                 val status = when {
                     tasks.size < 3 -> "LOX"
@@ -140,9 +140,9 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
                     progress < 0.75f -> "WANNABE"
                     else -> "GIGACHAD"
                 }
-                message = if (tasks.isEmpty()) ToxicStrings.getEmptyInsults(lang, toxicity).random()
-                          else if (tasks.size < 3) ToxicStrings.getTooFewTasksInsult(tasks.size, lang, toxicity)
-                          else ToxicStrings.getInsults(lang, toxicity, status).random()
+                message = if (tasks.isEmpty()) ToxicStrings.getEmptyInsults(context, lang, toxicity)
+                          else if (tasks.size < 3) ToxicStrings.getTooFewTasksInsult(context, tasks.size, lang, toxicity)
+                          else ToxicStrings.getInsults(context, lang, toxicity, status)
             }
         }
 
