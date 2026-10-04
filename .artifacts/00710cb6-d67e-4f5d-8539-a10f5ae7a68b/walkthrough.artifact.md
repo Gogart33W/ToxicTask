@@ -1,14 +1,12 @@
-# Localization and Toxic String Refactoring
+# UI Polish and Final Translation Fixes
 
-The codebase has been refactored to remove all hardcoded "toxic" logic from `Strings.kt`, resolving repeated-phrase bugs, bad English/German localization, and flawed pluralization.
+This update tackles all the remaining cosmetic and language issues flagged during the audit without bumping the version code, meaning this will be integrated directly into your next build seamlessly.
 
 ## Changes Made
-- **Resource Extraction**: Created `arrays.xml` inside `res/values/`, `res/values-de/`, and `res/values-uk/`. All strings (insults, empty lists, push notification bodies and titles) have been moved into language-specific resource arrays.
-- **Phrase Expansion**:
-    - The EN and DE versions now have as much unique content and aggressive tone as the original UK version.
-    - Added dedicated extreme, normal, and mild arrays, guaranteeing the chosen notifications precisely match the toxicity level set in settings.
-- **Plurals Fixed**: Removed the `%10` Kotlin hack for Ukrainian streaks. We now use standard `<plurals>` formatting which automatically selects `one`, `few`, `many`, or `other` correctly across languages. The "roll-over" string was also converted to a plural format to avoid grammar bugs like "Only 1 tasks".
-- **Dynamic Days of the Week**: Weekday strings ("Пн", "Вт" vs "M", "T") are no longer hardcoded in Compose. They are fetched from `R.array.week_days_short`.
-- **Anti-Repetition Logic**: `Strings.kt` now tracks the last shown string in memory to guarantee the user rarely sees the same insult twice in a row.
+- **Ukrainian Unification**: Replaced the chaotic mix of words ("місія", "ціль", "задача") with the single, unified term "таска" everywhere.
+- **Fixed Chip Wrapping**: The long label "Екстремальний" was shortened to "Екстрим". In addition, the layout holding the toxicity levels was changed from `Row` to `FlowRow` via the `ExperimentalLayoutApi`. Now, if translations ever exceed screen width, the chips will wrap naturally to a second line instead of tearing letters apart.
+- **German Perfection**: Added the 12 missing string keys for the German locale so it no longer falls back to English. Fixed informal tone mismatches (changed "Sie" to "du" in the disclaimer) and corrected poor terminology choices (e.g. replaced "STREBER" with "MÖCHTEGERN" for Wannabe).
+- **Date Formatting**: Swapped the hardcoded `MMM dd, yyyy` date format for `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`. Now dates properly respect the user's locale (e.g., "04 жовт. 2026" instead of "жовт. 04, 2026").
+- **Accessibility**: Replaced the hardcoded `"Disclaimer"` content description on the info icon with a localized string reference (`R.string.disclaimer_content_desc`).
 
-The application has been successfully compiled (`app:assembleDebug`) and all translations appear intact and properly configured.
+The project compiles smoothly and is ready to push.

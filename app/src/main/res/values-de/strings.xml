@@ -90,4 +90,5 @@
     <string name="time_fix_msg">Auf 23:59 korrigiert. Sogar mein Code kennt die Zeit besser als du.</string>
     <string name="time_fix_title">KORRIGIERT</string>
     <string name="time_error_title">ZEITFEHLER</string>
+    <string name="min_tasks_per_day">Mindestanzahl Aufgaben pro Tag</string>
 </resources>

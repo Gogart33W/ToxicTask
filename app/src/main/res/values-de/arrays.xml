@@ -29,27 +29,6 @@
     </string-array>
 
     <!-- Slacker (LOX) Insults -->
-    <string-array name="slacker_insults_mild">
-        <item>Willst du noch lange faulenzen?</item>
-        <item>Der Plan erledigt sich nicht von selbst.</item>
-        <item>Komm in die Gänge.</item>
-        <item>Aufschieben ist keine Lösung.</item>
-        <item>Die Zeit läuft, mein Freund.</item>
-    </string-array>
-    <string-array name="slacker_insults_normal">
-        <item>Null Ambitionen heute?</item>
-        <item>Wartest du auf ein Wunder?</item>
-        <item>Der VERSAGER-Status steht dir gut.</item>
-        <item>Deine To-Do-Liste lacht dich aus.</item>
-        <item>Bist du im Winterschlaf oder was?</item>
-    </string-array>
-    <string-array name="slacker_insults_extreme">
-        <item>Du faules Stück Fleisch!</item>
-        <item>Schande für deine Art! Steh auf!</item>
-        <item>AN DIE ARBEIT, DU PFEIFE!</item>
-        <item>Sogar eine Mikrowelle ist nützlicher als du.</item>
-        <item>Bist du allergisch gegen Arbeit oder einfach nur nutzlos?</item>
-    </string-array>
 
     <!-- Wannabe Insults -->
     <string-array name="wannabe_insults_mild">

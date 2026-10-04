@@ -65,15 +65,15 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     val notificationSettings: StateFlow<NotificationSettings> = settingsManager.notificationSettings
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NotificationSettings(true, 60, 9, 0, 21, 0, true, com.gogart.toxictask.settings.ToxicityLevel.LOW))
 
-    val playerStatus = tasks.map { list ->
-        if (list == null) return@map PlayerRole.SLACKER
+    val playerStatus = combine(tasks, notificationSettings) { list, settings ->
+        if (list == null) return@combine PlayerRole.SLACKER
         val activeTasks = list.filter { !it.isRolledOver }
         val totalWeight = activeTasks.sumOf { it.priority.weight }
         val completedWeight = activeTasks.filter { it.isCompleted }.sumOf { it.priority.weight }
         val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
 
         when {
-            list.size < 3 -> PlayerRole.SLACKER
+            list.size < settings.minTasksPerDay -> PlayerRole.SLACKER
             progress < 0.35f -> PlayerRole.SLACKER
             progress < 0.75f -> PlayerRole.WANNABE
             else -> PlayerRole.GIGACHAD
@@ -88,14 +88,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         
         when {
             totalCount == 0 -> ToxicStrings.getEmptyInsults(ctx, lang, toxicity)
-            totalCount < 3 -> {
-                ToxicStrings.getTooFewTasksInsult(ctx, totalCount, lang, toxicity)
+            totalCount < settings.minTasksPerDay -> {
+                ToxicStrings.getTooFewTasksInsult(ctx, totalCount, settings.minTasksPerDay, lang, toxicity)
             }
             else -> ToxicStrings.getInsults(ctx, lang, toxicity, role.key)
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "...")
 
-    val historyData = dao.getAllTasks().map { allTasks ->
+    val historyData = combine(dao.getAllTasks(), notificationSettings) { allTasks, settings ->
         allTasks.groupBy { it.scheduledDate }.mapValues { (_, dayTasks) ->
             val activeTasks = dayTasks.filter { !it.isRolledOver }
             val totalWeight = activeTasks.sumOf { it.priority.weight }
@@ -103,7 +103,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
             
             val role = when {
-                dayTasks.size < 3 -> PlayerRole.SLACKER
+                dayTasks.size < settings.minTasksPerDay -> PlayerRole.SLACKER
                 progress < 0.35f -> PlayerRole.SLACKER
                 progress < 0.75f -> PlayerRole.WANNABE
                 else -> PlayerRole.GIGACHAD
@@ -112,18 +112,17 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
 
-    val totalStats = dao.getAllTasks().map { allTasks ->
+    val totalStats = combine(dao.getAllTasks(), notificationSettings) { allTasks, settings ->
         val completed = allTasks.count { it.isCompleted }
         val total = allTasks.size
         val gigachadDays = allTasks.groupBy { it.scheduledDate }.count { (_, tasks) ->
-            TaskUtils.isGigaDay(tasks)
+            TaskUtils.isGigaDay(tasks, settings.minTasksPerDay)
         }
         Triple(completed, total, gigachadDays)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Triple(0, 0, 0))
 
-    val currentStreak = combine(dao.getAllTasks(), language) { allTasks, lang ->
-        val ctx = getApplication<Application>()
-        TaskUtils.calculateStreak(allTasks)
+    val currentStreak = combine(dao.getAllTasks(), notificationSettings) { allTasks, settings ->
+        TaskUtils.calculateStreak(allTasks, minTasks = settings.minTasksPerDay)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     init {

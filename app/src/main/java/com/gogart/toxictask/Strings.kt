@@ -10,7 +10,7 @@ import java.util.Locale
 object ToxicStrings {
     private var lastEmptyInsult = ""
     private var lastTaskInsult = ""
-    private var lastTooFewTasksInsult = ""
+    private var lastTooFewTasksRaw = ""
 
     fun getLocalizedResources(context: Context, lang: LanguageCode): Resources {
         val locale = Locale.forLanguageTag(lang.code)
@@ -19,16 +19,17 @@ object ToxicStrings {
         return context.createConfigurationContext(config).resources
     }
 
-    fun getTooFewTasksInsult(context: Context, count: Int, lang: LanguageCode, level: ToxicityLevel): String {
+    fun getTooFewTasksInsult(context: Context, count: Int, minTasks: Int, lang: LanguageCode, level: ToxicityLevel): String {
         val res = getLocalizedResources(context, lang)
-        val pluralId = when (level) {
-            ToxicityLevel.LOW -> R.plurals.tasks_too_few_mild
-            ToxicityLevel.NORMAL -> R.plurals.tasks_too_few_normal
-            ToxicityLevel.EXTREME -> R.plurals.tasks_too_few_extreme
+        val arrayId = when (level) {
+            ToxicityLevel.LOW -> R.array.too_few_tasks_mild
+            ToxicityLevel.NORMAL -> R.array.too_few_tasks_normal
+            ToxicityLevel.EXTREME -> R.array.too_few_tasks_extreme
         }
-        val string = res.getQuantityString(pluralId, count, count)
-        lastTooFewTasksInsult = string
-        return string
+        val raw = getRandomAvoidRepeat(res.getStringArray(arrayId), lastTooFewTasksRaw)
+        lastTooFewTasksRaw = raw
+        // %1$d = current count, %2$d = configured minimum
+        return String.format(Locale.forLanguageTag(lang.code), raw, count, minTasks)
     }
 
     fun getInsults(context: Context, lang: LanguageCode, level: ToxicityLevel, status: String): String {

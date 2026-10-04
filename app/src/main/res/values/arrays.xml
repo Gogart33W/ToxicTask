@@ -29,27 +29,6 @@
     </string-array>
 
     <!-- Slacker (LOX) Insults -->
-    <string-array name="slacker_insults_mild">
-        <item>Still planning to idle?</item>
-        <item>Tasks won\'t do themselves.</item>
-        <item>Move it, slowly but surely.</item>
-        <item>Procrastination isn\'t a personality trait.</item>
-        <item>Time is ticking, friend.</item>
-    </string-array>
-    <string-array name="slacker_insults_normal">
-        <item>Zero ambitions today?</item>
-        <item>Waiting for a miracle?</item>
-        <item>LOSER status suits you perfectly.</item>
-        <item>Your todo list is laughing at you.</item>
-        <item>Is doing nothing your full-time job?</item>
-    </string-array>
-    <string-array name="slacker_insults_extreme">
-        <item>You lazy piece of garbage!</item>
-        <item>Disgrace to your kind! Get up!</item>
-        <item>GET TO WORK, PRICK!</item>
-        <item>Your future is as empty as this screen!</item>
-        <item>Are you allergic to productivity or just naturally useless?</item>
-    </string-array>
 
     <!-- Wannabe Insults -->
     <string-array name="wannabe_insults_mild">

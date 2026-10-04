@@ -90,4 +90,5 @@
     <string name="time_fix_msg">Changed to 23:59. Even my code knows time better than you, slacker.</string>
     <string name="time_fix_title">FIXED</string>
     <string name="time_error_title">TIME ERROR</string>
+    <string name="min_tasks_per_day">Minimum tasks per day</string>
 </resources>

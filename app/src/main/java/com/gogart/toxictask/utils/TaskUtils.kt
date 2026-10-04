@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.first
 import java.time.LocalDate
 
 object TaskUtils {
-    fun isGigaDay(tasks: List<TaskEntity>): Boolean {
+    fun isGigaDay(tasks: List<TaskEntity>, minTasks: Int = 3): Boolean {
         if (tasks.isEmpty()) return false
         
         // Всі таски (включаючи перенесені) рахуються в загальну кількість для перевірки на ЛОХ-статус (мін 3)
-        if (tasks.size < 3) return false
+        if (tasks.size < minTasks) return false
         
         // Але для прогресу перенесені таски ігноруються (вони не дають % і не заважають його досягти)
         val validTasks = tasks.filter { !it.isRolledOver }
@@ -49,20 +49,20 @@ object TaskUtils {
         }
     }
 
-    fun calculateStreak(allTasks: List<TaskEntity>, today: LocalDate = LocalDate.now()): Int {
+    fun calculateStreak(allTasks: List<TaskEntity>, today: LocalDate = LocalDate.now(), minTasks: Int = 3): Int {
         val days = allTasks.groupBy { it.scheduledDate }.toSortedMap(reverseOrder())
         var streak = 0
         var checkDate = today
         
         // Якщо сьогодні ще не Гігачад - починаємо перевірку зі вчорашнього дня
-        if (!isGigaDay(days[checkDate.toString()] ?: emptyList())) {
+        if (!isGigaDay(days[checkDate.toString()] ?: emptyList(), minTasks)) {
             checkDate = checkDate.minusDays(1)
         }
 
         while (true) {
             val dateStr = checkDate.toString()
             if (days.containsKey(dateStr)) {
-                if (isGigaDay(days[dateStr]!!)) {
+                if (isGigaDay(days[dateStr]!!, minTasks)) {
                     streak++
                     checkDate = checkDate.minusDays(1)
                 } else {

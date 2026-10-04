@@ -1,7 +1,7 @@
-- [ ] Unify terminology in `values-uk/strings.xml` to "Таска" and update "Екстремальний" to "Екстрим".
-- [ ] Fix German translation in `values-de/strings.xml` (add missing keys, fix tone/grammar).
-- [ ] Add `disclaimer_content_desc` to English `values/strings.xml`.
-- [ ] Fix UI bug in `ToxicTaskScreen.kt` by using `FlowRow` for Toxicity levels.
-- [ ] Fix Date format in `ToxicTaskScreen.kt` using `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
-- [ ] Verify Build.
-- [ ] Commit changes locally (Without version bump).
+- [x] Unify terminology in `values-uk/strings.xml` to "Таска" and update "Екстремальний" to "Екстрим".
+- [x] Fix German translation in `values-de/strings.xml` (add missing keys, fix tone/grammar).
+- [x] Add `disclaimer_content_desc` to English `values/strings.xml`.
+- [x] Fix UI bug in `ToxicTaskScreen.kt` by using `FlowRow` for Toxicity levels.
+- [x] Fix Date format in `ToxicTaskScreen.kt` using `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
+- [x] Verify Build.
+- [x] Commit changes locally (Without version bump).

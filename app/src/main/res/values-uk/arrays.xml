@@ -29,27 +29,6 @@
     </string-array>
 
     <!-- Slacker (LOX) Insults -->
-    <string-array name="slacker_insults_mild">
-        <item>Ти ще довго збираєшся байдикувати?</item>
-        <item>План сам себе не виконає, друже.</item>
-        <item>День іде, а таски стоять. Може почнеш?</item>
-        <item>Маленький крок краще, ніж нічого. Зроби його!</item>
-        <item>Відкладати на потім — погана звичка.</item>
-    </string-array>
-    <string-array name="slacker_insults_normal">
-        <item>Хулі таски не додав? Чекаєш на диво?</item>
-        <item>Твій прогрес такий самий нульовий, як і твої амбіції.</item>
-        <item>Твої плани — це просто повітря, поки ти нічого не робиш.</item>
-        <item>Статус ЛОХ — це твій стиль життя, чи як?</item>
-        <item>Ти деградуєш швидше, ніж я встигаю це помічати.</item>
-    </string-array>
-    <string-array name="slacker_insults_extreme">
-        <item>Чуєш, ти, кусок ледачого м\'яса! Хулі ти сидиш?</item>
-        <item>Твоя нікчемність просто зашкалює. Зроби хоч щось!</item>
-        <item>Ти — ганьба для свого роду. Навіть мікрохвильовка корисніша за тебе.</item>
-        <item>Ти ніколи не станеш Гігачадом, бо ти безвольна ганчірка!</item>
-        <item>Хочеш знати, чому ти ще не успішний? Бо ти ледачий довбойоб.</item>
-    </string-array>
 
     <!-- Wannabe Insults -->
     <string-array name="wannabe_insults_mild">

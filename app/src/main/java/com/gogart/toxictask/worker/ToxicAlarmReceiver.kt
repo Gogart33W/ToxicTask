@@ -83,7 +83,7 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
         val totalWeight = tasks.sumOf { it.priority.weight }
         val completedWeight = tasks.filter { it.isCompleted }.sumOf { it.priority.weight }
         val progress = if (totalWeight == 0) 0f else completedWeight.toFloat() / totalWeight
-        val isGigachad = tasks.size >= 3 && progress >= 0.75f
+        val isGigachad = tasks.size >= settings.minTasksPerDay && progress >= 0.75f
 
         val threeDaysMillis = 3 * 24 * 60 * 60 * 1000L
         val inactiveForThreeDays = System.currentTimeMillis() - lastAdded > threeDaysMillis
@@ -135,13 +135,13 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
                 val strs = ToxicStrings.getNotificationStrings(context, lang, toxicity, "DEFAULT")
                 title = strs.first
                 val status = when {
-                    tasks.size < 3 -> "LOX"
+                    tasks.size < settings.minTasksPerDay -> "LOX"
                     progress < 0.35f -> "LOX"
                     progress < 0.75f -> "WANNABE"
                     else -> "GIGACHAD"
                 }
                 message = if (tasks.isEmpty()) ToxicStrings.getEmptyInsults(context, lang, toxicity)
-                          else if (tasks.size < 3) ToxicStrings.getTooFewTasksInsult(context, tasks.size, lang, toxicity)
+                          else if (tasks.size < settings.minTasksPerDay) ToxicStrings.getTooFewTasksInsult(context, tasks.size, settings.minTasksPerDay, lang, toxicity)
                           else ToxicStrings.getInsults(context, lang, toxicity, status)
             }
         }

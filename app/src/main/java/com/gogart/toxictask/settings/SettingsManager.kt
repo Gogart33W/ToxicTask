@@ -16,6 +16,10 @@ enum class LanguageCode(val code: String) {
     DE("de")
 }
 
+const val DEFAULT_MIN_TASKS = 3
+const val MIN_TASKS_RANGE_START = 2
+const val MIN_TASKS_RANGE_END = 10
+
 enum class ToxicityLevel {
     LOW,
     NORMAL,
@@ -39,7 +43,8 @@ data class NotificationSettings(
     val nagUntilFinish: Boolean,
     val toxicityLevel: ToxicityLevel,
     val useDetailedSchedule: Boolean = false,
-    val detailedSchedule: Map<Int, DaySchedule> = (1..7).associateWith { DaySchedule() }
+    val detailedSchedule: Map<Int, DaySchedule> = (1..7).associateWith { DaySchedule() },
+    val minTasksPerDay: Int = DEFAULT_MIN_TASKS
 )
 
 class SettingsManager(private val context: Context) {
@@ -57,6 +62,7 @@ class SettingsManager(private val context: Context) {
     private val useDetailedScheduleKey = booleanPreferencesKey("use_detailed_schedule")
     private val detailedScheduleKey = stringPreferencesKey("detailed_schedule")
     private val lastTaskAddedTimeKey = longPreferencesKey("last_task_added_time")
+    private val minTasksKey = intPreferencesKey("min_tasks_per_day")
 
     val lastNotifyTime: Flow<Long> = context.dataStore.data.map { it[lastNotifyTimeKey] ?: 0L }
 
@@ -92,7 +98,8 @@ class SettingsManager(private val context: Context) {
             nagUntilFinish = pref[nagUntilFinishKey] ?: true,
             toxicityLevel = ToxicityLevel.valueOf(pref[toxicityLevelKey] ?: ToxicityLevel.LOW.name),
             useDetailedSchedule = pref[useDetailedScheduleKey] ?: false,
-            detailedSchedule = detailedMap
+            detailedSchedule = detailedMap,
+            minTasksPerDay = (pref[minTasksKey] ?: DEFAULT_MIN_TASKS).coerceIn(MIN_TASKS_RANGE_START, MIN_TASKS_RANGE_END)
         )
     }
 
@@ -148,6 +155,7 @@ class SettingsManager(private val context: Context) {
             pref[toxicityLevelKey] = settings.toxicityLevel.name
             pref[useDetailedScheduleKey] = settings.useDetailedSchedule
             pref[detailedScheduleKey] = serializeDetailedSchedule(settings.detailedSchedule)
+            pref[minTasksKey] = settings.minTasksPerDay.coerceIn(MIN_TASKS_RANGE_START, MIN_TASKS_RANGE_END)
         }
     }
 }

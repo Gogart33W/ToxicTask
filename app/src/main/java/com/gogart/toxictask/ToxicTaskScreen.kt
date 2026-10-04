@@ -51,6 +51,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gogart.toxictask.data.TaskEntity
 import com.gogart.toxictask.data.TaskType
 import com.gogart.toxictask.settings.LanguageCode
+import com.gogart.toxictask.settings.MIN_TASKS_RANGE_END
+import com.gogart.toxictask.settings.MIN_TASKS_RANGE_START
 import com.gogart.toxictask.settings.NotificationSettings
 import com.gogart.toxictask.settings.ToxicityLevel
 import com.gogart.toxictask.ui.theme.ThemeMode
@@ -992,6 +994,22 @@ fun SettingsDialog(currentTheme: ThemeMode, currentLang: LanguageCode, notifySet
                             levels.forEach { (level, labelRes) ->
                                 FilterChip(selected = notifySettings.toxicityLevel == level, onClick = { onNotifySettingsChange(notifySettings.copy(toxicityLevel = level)) }, label = { Text(stringResource(labelRes)) })
                             }
+                        }
+                    }
+                }
+                item {
+                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(stringResource(R.string.min_tasks_per_day), style = MaterialTheme.typography.labelLarge, color = Color.Gray, modifier = Modifier.weight(1f))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            TextButton(
+                                onClick = { onNotifySettingsChange(notifySettings.copy(minTasksPerDay = notifySettings.minTasksPerDay - 1)) },
+                                enabled = notifySettings.minTasksPerDay > MIN_TASKS_RANGE_START
+                            ) { Text("−", style = MaterialTheme.typography.titleLarge) }
+                            Text(notifySettings.minTasksPerDay.toString(), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            TextButton(
+                                onClick = { onNotifySettingsChange(notifySettings.copy(minTasksPerDay = notifySettings.minTasksPerDay + 1)) },
+                                enabled = notifySettings.minTasksPerDay < MIN_TASKS_RANGE_END
+                            ) { Text("+", style = MaterialTheme.typography.titleLarge) }
                         }
                     }
                 }
