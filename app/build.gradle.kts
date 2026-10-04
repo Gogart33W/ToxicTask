@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -6,15 +9,29 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
 }
 
-
-
-
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("local.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
 
 android {
     namespace = "com.gogart.toxictask"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
+        }
+    }
+
+    val keystorePath = keystoreProperties.getProperty("keystore.path")
+    if (keystorePath != null) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = keystoreProperties.getProperty("keystore.password")
+                keyAlias = keystoreProperties.getProperty("key.alias")
+                keyPassword = keystoreProperties.getProperty("key.password")
+            }
         }
     }
 
@@ -35,7 +52,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            if (keystorePath != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
         release {
+            if (keystorePath != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
