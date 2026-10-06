@@ -660,11 +660,13 @@ fun StatusDashboard(
                         onClick = {
                             coroutineScope.launch {
                                 try {
-                                    val bitmap = shareGraphicsLayer.toImageBitmap().asAndroidBitmap()
+                                    val imageBitmap = shareGraphicsLayer.toImageBitmap()
+                                    val bitmap = imageBitmap.asAndroidBitmap()
                                     ShareUtils.shareToTikTokOrSystem(context, bitmap)
                                     showShareDialog = false
                                 } catch (e: Exception) {
                                     e.printStackTrace()
+                                    android.widget.Toast.makeText(context, "Render error: ${e.localizedMessage}", android.widget.Toast.LENGTH_LONG).show()
                                 }
                             }
                         },
