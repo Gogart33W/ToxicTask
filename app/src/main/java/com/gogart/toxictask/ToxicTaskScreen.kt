@@ -627,7 +627,8 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
                             statusTitle = roleLabel,
                             streakDays = streak,
                             roastPhrase = insult,
-                            roleColor = roleColor
+                            roleColor = roleColor,
+                            lang = lang
                         )
                     }
 
@@ -725,8 +726,11 @@ fun ToxicShareCard(
     streakDays: Int,
     roastPhrase: String,
     roleColor: Color = Color.Red,
+    lang: LanguageCode = LanguageCode.EN,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val streakText = ToxicStrings.getStreakText(context, streakDays, lang)
     Box(
         modifier = modifier
             .size(width = 360.dp, height = 640.dp) // 9:16 Ratio
@@ -776,7 +780,7 @@ fun ToxicShareCard(
                     border = BorderStroke(1.dp, roleColor.copy(alpha = 0.5f))
                 ) {
                     Text(
-                        text = "🔥 Streak: $streakDays days",
+                        text = "🔥 $streakText",
                         color = roleColor,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
