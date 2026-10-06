@@ -1,5 +1,6 @@
-- [x] Create implementation plan for EN/DE polish
-- [ ] Polish English toxic phrases (`values/toxic_phrases.xml`)
-- [ ] Polish German toxic phrases (`values-de/toxic_phrases.xml`)
-- [ ] Build and verify XML syntax and compilation
-- [ ] Commit changes
+- [x] Identify the root cause of English text showing up when UK/DE is selected.
+- [ ] Create Python script to procedurally generate 1000+ grammatically flawless phrases per language.
+- [ ] Ensure 100% array parity across `values`, `values-uk`, and `values-de`.
+- [ ] Execute script to rewrite `toxic_phrases.xml` for all three languages.
+- [ ] Build and verify everything is fully localized.
+- [ ] Commit changes.

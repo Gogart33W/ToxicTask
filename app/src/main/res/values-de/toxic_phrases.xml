@@ -1,342 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Polished and expanded German toxic phrases -->
 <resources>
     <string-array name="empty_insults_mild">
-        <item>Wo sind deine Aufgaben?</item>
-        <item>Füge heute ein Ziel hinzu.</item>
-        <item>Planlos? Mach dir einen Plan.</item>
+        <item>Wo sind deine Aufgaben? Füge heute ein Ziel hinzu.</item>
+        <item>Wo sind deine Aufgaben? Mach dir einen Plan.</item>
+        <item>Wo sind deine Aufgaben? Ändern wir das.</item>
+        <item>Deine Liste ist leer. Füge heute ein Ziel hinzu.</item>
+        <item>Deine Liste ist leer. Mach dir einen Plan.</item>
         <item>Deine Liste ist leer. Ändern wir das.</item>
-        <item>Zeit, sich Ziele zu setzen.</item>
+        <item>Zeit, sich Ziele zu setzen. Füge heute ein Ziel hinzu.</item>
+        <item>Zeit, sich Ziele zu setzen. Mach dir einen Plan.</item>
+        <item>Zeit, sich Ziele zu setzen. Ändern wir das.</item>
     </string-array>
     <string-array name="empty_insults_normal">
-        <item>Ist der Bildschirm so leer wie dein Kopf?</item>
-        <item>Baust du wieder ab? Füg etwas hinzu.</item>
-        <item>Keine Pläne? Ziemlich traurig.</item>
-        <item>Hast du heute absolut nichts vor?</item>
-        <item>Leere Liste, leeres Leben.</item>
+        <item>Ist der Bildschirm so leer wie dein Kopf? Baust du wieder ab? Füg etwas hinzu.</item>
+        <item>Ist der Bildschirm so leer wie dein Kopf? Leere Liste, leeres Leben.</item>
+        <item>Hast du heute absolut nichts vor? Baust du wieder ab? Füg etwas hinzu.</item>
+        <item>Hast du heute absolut nichts vor? Leere Liste, leeres Leben.</item>
+        <item>Keine Pläne? Ziemlich traurig. Baust du wieder ab? Füg etwas hinzu.</item>
+        <item>Keine Pläne? Ziemlich traurig. Leere Liste, leeres Leben.</item>
     </string-array>
     <string-array name="empty_insults_extreme">
         <item>Warum ist das so leer? Schreib Aufgaben, du Nichtsnutz!</item>
-        <item>Deine Liste ist ein Spiegel deines wertlosen Lebens. Mach endlich was!</item>
-        <item>Verdammt nochmal leer! Hast du überhaupt Ziele?</item>
-        <item>Hör auf, auf einen leeren Bildschirm zu starren!</item>
-        <item>Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
+        <item>Warum ist das so leer? Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
+        <item>Warum ist das so leer? Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
+        <item>Verdammt nochmal leer! Schreib Aufgaben, du Nichtsnutz!</item>
+        <item>Verdammt nochmal leer! Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
+        <item>Verdammt nochmal leer! Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
+        <item>Hör auf, auf einen leeren Bildschirm zu starren! Schreib Aufgaben, du Nichtsnutz!</item>
+        <item>Hör auf, auf einen leeren Bildschirm zu starren! Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
+        <item>Hör auf, auf einen leeren Bildschirm zu starren! Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
     </string-array>
-
     <string-array name="slacker_insults_mild">
-        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet.</item>
-        <item>Deine Aufgabenliste vermisst dich ein bisschen.</item>
-        <item>Wie wäre es mit der einfachsten Aufgabe zum Anfang?</item>
-        <item>Fünf Minuten Arbeit, und du bist drin.</item>
-        <item>Der Tag ist noch lang genug. Nutz ihn!</item>
-        <item>Hak eine Aufgabe ab, und deine Laune dankt es dir.</item>
-        <item>Kein Stress, aber deine Liste wartet noch.</item>
-        <item>Deine Aufgaben räuspern sich ganz leise.</item>
-        <item>Wollen wir heute wenigstens einen Haken setzen?</item>
-        <item>Du kannst mehr. Ich glaube an dich.</item>
-        <item>Ein kleiner Anstoß, und es läuft.</item>
-        <item>Es ist noch Zeit, den Tag zu drehen.</item>
-        <item>Such dir eine Aufgabe aus und fang einfach an.</item>
-        <item>Anfangen ist am schwersten. Danach wird es leichter.</item>
-        <item>Deine Liste sehnt sich nach Häkchen.</item>
-        <item>Aufschieben ist leicht, aber ein erledigter Plan fühlt sich besser an.</item>
-        <item>Kaffee getrunken? Dann ist jetzt Aufgabe Nummer eins dran.</item>
-        <item>Ein kleiner Schritt, und du bist wieder in Bewegung.</item>
-        <item>Es ist nicht zu spät. Der Tag gehört dir.</item>
-        <item>Ein paar Häkchen, und dein Gewissen ist beruhigt.</item>
-        <item>Erst ein bisschen arbeiten, dann in Ruhe entspannen.</item>
-        <item>Aufgaben sind nicht schlimm, wenn man sie nacheinander angeht.</item>
-        <item>Der beste Zeitpunkt anzufangen ist jetzt.</item>
-        <item>Zerlege die große Sache in kleine Schritte und leg los.</item>
-        <item>Deine Liste ist geduldig, aber nicht unendlich.</item>
-        <item>Probier es zehn Minuten ohne Ablenkung.</item>
-        <item>Niemand ist perfekt, aber jeder kann anfangen.</item>
-        <item>Du wolltest das erledigen. Jetzt wäre der Moment.</item>
-        <item>Erledige die erste Aufgabe, der Rest geht leichter.</item>
-        <item>Dein Zukunfts-Ich sagt schon mal danke.</item>
-        <item>Das Handy kannst du weglegen, die Aufgaben nicht.</item>
-        <item>Auch kleiner Fortschritt ist Fortschritt.</item>
-        <item>Die Pause hat lange genug gedauert. Wollen wir weitermachen?</item>
-        <item>Ein kleiner Ruck, und du bist schon auf halbem Weg.</item>
-        <item>Lass uns den Tag ein bisschen besser machen.</item>
-        <item>Wozu hast du die Aufgaben aufgeschrieben? Genau dafür.</item>
-        <item>Das erste Häkchen ist das schönste. Probier es aus.</item>
-        <item>Noch ein bisschen Faulenzen, dann geht es los.</item>
-        <item>Fang mit dem Leichtesten an. Warmlaufen zählt auch.</item>
-        <item>Jede erledigte Aufgabe ist ein Geschenk an dein späteres Ich.</item>
-        <item>Es sind nur ein paar Aufgaben. Du schaffst das.</item>
-        <item>Einatmen, ausatmen und los mit Aufgabe eins.</item>
-        <item>Du kannst heute mehr schaffen, als du denkst.</item>
-        <item>Deine Liste ist gar nicht schlecht. Sie muss nur erledigt werden.</item>
-        <item>Schritt für Schritt, Aufgabe für Aufgabe.</item>
-        <item>Warte nicht auf die perfekte Stimmung. Fang einfach an.</item>
-        <item>Stell einen Timer auf fünfzehn Minuten und los!</item>
-        <item>Ich verspreche dir, nach der ersten Aufgabe wird es leichter.</item>
-        <item>Du willst doch nicht, dass alles auf morgen rutscht, oder?</item>
-        <item>Ein kleiner Sieg wartet in deiner Liste auf dich.</item>
-        <item>Wer früh anfängt, hat einen ruhigeren Abend.</item>
-        <item>Zeit, deine Produktivität aufzuwecken.</item>
-        <item>Der heutige Plan erledigt sich leider nicht von selbst.</item>
-        <item>Es gibt nichts Besseres als das Gefühl, etwas geschafft zu haben.</item>
-        <item>Bring ein bisschen Schwung in deine Liste.</item>
-        <item>Du weißt, wie man Dinge zu Ende bringt. Nur zur Erinnerung.</item>
-        <item>Schieb nicht auf, was du jetzt erledigen kannst.</item>
-        <item>Erst die Pflicht, dann die Serie. Das fühlt sich besser an.</item>
-        <item>Das Geheimnis ist einfach: anfangen.</item>
-        <item>Noch ein Versuch, und der Tag wird richtig gut.</item>
-        <item>Such dir die leichteste Aufgabe und hak sie ab.</item>
-        <item>Eine Minute Einsatz, und die Aufgabe ist nur noch halb so schlimm.</item>
-        <item>Leg die Ablenkungen zwanzig Minuten beiseite.</item>
-        <item>Die freundliche Erinnerung sagt: Es geht los.</item>
-        <item>Aus deinem „irgendwann“ kann leicht ein „jetzt“ werden.</item>
-        <item>Die Aufgaben waren lange geduldig. Hilf ihnen.</item>
-        <item>Hörst du das? Deine Liste ruft um Hilfe.</item>
-        <item>Motivation kommt nach dem Anfangen, nicht davor.</item>
-        <item>Gerade ist ein guter Moment für das erste Häkchen.</item>
-        <item>Ich weiß, manchmal hat man keine Lust. Aber du kannst das.</item>
-        <item>Nimm deinen Willen zusammen und schließe einen Punkt ab.</item>
-        <item>Die Arbeit wartet nicht ewig, aber du schaffst es rechtzeitig.</item>
-        <item>Ein Punkt erledigt, und du bist schon ein Champion.</item>
-        <item>Wir wissen beide, dass du schneller sein kannst.</item>
-        <item>Du bist nicht faul, du hast nur noch nicht angefangen.</item>
-        <item>Die heutigen Aufgaben wären dir sehr dankbar.</item>
-        <item>Keine Eile, aber Fortschritt wäre schön.</item>
-        <item>Alles beginnt mit einem einzigen Häkchen.</item>
-        <item>Dreimal tief durchatmen, dann an die Arbeit.</item>
-        <item>Das soll der Tag sein, an dem du alles schaffst.</item>
-        <item>Du erinnerst dich an deine Pläne für heute? Sie erinnern sich an dich.</item>
-        <item>Ein bisschen Hilfe für dich jetzt ist viel Hilfe später.</item>
-        <item>Siehst du die leeren Kästchen? Füll wenigstens eins.</item>
-        <item>Auch der kleinste Anfang ist ein Anfang.</item>
-        <item>Pläne sind schön. Erledigte Pläne sind schöner.</item>
-        <item>Mach es jetzt und entspann dich ohne schlechtes Gewissen.</item>
-        <item>Der Abend naht, und die Liste hat noch Einträge.</item>
-        <item>Du weißt, dass du das schaffst. Also los.</item>
-        <item>Manchmal ist der beste Lifehack einfach, loszulegen.</item>
-        <item>Kein Druck, aber deine Liste sieht ein bisschen traurig aus.</item>
-        <item>Vielleicht rettet genau diese Aufgabe deinen Tag.</item>
-        <item>Mach den ersten Schritt, ich feuere dich an.</item>
-        <item>Kleine Aufgabe um kleine Aufgabe ergibt große Erfolge.</item>
-        <item>Öffne einfach die Liste und wähl eine Aufgabe. Der Rest kann warten.</item>
-        <item>Deine Produktivität ist Kaffee holen gegangen. Hol sie zurück!</item>
-        <item>Die kurze Pause ist vorbei. Zeit, zurückzukommen.</item>
-        <item>Heute ist wieder eine Chance, sich am Abend gut zu fühlen.</item>
-        <item>Du kannst das. Du musst nur anfangen.</item>
-        <item>Noch ein Tag, noch eine Gelegenheit.</item>
-        <item>Dein Plan ist eigentlich ganz gut. Er muss nur erledigt werden.</item>
-        <item>Ein kleiner Start jetzt macht den Abend leichter.</item>
-        <item>Machen wir aus dem Plan Fortschritt.</item>
-        <item>Ein sanfter Schubs von mir, ein großer Schritt von dir.</item>
-        <item>Deine Liste sagt Hallo und bittet um einen Gefallen.</item>
-        <item>Erledige eine Sache, und du spürst den Unterschied.</item>
-        <item>Warum nicht dem Tag einen ordentlichen Abschluss geben?</item>
-        <item>Ein Haken ist besser als keiner. Auf geht’s.</item>
+        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Komm in die Gänge.</item>
+        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Aufschieben ist keine Lösung.</item>
+        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Die Zeit läuft.</item>
+        <item>Ein kleiner Schritt jetzt, und du bist drin. Komm in die Gänge.</item>
+        <item>Ein kleiner Schritt jetzt, und du bist drin. Aufschieben ist keine Lösung.</item>
+        <item>Ein kleiner Schritt jetzt, und du bist drin. Die Zeit läuft.</item>
+        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Komm in die Gänge.</item>
+        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Aufschieben ist keine Lösung.</item>
+        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Die Zeit läuft.</item>
+        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Komm in die Gänge.</item>
+        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Aufschieben ist keine Lösung.</item>
+        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Die Zeit läuft.</item>
+        <item>Fünf Minuten Arbeit, und du bist drin. Komm in die Gänge.</item>
+        <item>Fünf Minuten Arbeit, und du bist drin. Aufschieben ist keine Lösung.</item>
+        <item>Fünf Minuten Arbeit, und du bist drin. Die Zeit läuft.</item>
+        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Komm in die Gänge.</item>
+        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Aufschieben ist keine Lösung.</item>
+        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Die Zeit läuft.</item>
     </string-array>
-
     <string-array name="slacker_insults_normal">
-        <item>Dein Sofa liebt dich so sehr, dass es dich nicht loslässt, was?</item>
-        <item>Die Aufgabenliste wächst, und du bist „beschäftigt“. Womit?</item>
-        <item>Dein Fortschritt ist heute so flach wie deine Motivation.</item>
-        <item>Aufgaben haken sich nicht von selbst ab, Faulpelz.</item>
-        <item>Wartest du darauf, dass jemand anderes deine Aufgaben erledigt?</item>
-        <item>Die Produktivität liegt bei null. Sogar dein WLAN arbeitet mehr.</item>
-        <item>Ein weiterer Tag, ein weiteres „mach ich später“. Klassiker.</item>
-        <item>Der halbe Tag ist weg, und deine Ergebnisse verdienen eine Schweigeminute.</item>
-        <item>Schon wieder „ich fang gleich an“? Du fängst seit einer Stunde gleich an.</item>
-        <item>Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Deine Aufgaben schauen dich enttäuscht an. Spürst du das?</item>
-        <item>Deine Pläne sind toll. Schade, dass sie nur auf einer Liste stehen.</item>
-        <item>Die Faulheit besiegt dich heute ohne Kampf.</item>
-        <item>Rumliegen ist eine Kunst, und du wirst gefährlich gut darin.</item>
-        <item>Du wolltest heute alles schaffen. Sieht nicht danach aus.</item>
-        <item>Sollen wir so tun, als hättest du gearbeitet? Nee, das klappt nicht.</item>
-        <item>Wer war das mit dem „mach ich sofort“? Der wäre längst fertig!</item>
-        <item>Die Liste ist lang, und dein Einsatz ist kurz.</item>
-        <item>Deine Ausreden müssen längst erschöpft sein. Du auch?</item>
-        <item>Häkchen entstehen nicht vom Anstarren der Decke.</item>
-        <item>Aufschieben ist auch ein Talent. Nur wird es nicht bezahlt.</item>
-        <item>Das Sofa gewinnt heute haushoch.</item>
-        <item>Ist das Energiesparmodus oder einfach nur Faulheit?</item>
-        <item>Alle Vernünftigen haben schon etwas erledigt. Wo bist du?</item>
-        <item>Deine Motivation ist ausgezogen, ohne eine Adresse zu hinterlassen.</item>
-        <item>Du bist so beschäftigt mit Nichtstun, dass du es nicht mal merkst.</item>
-        <item>Betrügst du dich schon wieder selbst? Ich durchschaue dich.</item>
-        <item>Du willst die peinliche Nummer von gestern doch nicht wiederholen, oder?</item>
-        <item>Dein Ich von morgen darf das alles ausbaden. Danke, Faulpelz.</item>
-        <item>Sag bloß nicht, du „sammelst deine Gedanken“.</item>
-        <item>Die Aufgaben warten, während du im „Später“ festhängst.</item>
-        <item>Dein Kalender hat Mitleid mit dir, nicht mit mir.</item>
-        <item>Unerledigte Aufgaben häufen sich schneller als dein schlechtes Gewissen.</item>
-        <item>Du bist heute Spitzenreiter in der Kategorie „liegen und gucken“.</item>
-        <item>Schluss mit den Zweifeln, mach dich an die Arbeit, Versager.</item>
-        <item>Ist der Versager-Status ein Lebensstil oder nur eine Phase?</item>
-        <item>Ist doch egal, wie die Stimmung ist. Erledige deine Aufgaben!</item>
-        <item>König des Aufschiebens: Die Krone sitzt, die Aufgaben bleiben liegen.</item>
-        <item>Warum heißt es immer „noch fünf Minuten“? Es ist eine Stunde her.</item>
-        <item>Deine Liste macht keine Witze. Du schon.</item>
-        <item>Ist „später“ wirklich dein Lieblingswort?</item>
-        <item>Du siehst aus wie ein Wasserkocher ohne Wasser. Null Nutzen.</item>
-        <item>Wo sind eigentlich die Ergebnisse, Schlaffi?</item>
-        <item>Ich würde sagen, jag der Motivation hinterher, aber du stehst ja nicht mal auf.</item>
-        <item>Eine Aufgabe wäre schön. Ein Wunder, eigentlich.</item>
-        <item>Du bist ein Genie im Ausredenfinden. Jetzt versuch mal, die Aufgaben zu erledigen.</item>
-        <item>Viele Pläne, null erledigte Aufgaben. Die Rechnung ist traurig.</item>
-        <item>Es gibt keine „Umstände“. Es gibt nur dich und deine Faulheit.</item>
-        <item>Sei nicht schüchtern: Du hast massenhaft unerledigte Aufgaben.</item>
-        <item>Ist Faulheit heute dein treuester Freund?</item>
-        <item>Du hast es dir selbst versprochen. Belügst du dich auch noch selbst?</item>
-        <item>Willst du ewig auf ein Wunder warten?</item>
-        <item>Null erledigte Aufgaben: Ist das dein neuer persönlicher Rekord?</item>
-        <item>Das Sofa hat dich angeworben. Glückwunsch, Faulpelz.</item>
-        <item>Du bist heute das Beispiel dafür, wie man einen Tag NICHT nutzt.</item>
-        <item>Dein Gehirn tut so, als würde es arbeiten. Ich glaube es nicht.</item>
-        <item>Deine Aufgaben verachten dich. Und sie haben ihre Gründe.</item>
-        <item>So viel „später“, das du geplant hast! Wie viel Lebenszeit steckt da drin?</item>
-        <item>Dein „ich kümmere mich drum“ ist inzwischen ein Lehrbuchbeispiel für Fiktion.</item>
-        <item>Gib’s zu: Du hast einfach abgewinkt und aufgegeben.</item>
-        <item>Deine Produktivität könnte einen kräftigen Tritt gebrauchen.</item>
-        <item>Aufgaben anschauen erledigt sie nicht.</item>
-        <item>Du bist wie ein Handy mit einem Prozent: noch am Leben, aber nutzlos.</item>
-        <item>Schon gut, du schaffst es ja noch – diese Woche? Diesen Monat? Dieses Leben?</item>
-        <item>Du bist nicht beschäftigt, du tust einfach nichts.</item>
-        <item>Heute bist du eine Legende der Faulheit. Aber Legenden müssen enden.</item>
-        <item>Wir sehen dein Potenzial. Es schläft gerade.</item>
-        <item>Null erledigte Aufgaben isst langsam wirklich lustig.</item>
-        <item>Du hörst mich schon länger nicht, also sage ich es lauter.</item>
-        <item>Scham ist ein toller Motivator. Probier sie mal aus.</item>
-        <item>Wie oft muss ich dich noch erinnern? Du bist erwachsen.</item>
-        <item>Es bleibt kaum noch Zeit, und du hältst noch Winterschlaf.</item>
-        <item>Diese Produktivität ist keine Faulheit mehr, das ist Kunst.</item>
-        <item>Komm, löse dich vom Sofa. Es hat seit Ewigkeiten kein Tageslicht gesehen.</item>
-        <item>Deine Aufgabenliste ist ein Meisterwerk unerledigter Dinge.</item>
-        <item>Wir sind doch auf derselben Seite. Dann arbeite, Faulpelz.</item>
-        <item>Du hast heute sogar deinen eigenen Schatten enttäuscht.</item>
-        <item>Die Faulheit besiegt dich, und du klatschst auch noch Beifall.</item>
-        <item>Wie lange kann „nur kurz ausruhen“ eigentlich dauern?</item>
-        <item>Und dann wunderst du dich, dass bei dir nichts klappt.</item>
-        <item>Verlierer haben einfach „keine Zeit“. Sei keiner.</item>
-        <item>Nichts Ernstes, nur deine Zukunft schmilzt, während du dich ausruhst.</item>
-        <item>Du hast so oft vorgehabt anzufangen, dass es schon als Sport zählt.</item>
-        <item>Das Versager-Etikett steht dir, aber du willst nicht damit leben.</item>
-        <item>Schau auf die Liste. Sie ist von dir nicht mehr überrascht.</item>
-        <item>Nichtstun ist auch eine Entscheidung. Eine schlechte, aber eine Entscheidung.</item>
-        <item>Deine unerledigten Aufgaben haben schon einen eigenen Gruppenchat und reden über dich.</item>
-        <item>Nein, eine Pause hast du dir noch nicht verdient. Los an die Arbeit.</item>
-        <item>Du bist bereit, ein Lehrbeispiel für Prokrastination zu werden.</item>
-        <item>Erledige eine Aufgabe, dann bin ich still. Für eine Weile.</item>
-        <item>Du tust heute so wunderschön nichts.</item>
-        <item>Wenn Faulheit ein Sport wäre, wärst du längst Meister.</item>
-        <item>Komm, überrasch mich. Nur ein einziges Mal.</item>
-        <item>Du bist doch keiner, der aufgibt? Sieht aber ganz danach aus.</item>
-        <item>Dein zukünftiges Ich fasst sich gerade an den Kopf.</item>
-        <item>Dein Einsatz heute: Dornröschen.</item>
-        <item>Mal ehrlich: Wann hast du zuletzt etwas pünktlich zu Ende gebracht?</item>
-        <item>Lass mich raten: Du fängst gleich nach dem nächsten Scrollen an.</item>
-        <item>Das Einzige, was schneller wächst als deine Liste, ist die Liste deiner Ausreden.</item>
-        <item>Deine Aufgaben sind keine Dekoration. Sie sollen erledigt werden.</item>
+        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
+        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
+        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
+        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
+        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
+        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
+        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
+        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
+        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
+        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
+        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
+        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
+        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
+        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
+        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
+        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
+        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
+        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
+        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
     </string-array>
-
     <string-array name="slacker_insults_extreme">
-        <item>Beweg deinen faulen Arsch und tu endlich was, du Faulpelz!</item>
-        <item>Deine Aufgabenliste ist eine Schande. Reiß dich zusammen, verdammt!</item>
-        <item>Nennst du das einen Tag? Das ist Müll. Erledige eine Aufgabe!</item>
-        <item>Dein Hintern ist am Sofa festgewachsen. Reiß ihn los und arbeite!</item>
-        <item>Hör auf, die Wand anzustarren, und mach deine verdammten Aufgaben!</item>
-        <item>Deine Produktivität ist tot. Erweck sie wieder, du Depp!</item>
-        <item>Wie lange willst du noch nutzlos rumhängen? Beweg dich!</item>
-        <item>Die Faulheit frisst dich auf, und du genießt das auch noch?</item>
-        <item>Du bist wie ein Aufzug zwischen zwei Etagen: Du steckst fest und kommst nirgendwohin.</item>
-        <item>Deine Aufgaben brennen, und du scrollst wie ein Zombie.</item>
-        <item>Du bist nicht müde. Du bist einfach ein faules Stück Scheiße.</item>
-        <item>Null Aufgaben erledigt? Glückwunsch, du bist ein Profi im Zeitverschwenden.</item>
-        <item>Wären Ausreden Arbeit, wärst du schon zum Frühstück fertig.</item>
-        <item>Lass das „noch fünf Minuten“-Gelaber. Es ist eine Stunde her!</item>
-        <item>Deine Motivation ist tot, und du stehst daneben und tust nichts.</item>
-        <item>Erledige die verdammte Aufgabe, bevor ich die nächste Benachrichtigung schicke. Und die nächste.</item>
-        <item>Dein Fortschritt ist Müll. Bring das in Ordnung, du Clown.</item>
-        <item>Sogar eine Zimmerpflanze hat mehr Antrieb als du.</item>
-        <item>Du bist der König der Faulheit. Dein Königreich ist ein Sofa, und es bricht gerade zusammen.</item>
-        <item>Warum sitzt du noch da? Deine Liste erledigt sich nicht von selbst, Genie.</item>
-        <item>Auf was zum Teufel wartest du, auf eine goldene Einladung?</item>
-        <item>Deine Liste ist voller Aufgaben und dein Kopf voller Quatsch.</item>
-        <item>Die Scham gammelt auf deiner To-do-Liste. Räum sie auf!</item>
-        <item>Steh auf, du Faultier. Der Tag rettet sich nicht von selbst.</item>
-        <item>Du solltest ein Gigachad werden. Schau dich an. Erbärmlich.</item>
-        <item>Beweg deinen Arsch! Die Deadline ist nicht dein Freund.</item>
-        <item>Du bist so faul, dass sogar ich, ein Haufen Code, mich schäme.</item>
-        <item>Stell dir vor, eine App arbeitet mehr als du. Moment, das bist ja du.</item>
-        <item>Dein zukünftiges Ich verflucht dich gerade. Hör auf ihn.</item>
-        <item>Hör auf zu jammern und fang an zu arbeiten, du Waschlappen.</item>
-        <item>Du bist ein Meister in nichts außer Ausreden. Beweis mir das Gegenteil!</item>
-        <item>Ein Tag vorbei, null Aufgaben erledigt. Was für eine Legende des Nichts.</item>
-        <item>Deine Liste weint. Ist das wirklich okay für dich?</item>
-        <item>Du bist ein wandelndes „mach ich später“. Mach es jetzt, verdammt!</item>
-        <item>Du bist nicht beschäftigt, du steckst voller Ausreden. Öffne die Liste.</item>
-        <item>Ich habe Schnecken mit mehr Ehrgeiz gesehen. Beweg dich!</item>
-        <item>Keine einzige Aufgabe? Das ist selbst für dich ein neuer Tiefpunkt.</item>
-        <item>Mach irgendwas, egal was, du nutzloser Klops!</item>
-        <item>Du sagst, du „denkst darüber nach“. Denk schneller, du Depp.</item>
-        <item>Reiß dich zusammen, du faule Nulpe.</item>
-        <item>Hör auf, ein Feigling zu sein, und fang mit der ersten Aufgabe an.</item>
-        <item>Deine Faulheit ist legendär und gleichzeitig erbärmlich.</item>
-        <item>Wie fühlt es sich an, einen guten Tag zu verschwenden, Idiot?</item>
-        <item>Deine Aufgaben flehen dich an. Es ist peinlich, dabei zuzusehen.</item>
-        <item>Wow, du tust absolut nichts. Willst du eine Medaille?</item>
-        <item>Wenn Prokrastination olympisch wäre, kämst du trotzdem zu spät.</item>
-        <item>Das ist keine Pause, Faulpelz. Das ist ein Koma.</item>
-        <item>Sitz ruhig wie eine Statue da. Statuen sehen wenigstens gut aus.</item>
-        <item>Was für ein Versager schiebt alles bis zur letzten Minute auf? Du.</item>
-        <item>Deine Motivation hat angerufen. Sie kündigt. Kann ich verstehen.</item>
-        <item>Arbeite, du fauler Sack! Die Aufgaben nehmen sich nicht ewig selbst als Geiseln.</item>
-        <item>Du bist wahrscheinlich das faulste Ding auf diesem Handy, und das schließt den Energiesparmodus ein.</item>
-        <item>Du hast Ziele so groß wie ein Berg und Einsatz so groß wie ein Kieselstein.</item>
-        <item>Willst du mich mit dieser Liste verarschen? Tu was, du Trottel!</item>
-        <item>Ein gelangweiltes Kleinkind ist produktiver als du. Ändere das.</item>
-        <item>Du fauler Sack, selbst das Wochenende würde sich für dich schämen.</item>
-        <item>Null. Erledigte. Aufgaben. Sag es laut und schäm dich.</item>
-        <item>Hör auf mit den Ausreden und mach Fortschritte, Versager!</item>
-        <item>Du bist eine Schande für deine eigene To-do-Liste. Bring diese Scheiße in Ordnung!</item>
-        <item>Nur Gerede, keine Taten. Typisch du.</item>
-        <item>Dein Sofa ist das Einzige, dem du treu bist. Erbärmlich.</item>
-        <item>Du würdest keine Aufgabe schaffen, auch nicht mit Anleitung und Bodyguard.</item>
-        <item>Zieh den Kopf aus dem Arsch und steck ihn in deine Liste!</item>
-        <item>Ich schwöre, noch so ein Tag, und ich ziehe dauerhaft in deine Benachrichtigungen.</item>
-        <item>Schau dich an: ertrinkst in Aufgaben und tust nichts. Impressive, auf traurige Art.</item>
-        <item>Faul sein kann jeder, aber du ziehst es richtig durch. Leite diese Energie um!</item>
-        <item>Versuch heute mal, etwas anderes zu tun als zu scrollen. Nur eine Sache, du hoffnungsloser Fall.</item>
-        <item>Mit jeder verschwendeten Minute wird die Liste länger und du dümmer.</item>
-        <item>Du bist der Grund, warum es diese App gibt, und das weißt du.</item>
-        <item>Dein „irgendwann“ ist gelogen. Heute ist der einzige Tag. Beweg dich!</item>
-        <item>Macht es dir Spaß, alle zu enttäuschen, dich selbst eingeschlossen?</item>
-        <item>Deine Aufgaben brauchen nicht deine Gefühle. Sie brauchen deinen verdammten Einsatz!</item>
-        <item>Hör auf, so zu tun, als wärst du beschäftigt. Deine Bildschirmzeit sagt etwas anderes.</item>
-        <item>You have the work ethic of a wet sock. Dry out and do something!</item>
-        <item>Ehrlich, du bist richtig gut darin, schlecht zu sein. Probier mal was anderes.</item>
-        <item>Du prokrastinierst so hart, dass die Prokrastination beleidigt ist.</item>
-        <item>Das Wort des Tages ist „Handeln“. Schlag es nach und tu es dann!</item>
-        <item>Wie ein fauler Klumpen dazusitzen, löst kein einziges Problem.</item>
-        <item>Du bist eine Aufgabe davon entfernt, ein bisschen weniger erbärmlich zu sein. Mach sie!</item>
-        <item>Neben dir wirken Faultiere wie Streber.</item>
-        <item>Niemand kommt, um deinen Tag zu retten. Mach es selbst, du fauler Arsch!</item>
-        <item>Versteck dich nicht hinter „ich bin müde“. Du drückst dich nur vor der Arbeit!</item>
-        <item>Wie wird dir das Nichtstun nicht langweilig? Tu etwas!</item>
-        <item>Du hältst dich für cool? Du bist nur ein Typ auf dem Sofa.</item>
-        <item>Das Einzige, was du heute geschafft hast, ist, mich wütender zu machen.</item>
-        <item>Du bist so im Rückstand, dass deine Aufgaben schon Beschwerden einreichen.</item>
-        <item>Halt die Klappe mit den Ausreden und erledige eine verdammte Aufgabe.</item>
-        <item>Du bist der Endboss der Prokrastination. Zeit für eine Niederlage!</item>
-        <item>Du hast die Energie einer leeren Batterie. Steck dich an und arbeite!</item>
-        <item>Ernsthaft, was ist los mit dir? Erledige endlich was!</item>
-        <item>Heutige Leistung: absolut nichts. Traurig und beschämend.</item>
-        <item>Deine Zukunft klopft an, und du ignorierst sie. Mach die Tür auf!</item>
-        <item>Du bist besser als das und du weißt es. Hör auf, faul zu sein.</item>
-        <item>Faul und stolz darauf? Widerlich. Ab an die Arbeit!</item>
-        <item>Beweg dich, bevor ich dein Handy anschreien lasse!</item>
-        <item>Sogar deine Ausreden sind faul. Los an die Arbeit.</item>
-        <item>Das kann doch nicht dein Ernst sein. Schon wieder eine Stunde ohne Aufgabe? Unfassbar.</item>
-        <item>Kein einziges Häkchen. Bravo, du großartiger Faulpelz.</item>
-        <item>Du bist der Grund, warum deine Liste weint. Hör auf damit.</item>
-        <item>Dein Tag verkommt, und du schaust nur zu. Vollidiot.</item>
-        <item>Erledige eine Aufgabe. Irgendeine. Am besten, bevor du Wurzeln schlägst.</item>
+        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
+        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
+        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
+        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
+        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
+        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! Beweg dich!</item>
+        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
+        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
+        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
+        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
+        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
+        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
+        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
+        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
+        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! Beweg dich!</item>
+        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
+        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
+        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
+        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
+        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
+        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
+        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
+        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
+        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! Beweg dich!</item>
+        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
+        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
+        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
+    </string-array>
+    <string-array name="wannabe_insults_mild">
+        <item>Halbzeit. Mach weiter.</item>
+        <item>Halbzeit. gib noch etwas Gas.</item>
+        <item>Halbzeit. Bleib dran.</item>
+        <item>Halbzeit. Fast schon respektabel.</item>
+        <item>Nicht schlecht, Mach weiter.</item>
+        <item>Nicht schlecht, gib noch etwas Gas.</item>
+        <item>Nicht schlecht, Bleib dran.</item>
+        <item>Nicht schlecht, Fast schon respektabel.</item>
+        <item>Das ist ein guter Anfang. Mach weiter.</item>
+        <item>Das ist ein guter Anfang. gib noch etwas Gas.</item>
+        <item>Das ist ein guter Anfang. Bleib dran.</item>
+        <item>Das ist ein guter Anfang. Fast schon respektabel.</item>
+    </string-array>
+    <string-array name="wannabe_insults_normal">
+        <item>Ein Anwärter ist noch kein Gigachad. Arbeite härter.</item>
+        <item>Ein Anwärter ist noch kein Gigachad. Ich will Schweiß sehen.</item>
+        <item>Ein Anwärter ist noch kein Gigachad. Hör auf, so zu tun, und beende die Liste.</item>
+        <item>Du bist nur Durchschnitt. Arbeite härter.</item>
+        <item>Du bist nur Durchschnitt. Ich will Schweiß sehen.</item>
+        <item>Du bist nur Durchschnitt. Hör auf, so zu tun, und beende die Liste.</item>
+        <item>Durchschnitt bringt dich nicht weiter. Arbeite härter.</item>
+        <item>Durchschnitt bringt dich nicht weiter. Ich will Schweiß sehen.</item>
+        <item>Durchschnitt bringt dich nicht weiter. Hör auf, so zu tun, und beende die Liste.</item>
+    </string-array>
+    <string-array name="wannabe_insults_extreme">
+        <item>Denkst du, 50% sind cool? Nichts da! Mach es zu Ende!</item>
+        <item>Denkst du, 50% sind cool? Sei kein rückgratloser Waschlappen!</item>
+        <item>Denkst du, 50% sind cool? Komm aus dem Quark und zieh es durch!</item>
+        <item>Halbe Sachen bringen dich nicht an die Spitze! Nichts da! Mach es zu Ende!</item>
+        <item>Halbe Sachen bringen dich nicht an die Spitze! Sei kein rückgratloser Waschlappen!</item>
+        <item>Halbe Sachen bringen dich nicht an die Spitze! Komm aus dem Quark und zieh es durch!</item>
+    </string-array>
+    <string-array name="gigachad_insults_mild">
+        <item>Respekt ++. Gute Arbeit heute.</item>
+        <item>Respekt ++. Solide Leistung.</item>
+        <item>Respekt ++. Mission erfolgreich abgeschlossen.</item>
+        <item>GIGACHAD-Energie. Gute Arbeit heute.</item>
+        <item>GIGACHAD-Energie. Solide Leistung.</item>
+        <item>GIGACHAD-Energie. Mission erfolgreich abgeschlossen.</item>
+        <item>Gut gemacht. Gute Arbeit heute.</item>
+        <item>Gut gemacht. Solide Leistung.</item>
+        <item>Gut gemacht. Mission erfolgreich abgeschlossen.</item>
+    </string-array>
+    <string-array name="gigachad_insults_normal">
+        <item>Du bist eine absolute Maschine! Respekt verdient.</item>
+        <item>Du bist eine absolute Maschine! Verlier ihn morgen nicht.</item>
+        <item>Du bist eine absolute Maschine! So dominiert man den Tag!</item>
+        <item>Legendäre Produktivität. Respekt verdient.</item>
+        <item>Legendäre Produktivität. Verlier ihn morgen nicht.</item>
+        <item>Legendäre Produktivität. So dominiert man den Tag!</item>
+        <item>Du hast die Liste komplett rasiert. Respekt verdient.</item>
+        <item>Du hast die Liste komplett rasiert. Verlier ihn morgen nicht.</item>
+        <item>Du hast die Liste komplett rasiert. So dominiert man den Tag!</item>
+    </string-array>
+    <string-array name="gigachad_insults_extreme">
+        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Perfekter Sieg!</item>
+        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Ich bin tatsächlich beeindruckt.</item>
+        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Unaufhaltsam! Weiter so, Legende!</item>
+        <item>Gigachad des Jahres! Perfekter Sieg!</item>
+        <item>Gigachad des Jahres! Ich bin tatsächlich beeindruckt.</item>
+        <item>Gigachad des Jahres! Unaufhaltsam! Weiter so, Legende!</item>
+        <item>Absolute Maschine! Perfekter Sieg!</item>
+        <item>Absolute Maschine! Ich bin tatsächlich beeindruckt.</item>
+        <item>Absolute Maschine! Unaufhaltsam! Weiter so, Legende!</item>
+    </string-array>
+    <string-array name="too_few_tasks_mild">
+        <item>Nur %1$d von %2$d Aufgaben so far. Lass uns ein paar mehr hinzufügen.</item>
+        <item>Nur %1$d von %2$d Aufgaben so far. Füg welche hinzu!</item>
+        <item>Nur %1$d von %2$d Aufgaben so far. Wir brauchen mindestens %2$d.</item>
+        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Lass uns ein paar mehr hinzufügen.</item>
+        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Füg welche hinzu!</item>
+        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Wir brauchen mindestens %2$d.</item>
+    </string-array>
+    <string-array name="too_few_tasks_normal">
+        <item>Nur %1$d von %2$d? Im Ernst? Füg mehr Aufgaben hinzu, Faulpelz.</item>
+        <item>Nur %1$d von %2$d? Im Ernst? Tu nicht so beschäftigt.</item>
+        <item>Nur %1$d von %2$d? Im Ernst? Das ist kein Plan, sondern ein Witz.</item>
+        <item>Das war’s? Das Minimum ist %2$d. Füg mehr Aufgaben hinzu, Faulpelz.</item>
+        <item>Das war’s? Das Minimum ist %2$d. Tu nicht so beschäftigt.</item>
+        <item>Das war’s? Das Minimum ist %2$d. Das ist kein Plan, sondern ein Witz.</item>
+    </string-array>
+    <string-array name="too_few_tasks_extreme">
+        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Füg mehr Aufgaben hinzu, du fauler Arsch!</item>
+        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Das ist kein Plan, das ist ein Witz!</item>
+        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Schreib mehr Aufgaben auf, oder ich verfolge dich!</item>
+        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Füg mehr Aufgaben hinzu, du fauler Arsch!</item>
+        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Das ist kein Plan, das ist ein Witz!</item>
+        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Schreib mehr Aufgaben auf, oder ich verfolge dich!</item>
+    </string-array>
+    <string-array name="notif_inactive_title_mild">
+        <item>Zeit, sich zu melden</item>
+        <item>Wo steckst du?</item>
+    </string-array>
+    <string-array name="notif_inactive_body_mild">
+        <item>Schon 3 Tage vergangen. Ein kleiner Schritt ist besser als keiner!</item>
+        <item>Deine Aufgaben warten auf dich. Los geht\'s.</item>
+    </string-array>
+    <string-array name="notif_inactive_title_normal">
+        <item>Lebst du noch?</item>
+        <item>Versager-Titel nähert sich</item>
+    </string-array>
+    <string-array name="notif_inactive_body_normal">
+        <item>3 Tage rein gar nichts getan. Dein zukünftiges Ich weint.</item>
+        <item>Deine Liste verstaubt. Beeil dich ein bisschen.</item>
+    </string-array>
+    <string-array name="notif_inactive_title_extreme">
+        <item>Versager-Titel bestätigt!</item>
+        <item>Wach auf, du Müll!</item>
+    </string-array>
+    <string-array name="notif_inactive_body_extreme">
+        <item>Du hast 3 Tage lang nichts getan! Deine Liste ist so leer wie deine Zukunft!</item>
+        <item>Bist du tot? Steh auf und mach was aus deinem Leben!</item>
+    </string-array>
+    <string-array name="notif_expired_title_mild">
+        <item>Deadline verpasst</item>
+    </string-array>
+    <string-array name="notif_expired_body_mild">
+        <item>Mission \'%1$s\' hat die Deadline um %2$s verpasst.</item>
+    </string-array>
+    <string-array name="notif_expired_title_normal">
+        <item>Du hast versagt.</item>
+    </string-array>
+    <string-array name="notif_expired_body_normal">
+        <item>Mission \'%1$s\' fehlgeschlagen! Deadline war %2$s.</item>
+    </string-array>
+    <string-array name="notif_expired_title_extreme">
+        <item>Deadline abgelaufen, Versager!</item>
+    </string-array>
+    <string-array name="notif_expired_body_extreme">
+        <item>Verkackt! \'%1$s\' ist seit %2$s überfällig!</item>
+    </string-array>
+    <string-array name="notif_urgent_title_mild">
+        <item>Die Zeit wird knapp</item>
+    </string-array>
+    <string-array name="notif_urgent_body_mild">
+        <item>Nur noch %2$d Min. für \'%1$s\'.</item>
+    </string-array>
+    <string-array name="notif_urgent_title_normal">
+        <item>Beeil dich!</item>
+    </string-array>
+    <string-array name="notif_urgent_body_normal">
+        <item>Du hast \'%1$s\' noch nicht erledigt! Die Uhr tickt: %2$d Min.</item>
+    </string-array>
+    <string-array name="notif_urgent_title_extreme">
+        <item>Beweg deinen Arsch!</item>
+    </string-array>
+    <string-array name="notif_urgent_body_extreme">
+        <item>Nur noch %2$d Min. für \'%1$s\'! Wag es nicht, zu versagen!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_title_mild">
+        <item>Der Tag neigt sich dem Ende</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_mild">
+        <item>Versuche noch ein paar Dinge zu erledigen, bevor der Tag endet.</item>
+    </string-array>
+    <string-array name="notif_end_of_day_title_normal">
+        <item>Tag endet!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_normal">
+        <item>Der Tag endet und du hast den Plan nicht erfüllt! Los geht\'s!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_title_extreme">
+        <item>Letzte Warnung!</item>
+    </string-array>
+    <string-array name="notif_end_of_day_body_extreme">
+        <item>Der Tag ist fast vorbei und deine Liste ist erbärmlich! Arbeite JETZT!</item>
+    </string-array>
+    <string-array name="notif_default_title_mild">
+        <item>Kleine Erinnerung</item>
+    </string-array>
+    <string-array name="notif_default_title_normal">
+        <item>Hey du!</item>
+    </string-array>
+    <string-array name="notif_default_title_extreme">
+        <item>Steh auf, Abschaum!</item>
     </string-array>
 </resources>
