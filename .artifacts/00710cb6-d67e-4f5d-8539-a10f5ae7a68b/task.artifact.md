@@ -1,7 +1,8 @@
-- [x] Unify terminology in `values-uk/strings.xml` to "Таска" and update "Екстремальний" to "Екстрим".
-- [x] Fix German translation in `values-de/strings.xml` (add missing keys, fix tone/grammar).
-- [x] Add `disclaimer_content_desc` to English `values/strings.xml`.
-- [x] Fix UI bug in `ToxicTaskScreen.kt` by using `FlowRow` for Toxicity levels.
-- [x] Fix Date format in `ToxicTaskScreen.kt` using `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
-- [x] Verify Build.
-- [x] Commit changes locally (Without version bump).
+- [ ] Create `res/xml/file_paths.xml`.
+- [ ] Add `FileProvider` to `AndroidManifest.xml`.
+- [ ] Create `ShareUtils.kt` for handling intents.
+- [ ] Implement `ToxicShareCard` composable in `ToxicTaskScreen.kt`.
+- [ ] Add off-screen rendering logic using `GraphicsLayer` in `StatusDashboard`.
+- [ ] Add "Share" button to `StatusDashboard`.
+- [ ] Bump version to `1.1.0` in `app/build.gradle.kts`.
+- [ ] Verify build and commit.

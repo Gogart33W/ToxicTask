@@ -1,52 +1,44 @@
-# Plan to Polish Localization and Fix UI Formatting (Release 1.0.11)
+# Plan to Implement TikTok/Social Share Feature (Release 1.1.0)
 
 ## Goal Description
-The current UI strings are suffering from several translation inconsistencies, grammatical errors, and layout bugs.
-Specifically:
-- German translation has missing keys, bad terminology ("STREBER", "ABFALL"), formal/informal mixing ("Sie" vs "du"), and inconsistent caps.
-- Ukrainian translation mixes "місії", "таски", "цілі", and "задачі". The user prefers unifying this around "Таски" / "Таска" / "Таску".
-- UI bug: The "Екстремальний" chip in settings wraps awkwardly and breaks the layout.
-- The date formatter is hardcoded to US format ("MMM dd, yyyy").
-- Accessibility lacks a localized string for the disclaimer icon.
-
-The goal is to fix all translation files, align terminology, fix date formatting using a locale-aware formatter, fix the Chip layout bug, and bump the version to 1.0.11.
+We want to add a viral loop to ToxicTask by allowing users to share their "Player Status" and a toxic phrase as a sleek, 9:16 vertical poster directly to TikTok, Instagram Stories, or other social media.
+This feature will:
+1. Render a beautiful composable poster invisibly in memory using Compose `GraphicsLayer`.
+2. Save the rendered image to a cache directory.
+3. Serve the image via `FileProvider` securely.
+4. Launch an `ACTION_SEND` intent prioritizing TikTok (or fallback to standard share sheet).
+5. Bump version to `1.1.0` (minor version bump since it's a significant new feature).
 
 ## User Review Required
 > [!NOTE]
-> - Terminology in Ukrainian will be unified to "Таска" / "Таски" (e.g., "НОВА ТАСКА", "РЕДАГУВАТИ ТАСКУ").
-> - The layout issue with the "Екстремальний" chip will be fixed by allowing the chips to wrap to a new line (using FlowRow or standard scrollable Row if horizontal space is tight). Since it's inside a `Row(horizontalArrangement = Arrangement.spacedBy(4.dp))`, we will change it to an `Auto-wrapping` layout or just let the text size down if needed.
-> - Date formatting will use `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
+> The new sharing button will be placed on the Status Dashboard card. Users can tap a "Share" icon to instantly generate and share their roast/glory. The image will be dark-themed and edgy, fitting the app's aesthetic.
 
 ## Proposed Changes
 
-### Feature 1: Polish Translations and Unify Terminology
-#### [MODIFY] [res/values/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values/strings.xml)
-- Add missing keys if any.
-- Change `disclaimer_content_desc` (new string for accessibility).
+### 1. FileProvider Setup
+#### [NEW] [app/src/main/res/xml/file_paths.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/xml/file_paths.xml)
+- Define the `shared_images` cache path.
 
-#### [MODIFY] [res/values-uk/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values-uk/strings.xml)
-- Unify terminology: `НОВА МІСІЯ` -> `НОВА ТАСКА`, `ПОТОЧНІ ЦІЛІ` -> `ПОТОЧНІ ТАСКИ`, `МІСІЇ ВІДСУТНІ` -> `ТАСКИ ВІДСУТНІ`, etc.
-- Change "Екстремальний" to "Екстрим" (or "Жорсткий") to prevent the severe text-wrapping UI bug on narrow screens, while keeping the meaning.
+#### [MODIFY] [app/src/main/AndroidManifest.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/AndroidManifest.xml)
+- Add `<provider>` definition for `androidx.core.content.FileProvider`.
 
-#### [MODIFY] [res/values-de/strings.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/values-de/strings.xml)
-- Fix missing keys.
-- Fix grammar and terminology (e.g., `role_wannabe` -> `MÖCHTEGERN`, `role_extreme_lox` -> `VERSAGER`, `disclaimer_text` -> informal "du").
-- Ensure caps match English equivalents.
+### 2. Social Sharing Logic
+#### [NEW] [app/src/main/java/com/gogart/toxictask/utils/ShareUtils.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/utils/ShareUtils.kt)
+- Create a `shareToTikTokOrSystem(context, bitmap)` utility function.
 
-### Feature 2: Fix UI Layouts and Formatters
-#### [MODIFY] [ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
-- **Date Format**: Change `DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.getDefault())` to `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
-- **Accessibility**: Add localized `contentDescription` for the Info icon.
-- **Chip Wrapping**: Change the `Row` holding the toxicity levels to `ExperimentalLayoutApi FlowRow` so if translations are too long (like "Екстремальний" or "Extrem"), they wrap gracefully instead of squishing and breaking text. Alternatively, use a `ScrollableRow`. Since it's a settings dialog, `FlowRow` is perfect.
+### 3. Toxic Share Card UI & Integration
+#### [MODIFY] [app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
+- Create `@Composable fun ToxicShareCard` to represent the 9:16 viral image layout.
+- Update `StatusDashboard` to include an "export/share" icon button.
+- Implement the `GraphicsLayer` off-screen rendering logic. When the share button is clicked, it will generate the bitmap of `ToxicShareCard` and pass it to `ShareUtils`.
 
-### Feature 3: Version Bump
-- Bump `versionCode` to 12.
-- Bump `versionName` to `1.0.11`.
+### 4. Version Bump
+#### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
+- Increment `versionCode` to 12.
+- Increment `versionName` to `"1.1.0"`.
 
 ## Verification Plan
 ### Automated Tests
-- `app:assembleDebug`
-
+- Assemble the project successfully to ensure no Compose Graphics API issues.
 ### Manual Verification
-- Verify the settings dialog chips no longer squish text.
-- Verify the date selector displays correctly localized dates (e.g., "04 жовт. 2026" for UK, "04. Okt. 2026" for DE).
+- Share intent generation should not throw exceptions and `FileProvider` must resolve correctly.

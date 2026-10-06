@@ -48,6 +48,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.layer.GraphicsLayer
+import androidx.compose.ui.graphics.layer.drawLayer
+import androidx.compose.ui.graphics.rememberGraphicsLayer
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.draw.drawWithContent
+import kotlinx.coroutines.launch
+import com.gogart.toxictask.utils.ShareUtils
 import com.gogart.toxictask.data.TaskEntity
 import com.gogart.toxictask.data.TaskType
 import com.gogart.toxictask.settings.LanguageCode
@@ -566,6 +575,8 @@ fun RecurringPanel(
 @Composable
 fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insult: String, streak: Int, isDark: Boolean, toxicity: ToxicityLevel) {
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val graphicsLayer = rememberGraphicsLayer()
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "Progress")
     val labelRes = if (role == PlayerRole.SLACKER) {
         when (toxicity) {
@@ -583,52 +594,156 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
         PlayerRole.GIGACHAD -> Color.Green
     }
 
+    // Hidden layer to generate the 9:16 share poster
+    Box(modifier = Modifier
+        .size(0.dp)
+        .drawWithContent {
+            graphicsLayer.record {
+                this@drawWithContent.drawContent()
+            }
+        }
+    ) {
+        ToxicShareCard(statusTitle = roleLabel, streakDays = streak, roastPhrase = insult)
+    }
+
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(80.dp)) {
-                    CircularProgressIndicator(
-                        progress = { animatedProgress },
-                        modifier = Modifier.fillMaxSize(),
-                        color = roleColor,
-                        strokeWidth = 8.dp,
-                        trackColor = Color.Gray.copy(alpha = 0.2f),
-                    )
-                    Text("${(progress * 100).toInt()}%", fontWeight = FontWeight.Bold)
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Column {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.player_status), style = MaterialTheme.typography.labelMedium, color = Color.Gray)
-                        if (streak > 0) {
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(ToxicStrings.getStreakText(context, streak, lang), fontSize = 10.sp, color = Color.Red, fontWeight = FontWeight.Bold)
+        Box {
+            // Share Button
+            IconButton(
+                onClick = {
+                    coroutineScope.launch {
+                        try {
+                            val bitmap = graphicsLayer.toImageBitmap().asAndroidBitmap()
+                            ShareUtils.shareToTikTokOrSystem(context, bitmap)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
-                    Text(text = roleLabel, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Black, color = roleColor)
+                },
+                modifier = Modifier.align(Alignment.TopEnd).padding(8.dp)
+            ) {
+                Icon(Icons.Default.Share, contentDescription = "Share", tint = Color.Gray)
+            }
+
+            Column(modifier = Modifier.padding(20.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(80.dp)) {
+                        CircularProgressIndicator(
+                            progress = { animatedProgress },
+                            modifier = Modifier.fillMaxSize(),
+                            color = roleColor,
+                            strokeWidth = 8.dp,
+                            trackColor = Color.Gray.copy(alpha = 0.2f),
+                        )
+                        Text("${(progress * 100).toInt()}%", fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Column {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(stringResource(R.string.player_status), style = MaterialTheme.typography.labelMedium, color = Color.Gray)
+                            if (streak > 0) {
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(ToxicStrings.getStreakText(context, streak, lang), fontSize = 10.sp, color = Color.Red, fontWeight = FontWeight.Bold)
+                            }
+                        }
+                        Text(text = roleLabel, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Black, color = roleColor)
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Surface(
+                    color = roleColor.copy(alpha = 0.1f),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    border = BorderStroke(1.dp, roleColor.copy(alpha = 0.3f))
+                ) {
+                    Text(
+                        text = insult,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = if (isDark) roleColor else roleColor.compositeOver(Color.Black), 
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Surface(
-                color = roleColor.copy(alpha = 0.1f),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth(),
-                border = BorderStroke(1.dp, roleColor.copy(alpha = 0.3f))
-            ) {
+        }
+    }
+}
+
+@Composable
+fun ToxicShareCard(
+    statusTitle: String,
+    streakDays: Int,
+    roastPhrase: String,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .size(width = 360.dp, height = 640.dp) // 9:16 Ratio
+            .background(Color(0xFF0F0F11))
+            .padding(28.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Header
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = insult,
-                    modifier = Modifier.padding(12.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium,
-                    color = if (isDark) roleColor else roleColor.compositeOver(Color.Black), 
-                    textAlign = TextAlign.Center
+                    text = "TOXICTASK",
+                    color = Color(0xFFFF3B30),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 4.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Current Streak: $streakDays days",
+                    color = Color.LightGray,
+                    fontSize = 14.sp
                 )
             }
+
+            // Center content
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF1C1C1E), shape = RoundedCornerShape(16.dp))
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = statusTitle.uppercase(),
+                    color = Color.White,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "\"$roastPhrase\"",
+                    color = Color(0xFFAAAAAA),
+                    fontSize = 16.sp,
+                    fontStyle = FontStyle.Italic,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 22.sp
+                )
+            }
+
+            // Footer
+            Text(
+                text = "Get bullied on Google Play",
+                color = Color.DarkGray,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
