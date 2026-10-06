@@ -1,288 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- EMPTY INSULTS (0 tasks added) -->
     <string-array name="empty_insults_mild">
-        <item>Wo sind deine Aufgaben? Füge heute ein Ziel hinzu.</item>
-        <item>Wo sind deine Aufgaben? Mach dir einen Plan.</item>
-        <item>Wo sind deine Aufgaben? Ändern wir das.</item>
-        <item>Deine Liste ist leer. Füge heute ein Ziel hinzu.</item>
-        <item>Deine Liste ist leer. Mach dir einen Plan.</item>
-        <item>Deine Liste ist leer. Ändern wir das.</item>
-        <item>Zeit, sich Ziele zu setzen. Füge heute ein Ziel hinzu.</item>
-        <item>Zeit, sich Ziele zu setzen. Mach dir einen Plan.</item>
-        <item>Zeit, sich Ziele zu setzen. Ändern wir das.</item>
+        <item>Deine Liste ist derzeit leer. Füge dein erstes Tagesziel hinzu!</item>
+        <item>Zeit für neue Erfolge! Erstelle deine Aufgabenliste.</item>
+        <item>Stille in der Liste... Schreibe auf, was du vorhast.</item>
+        <item>Der beste Zeitpunkt zum Starten ist genau jetzt. Füge eine Aufgabe hinzu!</item>
+        <item>Ein Neuanfang ist eine tolle Chance. Setzen wir uns ein paar Ziele.</item>
+        <item>Die Liste sieht einsam aus. Plane etwas Produktives.</item>
+        <item>Ein geplanter Tag ist ein Schritt zum Erfolg. Füge eine Aufgabe hinzu!</item>
+        <item>Ein großer Tag liegt vor dir, füllen wir deinen Aktionsplan.</item>
+        <item>Unsicher, wo du anfangen sollst? Schreibe zuerst die einfachste Aufgabe auf.</item>
+        <item>Deine Liste wartet auf deinen ersten Sieg. Füge ein Ziel hinzu!</item>
     </string-array>
+
     <string-array name="empty_insults_normal">
-        <item>Ist der Bildschirm so leer wie dein Kopf? Baust du wieder ab? Füg etwas hinzu.</item>
-        <item>Ist der Bildschirm so leer wie dein Kopf? Leere Liste, leeres Leben.</item>
-        <item>Hast du heute absolut nichts vor? Baust du wieder ab? Füg etwas hinzu.</item>
-        <item>Hast du heute absolut nichts vor? Leere Liste, leeres Leben.</item>
-        <item>Keine Pläne? Ziemlich traurig. Baust du wieder ab? Füg etwas hinzu.</item>
-        <item>Keine Pläne? Ziemlich traurig. Leere Liste, leeres Leben.</item>
+        <item>Leere Liste? Gewinnt deine Couch wieder diesen Kampf?</item>
+        <item>Null Aufgaben? Hast du heute zum offiziellen Faulenztag erklärt?</item>
+        <item>Die Liste ist so leer, dass man ein Echo hört. Schreibe etwas auf!</item>
+        <item>Null Ziele für heute. Die Prokrastination lächelt zufrieden.</item>
+        <item>Bildschirm ist leer. Bist du hier, um nur die Pixel zu bewundern?</item>
+        <item>Hey, wo sind deine Aufgaben? Sammeln sie Staub?</item>
+        <item>Keine einzige Aufgabe! Sieht aus, als wäre dein Hauptziel heute das Überleben auf dem Sofa.</item>
+        <item>Leer... Versuche wenigstens "Aufstehen" aufzuschreiben.</item>
+        <item>Null Aufgaben, null Ergebnisse. Du kannst die Logik nicht austricksen.</item>
+        <item>Deine Liste ist so leer wie Versprechen, am Montag ein neues Leben zu beginnen.</item>
     </string-array>
+
     <string-array name="empty_insults_extreme">
-        <item>Warum ist das so leer? Schreib Aufgaben, du Nichtsnutz!</item>
-        <item>Warum ist das so leer? Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
-        <item>Warum ist das so leer? Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
-        <item>Verdammt nochmal leer! Schreib Aufgaben, du Nichtsnutz!</item>
-        <item>Verdammt nochmal leer! Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
-        <item>Verdammt nochmal leer! Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
-        <item>Hör auf, auf einen leeren Bildschirm zu starren! Schreib Aufgaben, du Nichtsnutz!</item>
-        <item>Hör auf, auf einen leeren Bildschirm zu starren! Deine Liste ist ein Spiegel deines wertlosen Lebens.</item>
-        <item>Hör auf, auf einen leeren Bildschirm zu starren! Du bist eine absolute Enttäuschung. Setz dir ein Ziel, JETZT!</item>
+        <item>Warum verdammt ist das leer?! Schreib Aufgaben, du fauler Haufen Scheiße!</item>
+        <item>Keine einzige Aufgabe! Deine Liste ist so leer wie deine Zukunft, wenn du weiter pennst!</item>
+        <item>Hör auf, auf den Bildschirm zu glotzen, Vollidiot! Schreib JETZT einen Plan!</item>
+        <item>Absoluter Nullpunkt! Planst du überhaupt, irgendwas Nützliches in deinem Leben zu tun?!</item>
+        <item>Deine Liste ist eine einzige Schande. Setz dir Ziele und geh an die Arbeit!</item>
+        <item>Wo sind die Aufgaben, Faulpelz?! Steh auf und klotz ran!</item>
+        <item>Null Aufgaben. Versuchst du einen Weltrekord im Nichtstun zu brechen?!</item>
+        <item>So leer wie dein Hirn während einer Prüfung. Schreib deine Aufgaben JETZT!</item>
+        <item>Glaubst du, Fortschritt passiert durch Magie? Schreib eine Aufgabe, fauler Arsch!</item>
+        <item>Null Pläne, null Aktion, reiner VERSAGER. Fülle die Liste sofort aus!</item>
     </string-array>
+
+    <!-- SLACKER INSULTS (0% progress) -->
     <string-array name="slacker_insults_mild">
-        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Komm in die Gänge.</item>
-        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Aufschieben ist keine Lösung.</item>
-        <item>Ein kleiner Schritt jetzt, und der Tag ist gerettet. Die Zeit läuft.</item>
-        <item>Ein kleiner Schritt jetzt, und du bist drin. Komm in die Gänge.</item>
-        <item>Ein kleiner Schritt jetzt, und du bist drin. Aufschieben ist keine Lösung.</item>
-        <item>Ein kleiner Schritt jetzt, und du bist drin. Die Zeit läuft.</item>
-        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Komm in die Gänge.</item>
-        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Aufschieben ist keine Lösung.</item>
-        <item>Ein kleiner Schritt jetzt, und deine Laune dankt es dir. Die Zeit läuft.</item>
-        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Komm in die Gänge.</item>
-        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Aufschieben ist keine Lösung.</item>
-        <item>Fünf Minuten Arbeit, und der Tag ist gerettet. Die Zeit läuft.</item>
-        <item>Fünf Minuten Arbeit, und du bist drin. Komm in die Gänge.</item>
-        <item>Fünf Minuten Arbeit, und du bist drin. Aufschieben ist keine Lösung.</item>
-        <item>Fünf Minuten Arbeit, und du bist drin. Die Zeit läuft.</item>
-        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Komm in die Gänge.</item>
-        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Aufschieben ist keine Lösung.</item>
-        <item>Fünf Minuten Arbeit, und deine Laune dankt es dir. Die Zeit läuft.</item>
+        <item>Ein kleiner Schritt jetzt und der Tag ist nicht verschwendet. Starte mit der einfachsten Aufgabe!</item>
+        <item>Es ist noch Zeit heute, um die Dinge in Bewegung zu bringen. Du schaffst das!</item>
+        <item>Schiebe es nicht auf. Fünf Minuten Arbeit verbessern sofort deine Laune.</item>
+        <item>Der schwerste Teil ist der erste Schritt. Wähle die kürzeste Aufgabe!</item>
+        <item>Du kannst das definitiv schaffen. Erledige einfach eine kleine Aufgabe.</item>
+        <item>Fortschritt beginnt mit dem ersten Häkchen. Zeit zu handeln!</item>
+        <item>Der Tag läuft noch und du kannst dein erstes Ziel erreichen. Starte jetzt!</item>
+        <item>Ein kleiner Ruck und du wirst stolz auf dich sein.</item>
+        <item>Mache mindestens 1% der Arbeit. Das ist unendlich besser als 0%!</item>
+        <item>Du schaffst das! Wähle eine Aufgabe und erledige sie genau jetzt.</item>
     </string-array>
+
     <string-array name="slacker_insults_normal">
-        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
-        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Dein Sofa liebt dich so sehr, was? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
-        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
-        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Dein Sofa liebt dich so sehr, was? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
-        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
-        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Dein Sofa liebt dich so sehr, was? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
-        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
-        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Null Ambitionen heute? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
-        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
-        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Null Ambitionen heute? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
-        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
-        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Null Ambitionen heute? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
-        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Erledige deine Aufgaben!</item>
-        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Wartest du auf ein Wunder? Der Versager-Status steht dir perfekt. Schluss mit den Zweifeln.</item>
-        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Erledige deine Aufgaben!</item>
-        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Wartest du auf ein Wunder? Deine To-Do-Liste lacht dich aus. Schluss mit den Zweifeln.</item>
-        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Erledige deine Aufgaben!</item>
-        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Willst du wirklich lieber scrollen als arbeiten?</item>
-        <item>Wartest du auf ein Wunder? Die Produktivität liegt bei null. Schluss mit den Zweifeln.</item>
+        <item>Hält dich das Sofa wieder als Geisel? Aufgaben erledigen sich nicht von selbst!</item>
+        <item>Null Fortschritt. Wartest du auf eine persönliche Einladung oder magische Inspiration?</item>
+        <item>Der halbe Tag ist um und du hast nichts getan. Zeit, in der Realität aufzuwachen.</item>
+        <item>Deine Aufgaben schauen dich mit tiefer Enttäuschung an. Geh an die Arbeit, Faulpelz!</item>
+        <item>Prokrastination ist eine Kunst, aber heute übertreibst du es gewaltig.</item>
+        <item>Wie lange willst du noch scrollen? Erledige zur Abwechslung eine Aufgabe!</item>
+        <item>Deine Produktivität heute ist auf dem Niveau einer Zimmerpflanze. Zeit sich zu bewegen!</item>
+        <item>Belügst du dich wieder, dass du es "heute Abend in 5 Minuten machst"? Fange jetzt an!</item>
+        <item>Null erledigte Aufgaben. Dein VERSAGER-Status ist gefährlich nah.</item>
+        <item>Reiß dich zusammen! Hör auf Ausreden zu suchen und geh an die Arbeit.</item>
     </string-array>
+
     <string-array name="slacker_insults_extreme">
-        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
-        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
-        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
-        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
-        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
-        <item>Beweg deinen faulen Arsch! Du bist ein faules Stück Fleisch! Beweg dich!</item>
-        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
-        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
-        <item>Beweg deinen faulen Arsch! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
-        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
-        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
-        <item>Reiß dich zusammen, verdammt! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
-        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
-        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
-        <item>Reiß dich zusammen, verdammt! Du bist ein faules Stück Fleisch! Beweg dich!</item>
-        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
-        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
-        <item>Reiß dich zusammen, verdammt! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
-        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. Tu endlich was, du Faulpelz!</item>
-        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. An die Arbeit, du Pfeife!</item>
-        <item>Steh endlich auf! Deine Aufgabenliste ist eine Schande. Beweg dich!</item>
-        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! Tu endlich was, du Faulpelz!</item>
-        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! An die Arbeit, du Pfeife!</item>
-        <item>Steh endlich auf! Du bist ein faules Stück Fleisch! Beweg dich!</item>
-        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. Tu endlich was, du Faulpelz!</item>
-        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. An die Arbeit, du Pfeife!</item>
-        <item>Steh endlich auf! Sogar eine Mikrowelle ist nützlicher als du. Beweg dich!</item>
+        <item>Beweg deinen faulen Arsch! Deine Aufgabenliste ist eine absolute Peinlichkeit!</item>
+        <item>Null Fortschritt, Idiot! Bist du ein rückgratloser Nichtskönner?!</item>
+        <item>Steh auf und arbeite, du Faulpelz! Erledige mindestens eine Aufgabe, hör auf zu pennen!</item>
+        <item>Bist du überhaupt fähig, irgendwas zu Ende zu bringen, oder bleibst du für immer ein VERSAGER?!</item>
+        <item>Den ganzen Tag verschwendet! Arbeite jetzt sofort oder du bist offiziell der König des Faulenzens!</item>
+        <item>Deine Aufgaben verrotten, während du auf dein Handy starrst! BEWEG DICH!</item>
+        <item>Das ist keine Prokrastination, das ist eine Katastrophe! Geh an die Arbeit, bevor ich dich vernichte!</item>
+        <item>Wie lange willst du noch Zeit verschwenden?! Schließe JETZT eine Aufgabe, fauler Abfall!</item>
+        <item>Du bist eine Schande! Arbeite, oder du bleibst für immer ein Niemand!</item>
+        <item>Null erledigt! Trittst du beim Wettbewerb für den schlechtesten Faulpelz der Welt an?!</item>
     </string-array>
+
+    <!-- WANNABE INSULTS (~50% progress) -->
     <string-array name="wannabe_insults_mild">
-        <item>Halbzeit. Mach weiter.</item>
-        <item>Halbzeit. gib noch etwas Gas.</item>
-        <item>Halbzeit. Bleib dran.</item>
-        <item>Halbzeit. Fast schon respektabel.</item>
-        <item>Nicht schlecht, Mach weiter.</item>
-        <item>Nicht schlecht, gib noch etwas Gas.</item>
-        <item>Nicht schlecht, Bleib dran.</item>
-        <item>Nicht schlecht, Fast schon respektabel.</item>
-        <item>Das ist ein guter Anfang. Mach weiter.</item>
-        <item>Das ist ein guter Anfang. gib noch etwas Gas.</item>
-        <item>Das ist ein guter Anfang. Bleib dran.</item>
-        <item>Das ist ein guter Anfang. Fast schon respektabel.</item>
+        <item>Toller Start! Halbzeit geschafft, mach weiter so.</item>
+        <item>Du bist auf dem richtigen Weg! Noch etwas Anstrengung und du bist fertig.</item>
+        <item>Die Hälfte der Aufgaben erledigt. Zeit für den Endspurt!</item>
+        <item>Tolle Arbeit, aber hör jetzt nicht auf.</item>
+        <item>Du hast schon viel geschafft! Erledige den Rest und genieße deinen Abend.</item>
+        <item>Spürbarer Fortschritt! Nur noch wenige Schritte bis zur Perfektion.</item>
+        <item>Gutes Tempo! Bleib dran und bring zu Ende, was du angefangen hast.</item>
+        <item>Fast am Ziel. Halte diesen Schwung bis zur letzten Aufgabe!</item>
     </string-array>
+
     <string-array name="wannabe_insults_normal">
-        <item>Ein Anwärter ist noch kein Gigachad. Arbeite härter.</item>
-        <item>Ein Anwärter ist noch kein Gigachad. Ich will Schweiß sehen.</item>
-        <item>Ein Anwärter ist noch kein Gigachad. Hör auf, so zu tun, und beende die Liste.</item>
-        <item>Du bist nur Durchschnitt. Arbeite härter.</item>
-        <item>Du bist nur Durchschnitt. Ich will Schweiß sehen.</item>
-        <item>Du bist nur Durchschnitt. Hör auf, so zu tun, und beende die Liste.</item>
-        <item>Durchschnitt bringt dich nicht weiter. Arbeite härter.</item>
-        <item>Durchschnitt bringt dich nicht weiter. Ich will Schweiß sehen.</item>
-        <item>Durchschnitt bringt dich nicht weiter. Hör auf, so zu tun, und beende die Liste.</item>
+        <item>Die Hälfte geschafft und schon entspannt? Ein halber Sieg ist kein Sieg!</item>
+        <item>Du bist fast ein Gigachad, aber das Schlüsselwort ist "fast". Erledige den Rest!</item>
+        <item>Auf halbem Weg aufhören — ist das dein persönlicher Stil? Schließe den Rest!</item>
+        <item>Nicht schlecht, aber weit weg von ideal. Du kannst mehr als nur Durchschnitt sein.</item>
+        <item>In der Mitte feststecken? Halbzeit ist kein Grund, zurück aufs Sofa zu gehen.</item>
+        <item>Entspanne dich noch nicht! Es gibt noch Aufgaben, die deine Aufmerksamkeit brauchen.</item>
+        <item>Hälfte erledigt und tun wie ein Gewinner? Zerstöre die restlichen Aufgaben!</item>
+        <item>Du stehst genau zwischen Gigachad und Versager. Wähle die richtige Seite!</item>
     </string-array>
+
     <string-array name="wannabe_insults_extreme">
-        <item>Denkst du, 50% sind cool? Nichts da! Mach es zu Ende!</item>
-        <item>Denkst du, 50% sind cool? Sei kein rückgratloser Waschlappen!</item>
-        <item>Denkst du, 50% sind cool? Komm aus dem Quark und zieh es durch!</item>
-        <item>Halbe Sachen bringen dich nicht an die Spitze! Nichts da! Mach es zu Ende!</item>
-        <item>Halbe Sachen bringen dich nicht an die Spitze! Sei kein rückgratloser Waschlappen!</item>
-        <item>Halbe Sachen bringen dich nicht an die Spitze! Komm aus dem Quark und zieh es durch!</item>
+        <item>Auf halbem Weg schlappgemacht?! Nur Weicheier hören in der Mitte auf!</item>
+        <item>Dachtest du, ein paar Aufgaben zu machen macht dich zum Helden?! Erledige den Rest, Feigling!</item>
+        <item>Hälfte verschwendet, Hälfte getan? BEWEG DICH, bring alles auf 100%!</item>
+        <item>Warum hast du aufgehört?! Noch die halbe Liste übrig, zurück an die Arbeit!</item>
+        <item>Wage es nicht dich zu entspannen, Idiot! Nur noch ein bisschen übrig, vernichte diese Aufgaben!</item>
+        <item>Versuchst du ein Halb-Gigachad zu sein? Gibt es nicht: Du gewinnst oder du bist ein VERSAGER!</item>
+        <item>Lass den Rest nicht liegen, fauler Arsch! Arbeite bis zur vollständigen Erledigung!</item>
+        <item>Bring die restlichen Aufgaben zu Ende, sonst wird dein Möchtegern-Status zur absoluten Schande!</item>
     </string-array>
+
+    <!-- GIGACHAD INSULTS (100% progress) -->
     <string-array name="gigachad_insults_mild">
-        <item>Respekt ++. Gute Arbeit heute.</item>
-        <item>Respekt ++. Solide Leistung.</item>
-        <item>Respekt ++. Mission erfolgreich abgeschlossen.</item>
-        <item>GIGACHAD-Energie. Gute Arbeit heute.</item>
-        <item>GIGACHAD-Energie. Solide Leistung.</item>
-        <item>GIGACHAD-Energie. Mission erfolgreich abgeschlossen.</item>
-        <item>Gut gemacht. Gute Arbeit heute.</item>
-        <item>Gut gemacht. Solide Leistung.</item>
-        <item>Gut gemacht. Mission erfolgreich abgeschlossen.</item>
+        <item>Glückwunsch! Alle Aufgaben für heute sind erledigt. Tolle Arbeit!</item>
+        <item>Klasse Leistung! Der Tag war super produktiv.</item>
+        <item>Makellose Ausführung! Genieße deine wohlverdiente Ruhe.</item>
+        <item>Du hast alle deine Ziele erreicht! Stolz auf deine heutigen Leistungen.</item>
+        <item>Hervorragendes Ergebnis! 100% der Aufgaben erledigt.</item>
+        <item>Brillante Arbeit! Du hast bewiesen, dass du jedes Ziel erreichen kannst.</item>
+        <item>Alle Listen abgehakt. Du bist heute wirklich spitze!</item>
+        <item>Toller Tag und makellose Produktivität. Ruhe dich mit Stolz aus!</item>
     </string-array>
+
     <string-array name="gigachad_insults_normal">
-        <item>Du bist eine absolute Maschine! Respekt verdient.</item>
-        <item>Du bist eine absolute Maschine! Verlier ihn morgen nicht.</item>
-        <item>Du bist eine absolute Maschine! So dominiert man den Tag!</item>
-        <item>Legendäre Produktivität. Respekt verdient.</item>
-        <item>Legendäre Produktivität. Verlier ihn morgen nicht.</item>
-        <item>Legendäre Produktivität. So dominiert man den Tag!</item>
-        <item>Du hast die Liste komplett rasiert. Respekt verdient.</item>
-        <item>Du hast die Liste komplett rasiert. Verlier ihn morgen nicht.</item>
-        <item>Du hast die Liste komplett rasiert. So dominiert man den Tag!</item>
+        <item>Überrascht dich selbst, was? 100%! Der Tag war also nicht umsonst!</item>
+        <item>Kompakte Erledigung! Deine Aufgaben sind schockiert von dieser Geschwindigkeit.</item>
+        <item>Du bist ein Monster! Alle Aufgaben vernichtet. Morgen wieder so?</item>
+        <item>GIGACHAD freigeschaltet! Heute null Beschwerden über dich.</item>
+        <item>Du hast es geschafft! Selbst mein Code hat nichts gefunden, worüber er lästern könnte.</item>
+        <item>Heute hast du das Sofa besiegt. Respekt ++!</item>
+        <item>100% erledigt. Du kannst den ganzen Abend stolz herumlaufen!</item>
+        <item>Wunderschön! Grüne Liste, reines Gewissen, das Sofa wartet.</item>
     </string-array>
+
     <string-array name="gigachad_insults_extreme">
-        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Perfekter Sieg!</item>
-        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Ich bin tatsächlich beeindruckt.</item>
-        <item>Du hast den Tag bezwungen, du prachtvolles Biest! Unaufhaltsam! Weiter so, Legende!</item>
-        <item>Gigachad des Jahres! Perfekter Sieg!</item>
-        <item>Gigachad des Jahres! Ich bin tatsächlich beeindruckt.</item>
-        <item>Gigachad des Jahres! Unaufhaltsam! Weiter so, Legende!</item>
-        <item>Absolute Maschine! Perfekter Sieg!</item>
-        <item>Absolute Maschine! Ich bin tatsächlich beeindruckt.</item>
-        <item>Absolute Maschine! Unaufhaltsam! Weiter so, Legende!</item>
+        <item>SEHT EUCH DIESEN ABSOLUTEN VERRÜCKTEN AN! 100% ERLEDIGT! DU BIST EIN ECHTER GIGACHAD!</item>
+        <item>Du hast es geschafft, du Hundeseele! Unaufhaltsame Produktivitätsmaschine! Ich bin sprachlos!</item>
+        <item>Heute bist du König! Alle Aufgaben in Stücke gerissen! MORGEN WIEDERHOLEN!</item>
+        <item>Reines absolutes Biest! Jeden Tropfen aus diesem Tag herausgequetscht! Respekt!</item>
+        <item>Unglaublich! Du hast diese Liste zerstört und bewiesen, dass du kein VERSAGER bist!</item>
+        <item>Du hast Prokrastination blutend am Boden zurückgelassen! LEGENDÄRER GIGACHAD!</item>
+        <item>Heilige Scheiße, was für eine Maschine! Alles erledigt! Geh und beherrsche die Welt!</item>
+        <item>Alle 100% in Stücke zerschmettert! Erwarte morgen denselben Hardcore-Einsatz!</item>
     </string-array>
+
+    <!-- TOO FEW TASKS (%1$d out of %2$d) -->
     <string-array name="too_few_tasks_mild">
-        <item>Nur %1$d von %2$d Aufgaben so far. Lass uns ein paar mehr hinzufügen.</item>
-        <item>Nur %1$d von %2$d Aufgaben so far. Füg welche hinzu!</item>
-        <item>Nur %1$d von %2$d Aufgaben so far. Wir brauchen mindestens %2$d.</item>
-        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Lass uns ein paar mehr hinzufügen.</item>
-        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Füg welche hinzu!</item>
-        <item>Das Tagesminimum liegt bei %2$d. Du bist bei %1$d. Wir brauchen mindestens %2$d.</item>
+        <item>Nur %1$d von %2$d erforderlichen Aufgaben hinzugefügt. Füge noch ein paar für einen vollständigen Plan hinzu.</item>
+        <item>Tagesminimum ist %2$d Aufgaben, aber du hast nur %1$d. Liste auffüllen?</item>
+        <item>Versuche mindestens %2$d Ziele zu planen. Du hast derzeit %1$d.</item>
     </string-array>
+
     <string-array name="too_few_tasks_normal">
-        <item>Nur %1$d von %2$d? Im Ernst? Füg mehr Aufgaben hinzu, Faulpelz.</item>
-        <item>Nur %1$d von %2$d? Im Ernst? Tu nicht so beschäftigt.</item>
-        <item>Nur %1$d von %2$d? Im Ernst? Das ist kein Plan, sondern ein Witz.</item>
-        <item>Das war’s? Das Minimum ist %2$d. Füg mehr Aufgaben hinzu, Faulpelz.</item>
-        <item>Das war’s? Das Minimum ist %2$d. Tu nicht so beschäftigt.</item>
-        <item>Das war’s? Das Minimum ist %2$d. Das ist kein Plan, sondern ein Witz.</item>
+        <item>Nur %1$d von %2$d? Ernsthaft? Füge mehr Aufgaben hinzu, tu nicht so als wärst du beschäftigt!</item>
+        <item>Ist das alles? Minimum ist %2$d Aufgaben pro Tag, du hast %1$d. Schummele nicht!</item>
+        <item>Brauche mindestens %2$d, aber du hast nur %1$d. Fülle die Liste auf, Faulpelz.</item>
     </string-array>
+
     <string-array name="too_few_tasks_extreme">
-        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Füg mehr Aufgaben hinzu, du fauler Arsch!</item>
-        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Das ist kein Plan, das ist ein Witz!</item>
-        <item>Nur %1$d? Hast du den Verstand verloren? Das Minimum ist %2$d, du Depp! Schreib mehr Aufgaben auf, oder ich verfolge dich!</item>
-        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Füg mehr Aufgaben hinzu, du fauler Arsch!</item>
-        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Das ist kein Plan, das ist ein Witz!</item>
-        <item>Verdammt, hast du überhaupt gezählt? Das Minimum ist %2$d und du hast %1$d! Schreib mehr Aufgaben auf, oder ich verfolge dich!</item>
+        <item>Nur %1$d von %2$d?! Bist du verrückt? Füge Aufgaben hinzu, sei kein VERSAGER!</item>
+        <item>Minimum %2$d, aber du hast nur %1$d! Schreib mehr Aufgaben, fauler Arsch!</item>
+        <item>Weniger als %2$d Aufgaben?! Bring meine Schaltkreise nicht zum Lachen, Idiot! Füge JETZT mehr hinzu!</item>
     </string-array>
+
+    <!-- TIME ERROR MESSAGES (%1$s start, %2$s end) -->
+    <string-array name="time_error_mild">
+        <item>Endzeit (%2$s) kann nicht vor der Startzeit (%1$s) liegen. Bitte überprüfe die Zeiten.</item>
+        <item>Sieht nach einem Zeitfehler aus. %2$s ist früher als %1$s. Bitte korrigieren.</item>
+    </string-array>
+
+    <string-array name="time_error_normal">
+        <item>Zeit %2$s ist früher als %1$s! Mein Code versteht Mathe besser als du, Faulpelz!</item>
+        <item>Versuchst du eine Zeitreise? %2$s kann nicht vor %1$s liegen! Korrigiere es.</item>
+    </string-array>
+
+    <string-array name="time_error_extreme">
+        <item>Zeit %2$s ist kleiner als %1$s! Bist du ein VERSAGER oder hast du den Physikunterricht schwänzt?!</item>
+        <item>Versuchst du die Raumzeit zu brechen, Idiot?! %2$s ist früher als %1$s!</item>
+    </string-array>
+
+    <!-- NOTIFICATION STRINGS -->
     <string-array name="notif_inactive_title_mild">
-        <item>Zeit, sich zu melden</item>
-        <item>Wo steckst du?</item>
+        <item>Zeit zurückzukehren!</item>
+        <item>Lange nicht gesehen</item>
+        <item>Deine Ziele warten</item>
     </string-array>
     <string-array name="notif_inactive_body_mild">
-        <item>Schon 3 Tage vergangen. Ein kleiner Schritt ist besser als keiner!</item>
-        <item>Deine Aufgaben warten auf dich. Los geht\'s.</item>
+        <item>Ein paar Tage Stille. Ein kleiner Schritt ist besser als keine Bewegung!</item>
+        <item>Deine Aufgaben haben dich vermisst. Zurück an die Arbeit!</item>
+        <item>Erledige heute mindestens eine Aufgabe und der Tag wird super!</item>
     </string-array>
+
     <string-array name="notif_inactive_title_normal">
-        <item>Lebst du noch?</item>
-        <item>Versager-Titel nähert sich</item>
+        <item>Noch am Leben?</item>
+        <item>VERSAGER-STATUS NAHE</item>
+        <item>Staub auf dem Bildschirm</item>
     </string-array>
     <string-array name="notif_inactive_body_normal">
-        <item>3 Tage rein gar nichts getan. Dein zukünftiges Ich weint.</item>
-        <item>Deine Liste verstaubt. Beeil dich ein bisschen.</item>
+        <item>Tage der Inaktivität! Deine Liste setzt Staub an. Geh an die Arbeit.</item>
+        <item>Du verlierst Schwung und Produktivität. Zeit, zu den Aufgaben zurückzukehren!</item>
+        <item>Gewinnt das Sofa wieder? Wach auf und fange an, Aufgaben zu erledigen!</item>
     </string-array>
+
     <string-array name="notif_inactive_title_extreme">
-        <item>Versager-Titel bestätigt!</item>
-        <item>Wach auf, du Müll!</item>
+        <item>VERSAGER-STATUS BESTÄTIGT!</item>
+        <item>WACH AUF, MÜLL!</item>
+        <item>LEBST DU NOCH?!</item>
     </string-array>
     <string-array name="notif_inactive_body_extreme">
-        <item>Du hast 3 Tage lang nichts getan! Deine Liste ist so leer wie deine Zukunft!</item>
-        <item>Bist du tot? Steh auf und mach was aus deinem Leben!</item>
+        <item>Du hast tagelang nichts getan! Deine Liste ist so leer wie deine Zukunft!</item>
+        <item>Steh auf und tu etwas Nützliches in deinem nutzlosen Leben, fauler Abfall!</item>
+        <item>Hör auf zu schlafen und zu verrotten! Schalte dein Gehirn ein und geh an die Arbeit!</item>
     </string-array>
+
     <string-array name="notif_expired_title_mild">
-        <item>Deadline verpasst</item>
+        <item>Frist abgelaufen</item>
+        <item>Aufgabe überfällig</item>
     </string-array>
     <string-array name="notif_expired_body_mild">
-        <item>Mission \'%1$s\' hat die Deadline um %2$s verpasst.</item>
+        <item>Mission \'%1$s\' hat die Frist verpasst (%2$s). Versuche sie jetzt zu erledigen!</item>
+        <item>Zeit für \'%1$s\' abgelaufen (%2$s). Keine Sorge, beende sie heute!</item>
     </string-array>
+
     <string-array name="notif_expired_title_normal">
-        <item>Du hast versagt.</item>
+        <item>Mission fehlgeschlagen!</item>
+        <item>Frist abgelaufen</item>
     </string-array>
     <string-array name="notif_expired_body_normal">
-        <item>Mission \'%1$s\' fehlgeschlagen! Deadline war %2$s.</item>
+        <item>Du hast die Frist für \'%1$s\' verpasst (%2$s)! Arbeite das nächste Mal schneller.</item>
+        <item>Mission \'%1$s\' ist um %2$s abgelaufen. Prokrastination hat wieder zugeschlagen!</item>
     </string-array>
+
     <string-array name="notif_expired_title_extreme">
-        <item>Deadline abgelaufen, Versager!</item>
+        <item>FRIST RUINIERT!</item>
+        <item>TOTALER MISSERFOLG!</item>
     </string-array>
     <string-array name="notif_expired_body_extreme">
-        <item>Verkackt! \'%1$s\' ist seit %2$s überfällig!</item>
+        <item>Gesicht im Dreck! \'%1$s\' überfällig seit %2$s! Du echter VERSAGER!</item>
+        <item>Du hast \'%1$s\' ruiniert (%2$s)! Schämst du dich nicht für dich selbst?!</item>
     </string-array>
+
     <string-array name="notif_urgent_title_mild">
-        <item>Die Zeit wird knapp</item>
+        <item>Zeit läuft ab</item>
+        <item>Wenig Zeit übrig</item>
     </string-array>
     <string-array name="notif_urgent_body_mild">
-        <item>Nur noch %2$d Min. für \'%1$s\'.</item>
+        <item>Nur noch %2$d Min übrig, um Aufgabe \'%1$s\' zu beenden.</item>
+        <item>Erinnerung: %2$d Min übrig für \'%1$s\'.</item>
     </string-array>
+
     <string-array name="notif_urgent_title_normal">
         <item>Beeil dich!</item>
+        <item>Uhr tickt!</item>
     </string-array>
     <string-array name="notif_urgent_body_normal">
-        <item>Du hast \'%1$s\' noch nicht erledigt! Die Uhr tickt: %2$d Min.</item>
+        <item>Aufgabe \'%1$s\' nicht erledigt! Nur noch %2$d Min übrig, beweg dich!</item>
+        <item>Frist nahe! %2$d Min übrig für Aufgabe \'%1$s\'.</item>
     </string-array>
+
     <string-array name="notif_urgent_title_extreme">
-        <item>Beweg deinen Arsch!</item>
+        <item>BEWEG DEINEN ARSCH!</item>
+        <item>LETZTE MINUTEN!</item>
     </string-array>
     <string-array name="notif_urgent_body_extreme">
-        <item>Nur noch %2$d Min. für \'%1$s\'! Wag es nicht, zu versagen!</item>
+        <item>Nur noch %2$d Min übrig für \'%1$s\'! Wage es nicht zu versagen, Idiot!</item>
+        <item>Zeit fast weg! %2$d Min für \'%1$s\'! Arbeite oder bleib ein VERSAGER!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_mild">
-        <item>Der Tag neigt sich dem Ende</item>
+        <item>Tag geht zu Ende</item>
+        <item>Abenderinnerung</item>
     </string-array>
     <string-array name="notif_end_of_day_body_mild">
-        <item>Versuche noch ein paar Dinge zu erledigen, bevor der Tag endet.</item>
+        <item>Versuche noch ein paar Aufgaben zu beenden, bevor der Tag endet.</item>
+        <item>Tag fast vorbei. Überprüfe deine heutigen Ziele!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_normal">
-        <item>Tag endet!</item>
+        <item>TAG ENDET!</item>
+        <item>Zeit für Rückblick!</item>
     </string-array>
     <string-array name="notif_end_of_day_body_normal">
-        <item>Der Tag endet und du hast den Plan nicht erfüllt! Los geht\'s!</item>
+        <item>Tag endet und Plan nicht erfüllt! Hol deine Schulden nach!</item>
+        <item>Schlaf wartet, aber Aufgaben erledigen sich nicht von selbst. Arbeite!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_extreme">
-        <item>Letzte Warnung!</item>
+        <item>LETZTE WARNUNG!</item>
+        <item>NACHT KOMMT, DU VERSAGER!</item>
     </string-array>
     <string-array name="notif_end_of_day_body_extreme">
-        <item>Der Tag ist fast vorbei und deine Liste ist erbärmlich! Arbeite JETZT!</item>
+        <item>Tag fast vorbei und deine Liste ist erbärmlich! Schaffe JETZT was!</item>
+        <item>Mitternacht nähert sich und Fortschritt ist erbärmlich! Schließe Aufgaben JETZT!</item>
     </string-array>
+
     <string-array name="notif_default_title_mild">
-        <item>Kleine Erinnerung</item>
+        <item>Freundliche Erinnerung</item>
+        <item>Zeit zu handeln</item>
     </string-array>
     <string-array name="notif_default_title_normal">
-        <item>Hey du!</item>
+        <item>HEY DU!</item>
+        <item>ZEIT ZU ARBEITEN!</item>
     </string-array>
     <string-array name="notif_default_title_extreme">
-        <item>Steh auf, Abschaum!</item>
+        <item>STEH AUF, ABSCHAUM!</item>
+        <item>ARBEITE, MÜLL!</item>
     </string-array>
 </resources>

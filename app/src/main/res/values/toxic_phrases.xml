@@ -1,309 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- EMPTY INSULTS (0 tasks added) -->
     <string-array name="empty_insults_mild">
-        <item>Where are the tasks? Add a goal for today.</item>
-        <item>Where are the tasks? Let\'s fix it.</item>
-        <item>Where are the tasks? Plan something.</item>
-        <item>Your list is blank. Add a goal for today.</item>
-        <item>Your list is blank. Let\'s fix it.</item>
-        <item>Your list is blank. Plan something.</item>
-        <item>Time to set some objectives. Add a goal for today.</item>
-        <item>Time to set some objectives. Let\'s fix it.</item>
-        <item>Time to set some objectives. Plan something.</item>
-        <item>Silence is deafening. Add a goal for today.</item>
-        <item>Silence is deafening. Let\'s fix it.</item>
-        <item>Silence is deafening. Plan something.</item>
+        <item>Your list is currently empty. Add your first goal for today!</item>
+        <item>Time for new achievements! Set up your task list.</item>
+        <item>Silence in the list... Write down what you plan to do.</item>
+        <item>The best moment to start is right now. Add a task!</item>
+        <item>A fresh start is a great opportunity. Let\'s set some goals.</item>
+        <item>The list looks lonely. Plan something productive.</item>
+        <item>A planned day is a step toward success. Add a task!</item>
+        <item>A great day ahead, let\'s fill in your action plan.</item>
+        <item>Not sure where to begin? Write down the easiest task first.</item>
+        <item>Your list is waiting for your first victory. Add a goal!</item>
     </string-array>
+
     <string-array name="empty_insults_normal">
-        <item>Screen as empty as your mind? Add a task.</item>
-        <item>Screen as empty as your mind? Wake up.</item>
-        <item>Screen as empty as your mind? Empty list, empty life.</item>
-        <item>Doing absolutely nothing today, huh? Add a task.</item>
-        <item>Doing absolutely nothing today, huh? Wake up.</item>
-        <item>Doing absolutely nothing today, huh? Empty list, empty life.</item>
-        <item>Zero plans? That\'s sad. Add a task.</item>
-        <item>Zero plans? That\'s sad. Wake up.</item>
-        <item>Zero plans? That\'s sad. Empty list, empty life.</item>
+        <item>Empty list? Is your couch winning this battle again?</item>
+        <item>Zero tasks? Did you declare today an official day of slacking?</item>
+        <item>The list is so empty I can hear an echo. Write something down!</item>
+        <item>Zero goals for today. Procrastination is smiling contentedly.</item>
+        <item>Screen is empty. Did you come here just to admire the pixels?</item>
+        <item>Hey, where are your tasks? Busy collecting dust?</item>
+        <item>Not a single task! Looks like your main goal today is sofa survival.</item>
+        <item>Blank... Try writing down "wake up" at least.</item>
+        <item>Zero tasks, zero results. You can\'t cheat logic.</item>
+        <item>Your list is as empty as promises to start a new life on Monday.</item>
     </string-array>
+
     <string-array name="empty_insults_extreme">
-        <item>Fucking empty! Add some tasks, you lazy garbage!</item>
-        <item>Fucking empty! Add a task NOW!</item>
-        <item>Fucking empty! Write down a goal, idiot!</item>
-        <item>Your list is a void, just like your future. Add some tasks, you lazy garbage!</item>
-        <item>Your list is a void, just like your future. Add a task NOW!</item>
-        <item>Your list is a void, just like your future. Write down a goal, idiot!</item>
-        <item>You are an absolute disgrace. Add some tasks, you lazy garbage!</item>
-        <item>You are an absolute disgrace. Add a task NOW!</item>
-        <item>You are an absolute disgrace. Write down a goal, idiot!</item>
+        <item>Why the hell is this empty?! Write some tasks, lazy piece of garbage!</item>
+        <item>Not a single task! Your list is as empty as your future if you keep sleeping!</item>
+        <item>Stop staring at the screen, dumbass! Write a plan NOW!</item>
+        <item>Absolute zero! Do you plan to do anything useful in your life?!</item>
+        <item>Your list is a total disgrace. Set your goals and get to work!</item>
+        <item>Where are the tasks, slacker?! Get up and hustle!</item>
+        <item>Zero tasks. Are you trying to break a world record in doing nothing?!</item>
+        <item>Empty as your brain during an exam. Write your tasks NOW!</item>
+        <item>Do you think progress happens by magic? Write a task, lazy ass!</item>
+        <item>Zero plans, zero action, pure LOSER. Fill out the list immediately!</item>
     </string-array>
+
+    <!-- SLACKER INSULTS (0% progress) -->
     <string-array name="slacker_insults_mild">
-        <item>One small step now — and today is already a win. Start with the easiest one.</item>
-        <item>One small step now — and today is already a win. You can do more than this.</item>
-        <item>One small step now — and today is already a win. There’s still time.</item>
-        <item>One small step now — and you’re in the game. Start with the easiest one.</item>
-        <item>One small step now — and you’re in the game. You can do more than this.</item>
-        <item>One small step now — and you’re in the game. There’s still time.</item>
-        <item>One small step now — is all it takes. Start with the easiest one.</item>
-        <item>One small step now — is all it takes. You can do more than this.</item>
-        <item>One small step now — is all it takes. There’s still time.</item>
-        <item>Five minutes of work — and today is already a win. Start with the easiest one.</item>
-        <item>Five minutes of work — and today is already a win. You can do more than this.</item>
-        <item>Five minutes of work — and today is already a win. There’s still time.</item>
-        <item>Five minutes of work — and you’re in the game. Start with the easiest one.</item>
-        <item>Five minutes of work — and you’re in the game. You can do more than this.</item>
-        <item>Five minutes of work — and you’re in the game. There’s still time.</item>
-        <item>Five minutes of work — is all it takes. Start with the easiest one.</item>
-        <item>Five minutes of work — is all it takes. You can do more than this.</item>
-        <item>Five minutes of work — is all it takes. There’s still time.</item>
-        <item>A tiny push — and today is already a win. Start with the easiest one.</item>
-        <item>A tiny push — and today is already a win. You can do more than this.</item>
-        <item>A tiny push — and today is already a win. There’s still time.</item>
-        <item>A tiny push — and you’re in the game. Start with the easiest one.</item>
-        <item>A tiny push — and you’re in the game. You can do more than this.</item>
-        <item>A tiny push — and you’re in the game. There’s still time.</item>
-        <item>A tiny push — is all it takes. Start with the easiest one.</item>
-        <item>A tiny push — is all it takes. You can do more than this.</item>
-        <item>A tiny push — is all it takes. There’s still time.</item>
+        <item>One small step now and today won\'t be wasted. Start with the easiest task!</item>
+        <item>There is still time today to get things moving. You\'ve got this!</item>
+        <item>Don\'t put it off. Five minutes of work will instantly boost your mood.</item>
+        <item>The hardest part is taking the first step. Pick the shortest task!</item>
+        <item>You can definitely do this. Just complete one small task.</item>
+        <item>Progress starts with the first checkmark. Time to act!</item>
+        <item>The day is still going, and you can finish your first goal. Start now!</item>
+        <item>One little push and you\'ll feel proud of yourself.</item>
+        <item>Do at least 1% of the work. It\'s infinitely better than 0%!</item>
+        <item>You can do it! Pick a task and do it right now.</item>
     </string-array>
+
     <string-array name="slacker_insults_normal">
-        <item>Your couch loves you so much it won’t let go. Tasks don’t tick themselves off. Get to work, slacker.</item>
-        <item>Your couch loves you so much it won’t let go. Tasks don’t tick themselves off. Stop scrolling.</item>
-        <item>Your couch loves you so much it won’t let go. Tasks don’t tick themselves off. Cheating yourself again?</item>
-        <item>Your couch loves you so much it won’t let go. Productivity is at zero. Get to work, slacker.</item>
-        <item>Your couch loves you so much it won’t let go. Productivity is at zero. Stop scrolling.</item>
-        <item>Your couch loves you so much it won’t let go. Productivity is at zero. Cheating yourself again?</item>
-        <item>Your couch loves you so much it won’t let go. Your tasks are giving you disappointed looks. Get to work, slacker.</item>
-        <item>Your couch loves you so much it won’t let go. Your tasks are giving you disappointed looks. Stop scrolling.</item>
-        <item>Your couch loves you so much it won’t let go. Your tasks are giving you disappointed looks. Cheating yourself again?</item>
-        <item>Your progress is as flat as your motivation. Tasks don’t tick themselves off. Get to work, slacker.</item>
-        <item>Your progress is as flat as your motivation. Tasks don’t tick themselves off. Stop scrolling.</item>
-        <item>Your progress is as flat as your motivation. Tasks don’t tick themselves off. Cheating yourself again?</item>
-        <item>Your progress is as flat as your motivation. Productivity is at zero. Get to work, slacker.</item>
-        <item>Your progress is as flat as your motivation. Productivity is at zero. Stop scrolling.</item>
-        <item>Your progress is as flat as your motivation. Productivity is at zero. Cheating yourself again?</item>
-        <item>Your progress is as flat as your motivation. Your tasks are giving you disappointed looks. Get to work, slacker.</item>
-        <item>Your progress is as flat as your motivation. Your tasks are giving you disappointed looks. Stop scrolling.</item>
-        <item>Your progress is as flat as your motivation. Your tasks are giving you disappointed looks. Cheating yourself again?</item>
-        <item>Half the day is gone. Tasks don’t tick themselves off. Get to work, slacker.</item>
-        <item>Half the day is gone. Tasks don’t tick themselves off. Stop scrolling.</item>
-        <item>Half the day is gone. Tasks don’t tick themselves off. Cheating yourself again?</item>
-        <item>Half the day is gone. Productivity is at zero. Get to work, slacker.</item>
-        <item>Half the day is gone. Productivity is at zero. Stop scrolling.</item>
-        <item>Half the day is gone. Productivity is at zero. Cheating yourself again?</item>
-        <item>Half the day is gone. Your tasks are giving you disappointed looks. Get to work, slacker.</item>
-        <item>Half the day is gone. Your tasks are giving you disappointed looks. Stop scrolling.</item>
-        <item>Half the day is gone. Your tasks are giving you disappointed looks. Cheating yourself again?</item>
+        <item>Is the couch holding you hostage again? Tasks don\'t check themselves off!</item>
+        <item>Zero progress. Are you waiting for a personal invitation or magic inspiration?</item>
+        <item>Half the day is gone and you\'ve done nothing. Time to wake up to reality.</item>
+        <item>Your tasks are looking at you with deep disappointment. Get to work, slacker!</item>
+        <item>Procrastination is an art, but today you\'re taking it way too far.</item>
+        <item>How long are you going to keep scrolling? Complete a task for a change!</item>
+        <item>Your productivity today is at houseplant level. Time to move!</item>
+        <item>Lying to yourself again that you\'ll "do it in 5 minutes tonight"? Start now!</item>
+        <item>Zero completed tasks. Your LOSER status is dangerously close.</item>
+        <item>Pull yourself together! Stop making excuses and get to work.</item>
     </string-array>
+
     <string-array name="slacker_insults_extreme">
-        <item>Get off your ass! Your task list is a disgrace. Finish a task, damn it!</item>
-        <item>Get off your ass! Your task list is a disgrace. Resurrect your productivity!</item>
-        <item>Get off your ass! Your task list is a disgrace. Do something, you lazy bastard!</item>
-        <item>Get off your ass! Laziness is eating you alive. Finish a task, damn it!</item>
-        <item>Get off your ass! Laziness is eating you alive. Resurrect your productivity!</item>
-        <item>Get off your ass! Laziness is eating you alive. Do something, you lazy bastard!</item>
-        <item>Get off your ass! You are a professional waste of time. Finish a task, damn it!</item>
-        <item>Get off your ass! You are a professional waste of time. Resurrect your productivity!</item>
-        <item>Get off your ass! You are a professional waste of time. Do something, you lazy bastard!</item>
-        <item>Stop staring at the wall! Your task list is a disgrace. Finish a task, damn it!</item>
-        <item>Stop staring at the wall! Your task list is a disgrace. Resurrect your productivity!</item>
-        <item>Stop staring at the wall! Your task list is a disgrace. Do something, you lazy bastard!</item>
-        <item>Stop staring at the wall! Laziness is eating you alive. Finish a task, damn it!</item>
-        <item>Stop staring at the wall! Laziness is eating you alive. Resurrect your productivity!</item>
-        <item>Stop staring at the wall! Laziness is eating you alive. Do something, you lazy bastard!</item>
-        <item>Stop staring at the wall! You are a professional waste of time. Finish a task, damn it!</item>
-        <item>Stop staring at the wall! You are a professional waste of time. Resurrect your productivity!</item>
-        <item>Stop staring at the wall! You are a professional waste of time. Do something, you lazy bastard!</item>
-        <item>Move your ass, dumbass! Your task list is a disgrace. Finish a task, damn it!</item>
-        <item>Move your ass, dumbass! Your task list is a disgrace. Resurrect your productivity!</item>
-        <item>Move your ass, dumbass! Your task list is a disgrace. Do something, you lazy bastard!</item>
-        <item>Move your ass, dumbass! Laziness is eating you alive. Finish a task, damn it!</item>
-        <item>Move your ass, dumbass! Laziness is eating you alive. Resurrect your productivity!</item>
-        <item>Move your ass, dumbass! Laziness is eating you alive. Do something, you lazy bastard!</item>
-        <item>Move your ass, dumbass! You are a professional waste of time. Finish a task, damn it!</item>
-        <item>Move your ass, dumbass! You are a professional waste of time. Resurrect your productivity!</item>
-        <item>Move your ass, dumbass! You are a professional waste of time. Do something, you lazy bastard!</item>
+        <item>Move your lazy ass! Your task list is an absolute embarrassment!</item>
+        <item>Zero progress, dumbass! Are you a spineless waste of space?!</item>
+        <item>Get up and work, you slacker! Finish at least one task, stop sleeping!</item>
+        <item>Are you capable of finishing anything, or are you a LOSER forever?!</item>
+        <item>Wasted the entire day! Work right now or you\'re officially king of slacking!</item>
+        <item>Your tasks are rotting while you stare at your phone! MOVE IT!</item>
+        <item>This isn\'t procrastination, this is a disaster! Get to work before I destroy you!</item>
+        <item>How long are you going to waste time?! Close a task NOW, lazy trash!</item>
+        <item>You\'re a disgrace! Work, or you\'ll stay a nobody forever!</item>
+        <item>Zero done! Are you competing for the world\'s worst slacker award?!</item>
     </string-array>
+
+    <!-- WANNABE INSULTS (~50% progress) -->
     <string-array name="wannabe_insults_mild">
-        <item>Halfway there. Keep going.</item>
-        <item>Halfway there. Push a bit more.</item>
-        <item>Halfway there. Almost respectable.</item>
-        <item>Not bad at all. Keep going.</item>
-        <item>Not bad at all. Push a bit more.</item>
-        <item>Not bad at all. Almost respectable.</item>
-        <item>You are getting warmer. Keep going.</item>
-        <item>You are getting warmer. Push a bit more.</item>
-        <item>You are getting warmer. Almost respectable.</item>
-        <item>Keep the momentum. Keep going.</item>
-        <item>Keep the momentum. Push a bit more.</item>
-        <item>Keep the momentum. Almost respectable.</item>
+        <item>Great start! Halfway there, keep up the good work.</item>
+        <item>You\'re on the right track! A little more effort and you\'re done.</item>
+        <item>Half the tasks done. Time for the final push!</item>
+        <item>Awesome work, but don\'t stop now.</item>
+        <item>You\'ve done a lot already! Finish the rest and enjoy your evening.</item>
+        <item>Noticeable progress! Just a few steps left to perfection.</item>
+        <item>Moving well! Great pace, finish what you started.</item>
+        <item>Almost reached the goal. Keep this momentum until the last task!</item>
     </string-array>
+
     <string-array name="wannabe_insults_normal">
-        <item>WANNABE is not a GIGACHAD. Grind more.</item>
-        <item>WANNABE is not a GIGACHAD. Don\'t stop now.</item>
-        <item>WANNABE is not a GIGACHAD. Push harder.</item>
-        <item>You are trying, but I need more sweat. Grind more.</item>
-        <item>You are trying, but I need more sweat. Don\'t stop now.</item>
-        <item>You are trying, but I need more sweat. Push harder.</item>
-        <item>Average effort yields average results. Grind more.</item>
-        <item>Average effort yields average results. Don\'t stop now.</item>
-        <item>Average effort yields average results. Push harder.</item>
+        <item>Finished half and relaxed? Half a victory is not a victory!</item>
+        <item>You\'re almost a Gigachad, but the key word is "almost". Finish the rest!</item>
+        <item>Quitting halfway — is that your signature style? Close the rest!</item>
+        <item>Not bad, but far from ideal. You can do better than average.</item>
+        <item>Stuck in the middle? Halfway is no reason to go back to the couch.</item>
+        <item>Don\'t relax just yet! There are still tasks requiring your attention.</item>
+        <item>Half done and acting like a winner? Crush the remaining tasks!</item>
+        <item>You\'re right between Gigachad and Loser. Pick the right side!</item>
     </string-array>
+
     <string-array name="wannabe_insults_extreme">
-        <item>Think you are cool with 50%? NOPE. FINISH IT!</item>
-        <item>Think you are cool with 50%? Don\'t be a spineless coward, get it done!</item>
-        <item>Think you are cool with 50%? Keep pushing or go cry in the corner!</item>
-        <item>Half-assing it won\'t get you to the top. NOPE. FINISH IT!</item>
-        <item>Half-assing it won\'t get you to the top. Don\'t be a spineless coward, get it done!</item>
-        <item>Half-assing it won\'t get you to the top. Keep pushing or go cry in the corner!</item>
-        <item>You are stuck in the mud of mediocrity. NOPE. FINISH IT!</item>
-        <item>You are stuck in the mud of mediocrity. Don\'t be a spineless coward, get it done!</item>
-        <item>You are stuck in the mud of mediocrity. Keep pushing or go cry in the corner!</item>
+        <item>Gave up halfway?! Only weaklings quit in the middle!</item>
+        <item>Did you think doing a couple of tasks makes you a hero?! Finish the rest, coward!</item>
+        <item>Half wasted, half done? MOVE IT, bring everything to 100%!</item>
+        <item>Why did you stop?! Half the list left, get back to work!</item>
+        <item>Don\'t you dare relax, dumbass! Only a little left, crush these tasks!</item>
+        <item>Trying to be a half-Gigachad? Doesn\'t exist: you either win or you\'re a LOSER!</item>
+        <item>Don\'t abandon the rest, lazy ass! Work until total completion!</item>
+        <item>Finish the remaining tasks, or your Wannabe status turns into total shame!</item>
     </string-array>
+
+    <!-- GIGACHAD INSULTS (100% progress) -->
     <string-array name="gigachad_insults_mild">
-        <item>Respect ++. Good job today.</item>
-        <item>Respect ++. Mission accomplished.</item>
-        <item>Respect ++. Rest well.</item>
-        <item>GIGACHAD energy detected. Good job today.</item>
-        <item>GIGACHAD energy detected. Mission accomplished.</item>
-        <item>GIGACHAD energy detected. Rest well.</item>
-        <item>You are doing great. Good job today.</item>
-        <item>You are doing great. Mission accomplished.</item>
-        <item>You are doing great. Rest well.</item>
-        <item>Solid work. Good job today.</item>
-        <item>Solid work. Mission accomplished.</item>
-        <item>Solid work. Rest well.</item>
+        <item>Congratulations! All tasks for today are done. Great job!</item>
+        <item>Awesome work! The day was super productive.</item>
+        <item>Flawless execution! Enjoy your well-deserved rest.</item>
+        <item>You closed all your goals! Proud of your achievements today.</item>
+        <item>Excellent result! 100% of tasks completed.</item>
+        <item>Brilliant job! You proved you can accomplish any goal.</item>
+        <item>All lists closed. You\'re truly on top today!</item>
+        <item>Great day and flawless productivity. Rest with pride!</item>
     </string-array>
+
     <string-array name="gigachad_insults_normal">
-        <item>You are an absolute machine! Respect earned, don\'t lose it.</item>
-        <item>You are an absolute machine! Keep it up.</item>
-        <item>You are an absolute machine! That is how you dominate the day.</item>
-        <item>Legendary productivity. Respect earned, don\'t lose it.</item>
-        <item>Legendary productivity. Keep it up.</item>
-        <item>Legendary productivity. That is how you dominate the day.</item>
-        <item>You crushed that list. Respect earned, don\'t lose it.</item>
-        <item>You crushed that list. Keep it up.</item>
-        <item>You crushed that list. That is how you dominate the day.</item>
+        <item>Whoa, 100%! Surprised yourself, didn\'t you? So the day wasn\'t wasted!</item>
+        <item>Absolute completion! Your tasks are in shock from that speed.</item>
+        <item>You\'re a monster! All tasks destroyed. Same thing tomorrow?</item>
+        <item>GIGACHAD unlocked! Zero complaints about you today.</item>
+        <item>You did it! Even my code found nothing to roast you about.</item>
+        <item>Today you defeated the couch. Respect ++!</item>
+        <item>100% completed. You can walk proud all evening!</item>
+        <item>Beautiful! Green list, clear conscience, couch awaits.</item>
     </string-array>
+
     <string-array name="gigachad_insults_extreme">
-        <item>You conquered the day, you magnificent beast! Flawless victory!</item>
-        <item>You conquered the day, you magnificent beast! I am actually impressed.</item>
-        <item>You conquered the day, you magnificent beast! You own this day!</item>
-        <item>GIGACHAD of the year. Flawless victory!</item>
-        <item>GIGACHAD of the year. I am actually impressed.</item>
-        <item>GIGACHAD of the year. You own this day!</item>
-        <item>Absolute unit of productivity. Flawless victory!</item>
-        <item>Absolute unit of productivity. I am actually impressed.</item>
-        <item>Absolute unit of productivity. You own this day!</item>
+        <item>LOOK AT THIS ABSOLUTE MADMAN! 100% CLOSED! YOU ARE A TRUE GIGACHAD!</item>
+        <item>You did it, you son of a bitch! Unstoppable productivity machine! I\'m stunned!</item>
+        <item>Today you are King! All tasks ripped to pieces! REPEAT TOMORROW!</item>
+        <item>Pure absolute beast! Squeezed every drop out of this day! Respect!</item>
+        <item>Unbelievable! You destroyed this list and proved you\'re no LOSER!</item>
+        <item>You left procrastination bleeding on the floor! LEGENDARY GIGACHAD!</item>
+        <item>Holy hell, what a machine! Closed everything! Go rule the world!</item>
+        <item>All 100% smashed to bits! Expecting the same hardcore hustle tomorrow!</item>
     </string-array>
+
+    <!-- TOO FEW TASKS (%1$d out of %2$d) -->
     <string-array name="too_few_tasks_mild">
-        <item>Only %1$d of %2$d tasks so far. Let’s add a few more.</item>
-        <item>Only %1$d of %2$d tasks so far. Add some!</item>
-        <item>Only %1$d of %2$d tasks so far. We need at least %2$d.</item>
-        <item>Today’s minimum is %2$d. You’re at %1$d. Let’s add a few more.</item>
-        <item>Today’s minimum is %2$d. You’re at %1$d. Add some!</item>
-        <item>Today’s minimum is %2$d. You’re at %1$d. We need at least %2$d.</item>
+        <item>Only %1$d out of %2$d required tasks added. Add a few more for a complete plan.</item>
+        <item>Daily minimum is %2$d tasks, but you only have %1$d. Fill up your list?</item>
+        <item>Try planning at least %2$d goals. You currently have %1$d.</item>
     </string-array>
+
     <string-array name="too_few_tasks_normal">
-        <item>Only %1$d of %2$d? Seriously? Add more tasks, slacker.</item>
-        <item>Only %1$d of %2$d? Seriously? Don’t pretend you’re busy.</item>
-        <item>Only %1$d of %2$d? Seriously? I don’t approve of this list.</item>
-        <item>That’s it? The minimum is %2$d. Add more tasks, slacker.</item>
-        <item>That’s it? The minimum is %2$d. Don’t pretend you’re busy.</item>
-        <item>That’s it? The minimum is %2$d. I don’t approve of this list.</item>
+        <item>Only %1$d out of %2$d? Seriously? Add more tasks, stop pretending you\'re busy!</item>
+        <item>Is that all? Minimum is %2$d tasks per day, you have %1$d. Don\'t cheat!</item>
+        <item>Need at least %2$d, but you only have %1$d. Top up the list, slacker.</item>
     </string-array>
+
     <string-array name="too_few_tasks_extreme">
-        <item>Only %1$d? Are you out of your mind? The minimum is %2$d, dumbass! Add more tasks, you lazy ass!</item>
-        <item>Only %1$d? Are you out of your mind? The minimum is %2$d, dumbass! This isn’t a plan, it’s a joke!</item>
-        <item>Only %1$d? Are you out of your mind? The minimum is %2$d, dumbass! Write more tasks, or I’ll haunt you!</item>
-        <item>Damn it, did you even count? The minimum is %2$d and you have %1$d! Add more tasks, you lazy ass!</item>
-        <item>Damn it, did you even count? The minimum is %2$d and you have %1$d! This isn’t a plan, it’s a joke!</item>
-        <item>Damn it, did you even count? The minimum is %2$d and you have %1$d! Write more tasks, or I’ll haunt you!</item>
+        <item>Only %1$d out of %2$d?! Are you crazy? Add tasks, don\'t be a LOSER!</item>
+        <item>Minimum %2$d, but you only have %1$d! Write more tasks, lazy ass!</item>
+        <item>Less than %2$d tasks?! Don\'t make my circuits laugh, idiot! Add more NOW!</item>
     </string-array>
+
+    <!-- TIME ERROR MESSAGES (%1$s start, %2$s end) -->
+    <string-array name="time_error_mild">
+        <item>End time (%2$s) cannot be earlier than start time (%1$s). Please check times.</item>
+        <item>Looks like a time error. %2$s is earlier than %1$s. Please fix it.</item>
+    </string-array>
+
+    <string-array name="time_error_normal">
+        <item>Time %2$s is earlier than %1$s! My code understands math better than you, slacker!</item>
+        <item>Are you trying to time travel? %2$s cannot come before %1$s! Fix it.</item>
+    </string-array>
+
+    <string-array name="time_error_extreme">
+        <item>Time %2$s is less than %1$s! Are you a LOSER or did you skip physics class?!</item>
+        <item>Trying to break space-time, dumbass?! %2$s is earlier than %1$s!</item>
+    </string-array>
+
+    <!-- NOTIFICATION STRINGS -->
     <string-array name="notif_inactive_title_mild">
-        <item>Time to check in</item>
-        <item>Missing in action</item>
+        <item>Time to return!</item>
+        <item>Haven\'t seen you</item>
+        <item>Your goals await</item>
     </string-array>
     <string-array name="notif_inactive_body_mild">
-        <item>It has been 3 days. A small step is better than none!</item>
-        <item>Your task list is waiting for you. Let\'s go.</item>
+        <item>A few days of silence. One small step is better than no movement!</item>
+        <item>Your tasks missed you. Get back to action!</item>
+        <item>Complete at least one task today and the day will be great!</item>
     </string-array>
+
     <string-array name="notif_inactive_title_normal">
-        <item>Are you still alive?</item>
-        <item>LOSER TITLE INCOMING</item>
+        <item>Still alive?</item>
+        <item>LOSER STATUS NEAR</item>
+        <item>Dust on screen</item>
     </string-array>
     <string-array name="notif_inactive_body_normal">
-        <item>3 days of doing nothing. Your future self is crying.</item>
-        <item>Your list is gathering dust. Pick up the pace.</item>
+        <item>Days of inactivity! Your list is gathering dust. Get to work.</item>
+        <item>You\'re losing momentum and productivity. Time to return to tasks!</item>
+        <item>Couch winning again? Wake up and start closing tasks!</item>
     </string-array>
+
     <string-array name="notif_inactive_title_extreme">
-        <item>LOSER TITLE CONFIRMED!</item>
+        <item>LOSER STATUS CONFIRMED!</item>
         <item>WAKE UP, TRASH!</item>
+        <item>ARE YOU ALIVE?!</item>
     </string-array>
     <string-array name="notif_inactive_body_extreme">
-        <item>You have not done shit for 3 days! Get up!</item>
-        <item>Are you dead? Do something useful with your miserable life!</item>
+        <item>You\'ve done nothing for days! Your list is as empty as your future!</item>
+        <item>Get up and do something useful in your useless life, lazy garbage!</item>
+        <item>Stop sleeping and rotting! Turn on your brain and get to work!</item>
     </string-array>
+
     <string-array name="notif_expired_title_mild">
         <item>Deadline passed</item>
+        <item>Task overdue</item>
     </string-array>
     <string-array name="notif_expired_body_mild">
-        <item>Mission \'%1$s\' missed the %2$s deadline.</item>
+        <item>Mission \'%1$s\' missed its deadline (%2$s). Try closing it now!</item>
+        <item>Time for \'%1$s\' expired (%2$s). Don\'t worry, finish it today!</item>
     </string-array>
+
     <string-array name="notif_expired_title_normal">
-        <item>You failed.</item>
+        <item>Mission failed!</item>
+        <item>Deadline passed</item>
     </string-array>
     <string-array name="notif_expired_body_normal">
-        <item>Mission \'%1$s\' failed! Due at %2$s.</item>
+        <item>You failed deadline for \'%1$s\' (%2$s)! Work faster next time.</item>
+        <item>Mission \'%1$s\' expired at %2$s. Procrastination struck again!</item>
     </string-array>
+
     <string-array name="notif_expired_title_extreme">
-        <item>DEADLINE EXPIRED, LOSER!</item>
+        <item>DEADLINE RUINED!</item>
+        <item>TOTAL FAILURE!</item>
     </string-array>
     <string-array name="notif_expired_body_extreme">
-        <item>You blew it! \'%1$s\' is overdue since %2$s!</item>
+        <item>Face in the dirt! \'%1$s\' overdue since %2$s! You true LOSER!</item>
+        <item>You ruined \'%1$s\' (%2$s)! Aren\'t you ashamed of yourself?!</item>
     </string-array>
+
     <string-array name="notif_urgent_title_mild">
         <item>Time running out</item>
+        <item>Little time left</item>
     </string-array>
     <string-array name="notif_urgent_body_mild">
-        <item>Only %2$d mins left for \'%1$s\'.</item>
+        <item>Only %2$d mins left to finish task \'%1$s\'.</item>
+        <item>Reminder: %2$d mins left for \'%1$s\'.</item>
     </string-array>
+
     <string-array name="notif_urgent_title_normal">
         <item>Hurry up!</item>
+        <item>Clock ticking!</item>
     </string-array>
     <string-array name="notif_urgent_body_normal">
-        <item>Only %2$d mins left for \'%1$s\'!</item>
+        <item>Task \'%1$s\' not done! Only %2$d mins left, move it!</item>
+        <item>Deadline close! %2$d mins left for task \'%1$s\'.</item>
     </string-array>
+
     <string-array name="notif_urgent_title_extreme">
         <item>MOVE YOUR ASS!</item>
+        <item>LAST MINUTES!</item>
     </string-array>
     <string-array name="notif_urgent_body_extreme">
-        <item>Only %2$d mins left for \'%1$s\'! Do not fail!</item>
+        <item>Only %2$d mins left for \'%1$s\'! Don\'t you dare fail it, dumbass!</item>
+        <item>Time almost gone! %2$d mins for \'%1$s\'! Work or stay a LOSER!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_mild">
         <item>Day wrapping up</item>
+        <item>Evening reminder</item>
     </string-array>
     <string-array name="notif_end_of_day_body_mild">
-        <item>Try to finish a few more items.</item>
+        <item>Try finishing a few more tasks before the day ends.</item>
+        <item>Day almost done. Check your goals for today!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_normal">
         <item>DAY ENDING!</item>
+        <item>Time to review!</item>
     </string-array>
     <string-array name="notif_end_of_day_body_normal">
-        <item>The day is ending and you have not finished the plan!</item>
+        <item>Day ending and plan not closed! Catch up on your debts!</item>
+        <item>Sleep awaits, but tasks won\'t do themselves. Work!</item>
     </string-array>
+
     <string-array name="notif_end_of_day_title_extreme">
         <item>FINAL WARNING!</item>
+        <item>NIGHT COMES, YOU LOSER!</item>
     </string-array>
     <string-array name="notif_end_of_day_body_extreme">
-        <item>The day is almost over and your list is pathetic! Grind NOW!</item>
+        <item>Day almost over and your list is pathetic! Grind NOW!</item>
+        <item>Midnight approaches and progress is pathetic! Close tasks NOW!</item>
     </string-array>
+
     <string-array name="notif_default_title_mild">
         <item>Gentle reminder</item>
+        <item>Time for action</item>
     </string-array>
     <string-array name="notif_default_title_normal">
         <item>HEY YOU!</item>
+        <item>TIME TO WORK!</item>
     </string-array>
     <string-array name="notif_default_title_extreme">
         <item>GET UP, SCUM!</item>
+        <item>WORK, TRASH!</item>
     </string-array>
 </resources>

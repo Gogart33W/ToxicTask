@@ -91,4 +91,8 @@
     <string name="time_fix_title">KORRIGIERT</string>
     <string name="time_error_title">ZEITFEHLER</string>
     <string name="min_tasks_per_day">Mindestanzahl Aufgaben pro Tag</string>
+    <string name="dev_debug_panel">ENTWICKLER DEBUG PANEL</string>
+    <string name="nuke_all_data">ALLE DATEN LÖSCHEN (DB)</string>
+    <string name="dev_notif_tip">Tipp: Um Benachrichtigungen zu testen, drücken Sie \'Benachrichtigungs-Timer zurücksetzen\' und warten Sie 1 Min.</string>
+    <string name="share_to_tiktok">AUF TIKTOK TEILEN</string>
 </resources>

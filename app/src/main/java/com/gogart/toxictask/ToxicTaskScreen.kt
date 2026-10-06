@@ -459,7 +459,7 @@ fun DevPanel(
 ) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(modifier = Modifier.padding(24.dp).fillMaxWidth().verticalScroll(rememberScrollState())) {
-            Text("DEV DEBUG PANEL", fontWeight = FontWeight.Black, style = MaterialTheme.typography.headlineSmall, color = Color.Red)
+            Text(stringResource(R.string.dev_debug_panel), fontWeight = FontWeight.Black, style = MaterialTheme.typography.headlineSmall, color = Color.Red)
             Spacer(modifier = Modifier.height(24.dp))
             
             DebugButton("Simulate 3 Days Inactivity", onResetNag)
@@ -475,11 +475,11 @@ fun DevPanel(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
             ) {
-                Text("NUKE ALL DATA (Clear DB)")
+                Text(stringResource(R.string.nuke_all_data))
             }
             
             Spacer(modifier = Modifier.height(32.dp))
-            Text("Tip: To test notifications, press 'Reset Notification Timer' then wait 1 min.", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+            Text(stringResource(R.string.dev_notif_tip), style = MaterialTheme.typography.bodySmall, color = Color.Gray)
         }
     }
 }
@@ -677,7 +677,7 @@ fun StatusDashboard(
                     ) {
                         Icon(Icons.Default.Share, contentDescription = null, tint = Color.White)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("SHARE TO TIKTOK", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
+                        Text(stringResource(R.string.share_to_tiktok), fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
                     }
                 }
             }

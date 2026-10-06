@@ -78,31 +78,14 @@ object ToxicStrings {
     }
 
     fun getTimeErrorMessage(context: Context, startTime: String, endTime: String, lang: LanguageCode, level: ToxicityLevel): String {
-        // Fallback for simplicity. A proper solution would be putting these in strings.xml per level too, 
-        // but to not break existing logic heavily, we keep the hardcoded for now, or just use the generic ones.
-        return when (lang) {
-            LanguageCode.UK -> {
-                when (level) {
-                    ToxicityLevel.LOW -> "Час закінчення не може бути раніше початку."
-                    ToxicityLevel.NORMAL -> "Навіть мій код розуміє математику краще за тебе, ледарю!"
-                    ToxicityLevel.EXTREME -> "Час $endTime менший за $startTime. Ти реально ЛОХ чи прикидаєшся?"
-                }
-            }
-            LanguageCode.DE -> {
-                when (level) {
-                    ToxicityLevel.LOW -> "Die Endzeit kann nicht vor der Startzeit liegen."
-                    ToxicityLevel.NORMAL -> "Sogar mein Code versteht Mathe besser als du, Faulpelz!"
-                    ToxicityLevel.EXTREME -> "Zeit $endTime ist kleiner als $startTime. Bist du wirklich ein VERSAGER oder tust du nur so?"
-                }
-            }
-            else -> {
-                when (level) {
-                    ToxicityLevel.LOW -> "End time cannot be earlier than start time."
-                    ToxicityLevel.NORMAL -> "My code understands math better than you, slacker!"
-                    ToxicityLevel.EXTREME -> "Time $endTime is less than $startTime. Are you really a LOSER or just pretending?"
-                }
-            }
+        val res = getLocalizedResources(context, lang)
+        val arrayId = when (level) {
+            ToxicityLevel.LOW -> R.array.time_error_mild
+            ToxicityLevel.NORMAL -> R.array.time_error_normal
+            ToxicityLevel.EXTREME -> R.array.time_error_extreme
         }
+        val raw = res.getStringArray(arrayId).random()
+        return String.format(Locale.forLanguageTag(lang.code), raw, startTime, endTime)
     }
 
     fun getStreakText(context: Context, days: Int, lang: LanguageCode): String {

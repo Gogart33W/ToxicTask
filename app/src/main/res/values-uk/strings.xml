@@ -91,4 +91,8 @@
     <string name="time_fix_title">Я ВИПРАВИВ</string>
     <string name="time_error_title">ПОМИЛКА ЧАСУ</string>
     <string name="min_tasks_per_day">Мінімум тасків на день</string>
+    <string name="dev_debug_panel">ПАНЕЛЬ РОЗРОБНИКА</string>
+    <string name="nuke_all_data">ОЧИСТИТИ ВСІ ДАНІ (Очистити БД)</string>
+    <string name="dev_notif_tip">Порада: Щоб протестувати сповіщення, натисніть \'Скинути таймер\' і зачекайте 1 хв.</string>
+    <string name="share_to_tiktok">ПОДІЛИТИСЯ В TIKTOK</string>
 </resources>
