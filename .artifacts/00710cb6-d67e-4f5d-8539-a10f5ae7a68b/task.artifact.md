@@ -1,6 +1,6 @@
 - [x] Identify the root cause of English text showing up when UK/DE is selected.
-- [ ] Create Python script to procedurally generate 1000+ grammatically flawless phrases per language.
-- [ ] Ensure 100% array parity across `values`, `values-uk`, and `values-de`.
-- [ ] Execute script to rewrite `toxic_phrases.xml` for all three languages.
-- [ ] Build and verify everything is fully localized.
-- [ ] Commit changes.
+- [x] Create Python script to procedurally generate 1000+ grammatically flawless phrases per language.
+- [x] Ensure 100% array parity across `values`, `values-uk`, and `values-de`.
+- [x] Execute script to rewrite `toxic_phrases.xml` for all three languages.
+- [x] Build and verify everything is fully localized.
+- [x] Commit changes.
