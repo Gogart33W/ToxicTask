@@ -1,5 +1,5 @@
-- [/] Fix and polish Ukrainian toxic phrases (`values-uk/toxic_phrases.xml`)
-- [ ] Fix and polish English toxic phrases (`values/toxic_phrases.xml`)
-- [ ] Fix and polish German toxic phrases (`values-de/toxic_phrases.xml`)
+- [x] Create implementation plan for EN/DE polish
+- [ ] Polish English toxic phrases (`values/toxic_phrases.xml`)
+- [ ] Polish German toxic phrases (`values-de/toxic_phrases.xml`)
 - [ ] Build and verify XML syntax and compilation
 - [ ] Commit changes
