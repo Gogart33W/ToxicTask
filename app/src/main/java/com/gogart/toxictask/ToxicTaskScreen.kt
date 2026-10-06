@@ -578,6 +578,7 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val shareGraphicsLayer = rememberGraphicsLayer()
+    var showShareDialog by remember { mutableStateOf(false) }
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "Progress")
     val labelRes = if (role == PlayerRole.SLACKER) {
         when (toxicity) {
@@ -595,19 +596,65 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
         PlayerRole.GIGACHAD -> Color.Green
     }
 
-    // Hidden layer to generate the 9:16 share poster
-    Box(
-        modifier = Modifier
-            .size(width = 360.dp, height = 640.dp)
-            .alpha(0f)
-            .drawWithContent {
-                shareGraphicsLayer.record {
-                    this@drawWithContent.drawContent()
+    if (showShareDialog) {
+        androidx.compose.ui.window.Dialog(
+            onDismissRequest = { showShareDialog = false },
+            properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.85f))
+                    .clickable { showShareDialog = false },
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(16.dp).clickable(enabled = false) {}
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .drawWithContent {
+                                shareGraphicsLayer.record {
+                                    this@drawWithContent.drawContent()
+                                }
+                                drawContent()
+                            }
+                    ) {
+                        ToxicShareCard(
+                            statusTitle = roleLabel,
+                            streakDays = streak,
+                            roastPhrase = insult
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                try {
+                                    val bitmap = shareGraphicsLayer.toImageBitmap().asAndroidBitmap()
+                                    ShareUtils.shareToTikTokOrSystem(context, bitmap)
+                                    showShareDialog = false
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30)),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.width(260.dp).height(54.dp),
+                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp)
+                    ) {
+                        Icon(Icons.Default.Share, contentDescription = null, tint = Color.White)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("SHARE TO TIKTOK", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
+                    }
                 }
-                drawContent()
             }
-    ) {
-        ToxicShareCard(statusTitle = roleLabel, streakDays = streak, roastPhrase = insult)
+        }
     }
 
     Card(
@@ -619,16 +666,7 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
         Box {
             // Share Button
             IconButton(
-                onClick = {
-                    coroutineScope.launch {
-                        try {
-                            val bitmap = shareGraphicsLayer.toImageBitmap().asAndroidBitmap()
-                            ShareUtils.shareToTikTokOrSystem(context, bitmap)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
-                },
+                onClick = { showShareDialog = true },
                 modifier = Modifier.align(Alignment.TopEnd).padding(8.dp)
             ) {
                 Icon(Icons.Default.Share, contentDescription = "Share", tint = Color.Gray)
