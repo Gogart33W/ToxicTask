@@ -236,7 +236,17 @@ fun ToxicTaskScreen(viewModel: TaskViewModel = viewModel()) {
                     if (currentTab == 0) {
                         Column {
                             DateSelector(selectedDate, onDateSelected = { viewModel.setDate(it) })
-                            StatusDashboard(playerRole, currentLang, progress, insult, streak, isDark, notifySettings.toxicityLevel)
+                            StatusDashboard(
+                                role = playerRole,
+                                lang = currentLang,
+                                progress = progress,
+                                insult = insult,
+                                streak = streak,
+                                isDark = isDark,
+                                toxicity = notifySettings.toxicityLevel,
+                                completedTasks = tasksNonNull.count { it.isCompleted },
+                                totalTasks = tasksNonNull.size
+                            )
                             Row(
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -575,7 +585,17 @@ fun RecurringPanel(
 }
 
 @Composable
-fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insult: String, streak: Int, isDark: Boolean, toxicity: ToxicityLevel) {
+fun StatusDashboard(
+    role: PlayerRole,
+    lang: LanguageCode,
+    progress: Float,
+    insult: String,
+    streak: Int,
+    isDark: Boolean,
+    toxicity: ToxicityLevel,
+    completedTasks: Int,
+    totalTasks: Int
+) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val shareGraphicsLayer = rememberGraphicsLayer()
@@ -627,6 +647,8 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
                             statusTitle = roleLabel,
                             streakDays = streak,
                             roastPhrase = insult,
+                            completedTasks = completedTasks,
+                            totalTasks = totalTasks,
                             roleColor = roleColor,
                             lang = lang
                         )
@@ -725,12 +747,15 @@ fun ToxicShareCard(
     statusTitle: String,
     streakDays: Int,
     roastPhrase: String,
+    completedTasks: Int,
+    totalTasks: Int,
     roleColor: Color = Color.Red,
     lang: LanguageCode = LanguageCode.EN,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val streakText = ToxicStrings.getStreakText(context, streakDays, lang)
+    val percentage = if (totalTasks == 0) 0 else ((completedTasks.toFloat() / totalTasks) * 100).toInt()
 
     Box(
         modifier = modifier
@@ -800,19 +825,37 @@ fun ToxicShareCard(
                     .border(1.dp, roleColor.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
                     .padding(20.dp)
             ) {
-                // Streak badge
-                Surface(
-                    color = roleColor.copy(alpha = 0.2f),
-                    shape = RoundedCornerShape(50),
-                    border = BorderStroke(1.dp, roleColor.copy(alpha = 0.5f))
+                // Streak & Stats badges
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(
-                        text = "🔥 $streakText",
-                        color = roleColor,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-                    )
+                    Surface(
+                        color = roleColor.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(50),
+                        border = BorderStroke(1.dp, roleColor.copy(alpha = 0.5f))
+                    ) {
+                        Text(
+                            text = "🔥 $streakText",
+                            color = roleColor,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+                        )
+                    }
+                    Surface(
+                        color = Color.White.copy(alpha = 0.1f),
+                        shape = RoundedCornerShape(50),
+                        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.2f))
+                    ) {
+                        Text(
+                            text = "📊 $completedTasks / $totalTasks ($percentage%)",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Text(
