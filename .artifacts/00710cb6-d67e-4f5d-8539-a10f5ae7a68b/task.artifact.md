@@ -1,8 +1,5 @@
-- [x] Create `res/xml/file_paths.xml`.
-- [x] Add `FileProvider` to `AndroidManifest.xml`.
-- [x] Create `ShareUtils.kt` for handling intents.
-- [x] Implement `ToxicShareCard` composable in `ToxicTaskScreen.kt`.
-- [x] Add off-screen rendering logic using `GraphicsLayer` in `StatusDashboard`.
-- [x] Add "Share" button to `StatusDashboard`.
-- [x] Bump version to `1.1.0` in `app/build.gradle.kts`.
-- [x] Verify build and commit.
+- [/] Fix and polish Ukrainian toxic phrases (`values-uk/toxic_phrases.xml`)
+- [ ] Fix and polish English toxic phrases (`values/toxic_phrases.xml`)
+- [ ] Fix and polish German toxic phrases (`values-de/toxic_phrases.xml`)
+- [ ] Build and verify XML syntax and compilation
+- [ ] Commit changes

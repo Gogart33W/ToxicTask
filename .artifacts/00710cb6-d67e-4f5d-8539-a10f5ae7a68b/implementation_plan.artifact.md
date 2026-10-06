@@ -1,44 +1,32 @@
-# Plan to Implement TikTok/Social Share Feature (Release 1.1.0)
+# Plan to Overhaul and Expand Toxic Phrases Grammar (Release 1.1.0 Content Fix)
 
 ## Goal Description
-We want to add a viral loop to ToxicTask by allowing users to share their "Player Status" and a toxic phrase as a sleek, 9:16 vertical poster directly to TikTok, Instagram Stories, or other social media.
-This feature will:
-1. Render a beautiful composable poster invisibly in memory using Compose `GraphicsLayer`.
-2. Save the rendered image to a cache directory.
-3. Serve the image via `FileProvider` securely.
-4. Launch an `ACTION_SEND` intent prioritizing TikTok (or fallback to standard share sheet).
-5. Bump version to `1.1.0` (minor version bump since it's a significant new feature).
+The current AI-generated phrase pools (`toxic_phrases.xml` for UK, EN, and DE) contain unnatural phrasing, awkward sentence structures, occasional Russianisms (in Ukrainian), and stylistic inconsistencies ("pzd" grammar).
+
+The goal is to completely rewrite, polish, and **expand** all phrase pools (1,500+ phrases total across UK, EN, and DE):
+1. **Ukrainian (UA):** Purge all Russianisms, improve native slang, ensure sharp, brutal, and grammatically impeccable phrasing.
+2. **English (EN):** Refine idioms, eliminate awkward phrasing, and inject sharp, natural native roasting slang.
+3. **German (DE):** Fix grammatical gender, case errors, formal/informal mixing, and replace awkward literal translations with authentic colloquial German insults and motivation.
+4. **Volume:** Ensure we *not* decrease the count, but rather enrich and expand each category (Mild, Normal, Extreme across Slacker, Wannabe, Gigachad, Empty, and Notifications) to 100+ high-quality phrases per major category.
 
 ## User Review Required
-> [!NOTE]
-> The new sharing button will be placed on the Status Dashboard card. Users can tap a "Share" icon to instantly generate and share their roast/glory. The image will be dark-themed and edgy, fitting the app's aesthetic.
+> [!IMPORTANT]
+> Because this is a massive linguistic overhaul of over 1,500 phrases across 3 languages, I will rewrite the XML files in clean, structured batches and verify they build successfully without XML syntax errors or missing items.
 
 ## Proposed Changes
 
-### 1. FileProvider Setup
-#### [NEW] [app/src/main/res/xml/file_paths.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/res/xml/file_paths.xml)
-- Define the `shared_images` cache path.
+### 1. Ukrainian Phrases Overhaul (`values-uk/toxic_phrases.xml`)
+- Fix all items in `slacker_insults_mild`, `slacker_insults_normal`, `slacker_insults_extreme`.
+- Fix `too_few_tasks_mild`, `too_few_tasks_normal`, `too_few_tasks_extreme`.
+- Fix notifications and empty states.
+- Ensure 100% natural, punchy Ukrainian profanity and slang where appropriate (Extreme), and clean motivation (Mild).
 
-#### [MODIFY] [app/src/main/AndroidManifest.xml](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/AndroidManifest.xml)
-- Add `<provider>` definition for `androidx.core.content.FileProvider`.
+### 2. English Phrases Overhaul (`values/toxic_phrases.xml`)
+- Polish grammar, native rhythm, and ensure biting American/British roasting style.
 
-### 2. Social Sharing Logic
-#### [NEW] [app/src/main/java/com/gogart/toxictask/utils/ShareUtils.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/utils/ShareUtils.kt)
-- Create a `shareToTikTokOrSystem(context, bitmap)` utility function.
-
-### 3. Toxic Share Card UI & Integration
-#### [MODIFY] [app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/src/main/java/com/gogart/toxictask/ToxicTaskScreen.kt)
-- Create `@Composable fun ToxicShareCard` to represent the 9:16 viral image layout.
-- Update `StatusDashboard` to include an "export/share" icon button.
-- Implement the `GraphicsLayer` off-screen rendering logic. When the share button is clicked, it will generate the bitmap of `ToxicShareCard` and pass it to `ShareUtils`.
-
-### 4. Version Bump
-#### [MODIFY] [app/build.gradle.kts](file:///home/gogart/AndroidStudioProjects/ToxicTask/app/build.gradle.kts)
-- Increment `versionCode` to 12.
-- Increment `versionName` to `"1.1.0"`.
+### 3. German Phrases Overhaul (`values-de/toxic_phrases.xml`)
+- Correct German capitalization (nouns), correct verb placements, and use authentic colloquial insults ("Nichtsnutz", "Vollidiot", "Faulpelz").
 
 ## Verification Plan
 ### Automated Tests
-- Assemble the project successfully to ensure no Compose Graphics API issues.
-### Manual Verification
-- Share intent generation should not throw exceptions and `FileProvider` must resolve correctly.
+- Run `app:assembleDebug` to verify that all XML files are syntactically valid and all string arrays compile successfully.
