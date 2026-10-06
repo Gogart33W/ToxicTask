@@ -731,23 +731,24 @@ fun ToxicShareCard(
 ) {
     val context = LocalContext.current
     val streakText = ToxicStrings.getStreakText(context, streakDays, lang)
+
     Box(
         modifier = modifier
             .size(width = 360.dp, height = 640.dp) // 9:16 Ratio
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(Color(0xFF141417), Color(0xFF09090A))
+                    colors = listOf(Color(0xFF121216), Color(0xFF050506))
                 )
             )
-            .padding(32.dp),
+            .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
-        // Decorative border
+        // Cyberpunk glowing outer border
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .border(2.dp, roleColor.copy(alpha = 0.4f), RoundedCornerShape(24.dp))
-                .padding(2.dp)
+                .border(3.dp, roleColor.copy(alpha = 0.6f), RoundedCornerShape(28.dp))
+                .padding(4.dp)
         )
 
         Column(
@@ -755,94 +756,108 @@ fun ToxicShareCard(
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxSize().padding(12.dp)
         ) {
-            // Header: Branding & Streak
+            // Top Warning Tape / Header
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Surface(
+                    color = Color(0xFFFF3B30).copy(alpha = 0.2f),
+                    shape = RoundedCornerShape(8.dp),
+                    border = BorderStroke(1.dp, Color(0xFFFF3B30))
+                ) {
+                    Text(
+                        text = " 🚨 DAILY SHAME REPORT 🚨 ",
+                        color = Color(0xFFFF3B30),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 2.sp,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.height(14.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Default.Whatshot,
                         contentDescription = null,
                         tint = roleColor,
-                        modifier = Modifier.size(28.dp)
+                        modifier = Modifier.size(24.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "TOXIC TASK",
+                        text = "TOXICTASK",
                         color = Color.White,
-                        fontSize = 22.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Black,
                         letterSpacing = 3.sp
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            // Center Content: Status & Brutal Roast
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF1A1A1E), shape = RoundedCornerShape(20.dp))
+                    .border(1.dp, roleColor.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
+                    .padding(20.dp)
+            ) {
+                // Streak badge
                 Surface(
-                    color = roleColor.copy(alpha = 0.15f),
+                    color = roleColor.copy(alpha = 0.2f),
                     shape = RoundedCornerShape(50),
                     border = BorderStroke(1.dp, roleColor.copy(alpha = 0.5f))
                 ) {
                     Text(
                         text = "🔥 $streakText",
                         color = roleColor,
-                        fontSize = 13.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
                     )
                 }
-            }
-
-            // Center: Status & Roast Box
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFF1C1C1E).copy(alpha = 0.9f), shape = RoundedCornerShape(20.dp))
-                    .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(20.dp))
-                    .padding(24.dp)
-            ) {
-                Text(
-                    text = "PLAYER STATUS",
-                    color = Color.Gray,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 2.sp
-                )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 Text(
                     text = statusTitle.uppercase(),
                     color = roleColor,
-                    fontSize = 32.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Black,
                     textAlign = TextAlign.Center,
-                    letterSpacing = 1.sp
+                    letterSpacing = 1.5.sp
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 HorizontalDivider(color = Color.Gray.copy(alpha = 0.2f), thickness = 1.dp)
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "\"$roastPhrase\"",
-                    color = Color(0xFFDDDDDD),
-                    fontSize = 17.sp,
+                    color = Color(0xFFE0E0E0),
+                    fontSize = 16.sp,
                     fontStyle = FontStyle.Italic,
                     textAlign = TextAlign.Center,
-                    lineHeight = 24.sp
+                    lineHeight = 22.sp
                 )
             }
 
-            // Footer: Call to action
+            // Footer: Call to action with badge style
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Get bullied on Google Play",
+                    text = "Don't let this app bully you too",
                     color = Color.Gray,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    letterSpacing = 1.sp
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "toxic-task.app",
+                Surface(
                     color = Color(0xFFFF3B30),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        text = "GET TOXICTASK ON GOOGLE PLAY",
+                        color = Color.White,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 1.5.sp,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                }
             }
         }
     }
