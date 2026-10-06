@@ -1,8 +1,8 @@
-- [ ] Create `res/xml/file_paths.xml`.
-- [ ] Add `FileProvider` to `AndroidManifest.xml`.
-- [ ] Create `ShareUtils.kt` for handling intents.
-- [ ] Implement `ToxicShareCard` composable in `ToxicTaskScreen.kt`.
-- [ ] Add off-screen rendering logic using `GraphicsLayer` in `StatusDashboard`.
-- [ ] Add "Share" button to `StatusDashboard`.
-- [ ] Bump version to `1.1.0` in `app/build.gradle.kts`.
-- [ ] Verify build and commit.
+- [x] Create `res/xml/file_paths.xml`.
+- [x] Add `FileProvider` to `AndroidManifest.xml`.
+- [x] Create `ShareUtils.kt` for handling intents.
+- [x] Implement `ToxicShareCard` composable in `ToxicTaskScreen.kt`.
+- [x] Add off-screen rendering logic using `GraphicsLayer` in `StatusDashboard`.
+- [x] Add "Share" button to `StatusDashboard`.
+- [x] Bump version to `1.1.0` in `app/build.gradle.kts`.
+- [x] Verify build and commit.

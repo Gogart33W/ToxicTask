@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-09-29T21:04:59.796769653Z">
+        <DropdownSelection timestamp="2026-10-06T07:27:56.153173212Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/home/gogart/.var/app/com.google.AndroidStudio/config/.android/avd/Medium_Phone.avd" />

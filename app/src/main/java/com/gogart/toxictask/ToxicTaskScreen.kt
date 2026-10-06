@@ -33,6 +33,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -576,7 +577,7 @@ fun RecurringPanel(
 fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insult: String, streak: Int, isDark: Boolean, toxicity: ToxicityLevel) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val graphicsLayer = rememberGraphicsLayer()
+    val shareGraphicsLayer = rememberGraphicsLayer()
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "Progress")
     val labelRes = if (role == PlayerRole.SLACKER) {
         when (toxicity) {
@@ -595,13 +596,16 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
     }
 
     // Hidden layer to generate the 9:16 share poster
-    Box(modifier = Modifier
-        .size(0.dp)
-        .drawWithContent {
-            graphicsLayer.record {
-                this@drawWithContent.drawContent()
+    Box(
+        modifier = Modifier
+            .size(width = 360.dp, height = 640.dp)
+            .alpha(0f)
+            .drawWithContent {
+                shareGraphicsLayer.record {
+                    this@drawWithContent.drawContent()
+                }
+                drawContent()
             }
-        }
     ) {
         ToxicShareCard(statusTitle = roleLabel, streakDays = streak, roastPhrase = insult)
     }
@@ -618,7 +622,7 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
                 onClick = {
                     coroutineScope.launch {
                         try {
-                            val bitmap = graphicsLayer.toImageBitmap().asAndroidBitmap()
+                            val bitmap = shareGraphicsLayer.toImageBitmap().asAndroidBitmap()
                             ShareUtils.shareToTikTokOrSystem(context, bitmap)
                         } catch (e: Exception) {
                             e.printStackTrace()
