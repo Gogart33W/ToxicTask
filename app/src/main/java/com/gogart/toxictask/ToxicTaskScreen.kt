@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.platform.LocalConfiguration
@@ -625,7 +626,8 @@ fun StatusDashboard(role: PlayerRole, lang: LanguageCode, progress: Float, insul
                         ToxicShareCard(
                             statusTitle = roleLabel,
                             streakDays = streak,
-                            roastPhrase = insult
+                            roastPhrase = insult,
+                            roleColor = roleColor
                         )
                     }
 
@@ -722,70 +724,122 @@ fun ToxicShareCard(
     statusTitle: String,
     streakDays: Int,
     roastPhrase: String,
+    roleColor: Color = Color.Red,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .size(width = 360.dp, height = 640.dp) // 9:16 Ratio
-            .background(Color(0xFF0F0F11))
-            .padding(28.dp),
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFF141417), Color(0xFF09090A))
+                )
+            )
+            .padding(32.dp),
         contentAlignment = Alignment.Center
     ) {
+        // Decorative border
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .border(2.dp, roleColor.copy(alpha = 0.4f), RoundedCornerShape(24.dp))
+                .padding(2.dp)
+        )
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(12.dp)
         ) {
-            // Header
+            // Header: Branding & Streak
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "TOXICTASK",
-                    color = Color(0xFFFF3B30),
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Black,
-                    letterSpacing = 4.sp
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Current Streak: $streakDays days",
-                    color = Color.LightGray,
-                    fontSize = 14.sp
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Whatshot,
+                        contentDescription = null,
+                        tint = roleColor,
+                        modifier = Modifier.size(28.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "TOXIC TASK",
+                        color = Color.White,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 3.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Surface(
+                    color = roleColor.copy(alpha = 0.15f),
+                    shape = RoundedCornerShape(50),
+                    border = BorderStroke(1.dp, roleColor.copy(alpha = 0.5f))
+                ) {
+                    Text(
+                        text = "🔥 Streak: $streakDays days",
+                        color = roleColor,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                    )
+                }
             }
 
-            // Center content
+            // Center: Status & Roast Box
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFF1C1C1E), shape = RoundedCornerShape(16.dp))
-                    .padding(20.dp)
+                    .background(Color(0xFF1C1C1E).copy(alpha = 0.9f), shape = RoundedCornerShape(20.dp))
+                    .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(20.dp))
+                    .padding(24.dp)
             ) {
                 Text(
-                    text = statusTitle.uppercase(),
-                    color = Color.White,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    textAlign = TextAlign.Center
+                    text = "PLAYER STATUS",
+                    color = Color.Gray,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 2.sp
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = statusTitle.uppercase(),
+                    color = roleColor,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Black,
+                    textAlign = TextAlign.Center,
+                    letterSpacing = 1.sp
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                HorizontalDivider(color = Color.Gray.copy(alpha = 0.2f), thickness = 1.dp)
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "\"$roastPhrase\"",
-                    color = Color(0xFFAAAAAA),
-                    fontSize = 16.sp,
+                    color = Color(0xFFDDDDDD),
+                    fontSize = 17.sp,
                     fontStyle = FontStyle.Italic,
                     textAlign = TextAlign.Center,
-                    lineHeight = 22.sp
+                    lineHeight = 24.sp
                 )
             }
 
-            // Footer
-            Text(
-                text = "Get bullied on Google Play",
-                color = Color.DarkGray,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
-            )
+            // Footer: Call to action
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "Get bullied on Google Play",
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 1.sp
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "toxic-task.app",
+                    color = Color(0xFFFF3B30),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
