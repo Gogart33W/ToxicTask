@@ -62,6 +62,7 @@ class SettingsManager(private val context: Context) {
     private val useDetailedScheduleKey = booleanPreferencesKey("use_detailed_schedule")
     private val detailedScheduleKey = stringPreferencesKey("detailed_schedule")
     private val lastTaskAddedTimeKey = longPreferencesKey("last_task_added_time")
+    private val lastUserActivityTimeKey = longPreferencesKey("last_user_activity_time")
     private val minTasksKey = intPreferencesKey("min_tasks_per_day")
 
     val lastNotifyTime: Flow<Long> = context.dataStore.data.map { it[lastNotifyTimeKey] ?: 0L }
@@ -70,10 +71,21 @@ class SettingsManager(private val context: Context) {
         context.dataStore.edit { it[lastNotifyTimeKey] = time }
     }
 
-    val lastTaskAddedTime: Flow<Long> = context.dataStore.data.map { it[lastTaskAddedTimeKey] ?: System.currentTimeMillis() }
+    val lastUserActivityTime: Flow<Long> = context.dataStore.data.map { pref ->
+        pref[lastUserActivityTimeKey] ?: pref[lastTaskAddedTimeKey] ?: System.currentTimeMillis()
+    }
+
+    val lastTaskAddedTime: Flow<Long> = lastUserActivityTime
+
+    suspend fun updateLastUserActivityTime(time: Long = System.currentTimeMillis()) {
+        context.dataStore.edit { pref ->
+            pref[lastUserActivityTimeKey] = time
+            pref[lastTaskAddedTimeKey] = time
+        }
+    }
 
     suspend fun setLastTaskAddedTime(time: Long) {
-        context.dataStore.edit { it[lastTaskAddedTimeKey] = time }
+        updateLastUserActivityTime(time)
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { pref ->

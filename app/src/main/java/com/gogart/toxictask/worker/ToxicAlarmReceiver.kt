@@ -50,7 +50,7 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
         val lang = settingsManager.languageCode.first()
         val toxicity = settings.toxicityLevel
         val lastNotify = settingsManager.lastNotifyTime.first()
-        val lastAdded = settingsManager.lastTaskAddedTime.first()
+        val lastActivity = settingsManager.lastUserActivityTime.first()
 
         if (!settings.enabled) return
 
@@ -86,10 +86,10 @@ class ToxicAlarmReceiver : BroadcastReceiver() {
         val isGigachad = tasks.size >= settings.minTasksPerDay && progress >= 0.75f
 
         val threeDaysMillis = 3 * 24 * 60 * 60 * 1000L
-        val inactiveForThreeDays = System.currentTimeMillis() - lastAdded > threeDaysMillis
+        val inactiveForThreeDays = System.currentTimeMillis() - lastActivity > threeDaysMillis
 
         val shouldStopNagging = if (settings.nagUntilFinish) progress >= 1.0f else isGigachad
-        if (tasks.isNotEmpty() && shouldStopNagging && !inactiveForThreeDays) return
+        if (tasks.isNotEmpty() && shouldStopNagging) return
 
         val urgentTask = uncompletedTasks.find {
             it.deadlineTime != null && LocalTime.parse(it.deadlineTime).isBefore(currentTime.plusMinutes(60)) && LocalTime.parse(it.deadlineTime).isAfter(currentTime)

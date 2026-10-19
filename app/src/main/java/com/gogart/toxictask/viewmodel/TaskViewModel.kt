@@ -127,6 +127,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
+            settingsManager.updateLastUserActivityTime()
             checkAndAddRepeatingTasks()
         }
     }
@@ -134,6 +135,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun rolloverTasks(selectedTasks: List<TaskEntity>) {
         viewModelScope.launch {
             analyticsManager.logTaskRollover(selectedTasks.size)
+            settingsManager.updateLastUserActivityTime()
             
             val today = LocalDate.now().toString()
             val todayTasks = dao.getTasksByDate(today).first()
@@ -196,7 +198,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             analyticsManager.logTaskCreated(type.name, priority.weight)
             
-            settingsManager.setLastTaskAddedTime(System.currentTimeMillis())
+            settingsManager.updateLastUserActivityTime()
             val date = _selectedDate.value
             val scheduledDate = when (type) {
                 TaskType.GOAL_WEEK -> date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toString()
@@ -234,12 +236,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateTask(task: TaskEntity) {
         viewModelScope.launch {
+            settingsManager.updateLastUserActivityTime()
             dao.updateTask(task)
         }
     }
 
     fun toggleTask(task: TaskEntity) {
         viewModelScope.launch {
+            settingsManager.updateLastUserActivityTime()
             dao.updateTask(task.copy(isCompleted = !task.isCompleted))
         }
     }
